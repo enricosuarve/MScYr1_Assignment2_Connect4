@@ -43,6 +43,8 @@ Player 1 needs 5 in a row Horizontally to win
 MyConnectFour.java : Line 29 : There is no code to guard against receiving illegal moves (i.e. those outside the column range or trying to place counters in columns that are already full) and nothing to handle receiving non integer values : Run-Time Error
 Solution: Write code to prompt user for another entry if they enter a number outside 1-7, text or a non-integer value; write and call a column check method to guard against trying to add counters to full columns
 
+MyConnectFour.java : Line 111 : The prompt that a user has won is inside the while loop 'while(!win)' meaning that it runs every time the second player has has a turn regardless of whether they have won : Logical error
+Solution: Move the print statement to line 113, outside the while loop.
 
 MyConnectFour.java : 128 & 129 : both for loops are setup with test expression [iterator]<board.length-1; less than length minus one is length minus two so this is counting for zero based indices twice and never getting to the last element : Logical error
 Solution: change to <= or remove the -1 (I chose 'remove -1' as it is clearer)

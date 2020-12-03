@@ -108,9 +108,9 @@ public class MyConnectFour {
                     win = true;
                 }
             }
-            System.out.println("You Have Won!!!");
-        }
 
+        }
+        System.out.println("You Have Won!!!");
     }
 
     private String getUserInput(){
