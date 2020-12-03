@@ -49,6 +49,9 @@ Solution: change to <= or remove the -1 (I chose 'remove -1' as it is clearer)
 MyConnectFour.java : 130 & 133 : 2-dimensional array index are reversed; for loops are setup for i to loop through the first dimension of board[][] and then j to loop through the second, but later checks refer to [j][i] : Logical error
 Solution: Reverse [i] & [j] on these lines
 
+MyConnectFour.java : 148 : This loop appears to be supposed to count down to zero but the increment counts up instead meaning it can produde a value higher than the array it is checking which produces an error: Rin-time error
+Solution: change i++ to i--.
+
 MyConnectFour.java : Lines 150, 153 & 154 : Although the prompt is to enter a number in the range 1-7, for player one it actually requires a number in the range 0-6; for playe two it requires a number in the correct range. : Logical Error
 Solution: Change 'position' to 'position-1' to convert user input to zero-based index.
 

@@ -145,7 +145,7 @@ public class MyConnectFour {
     private void placeCounter(char player, int position){
         boolean placed = false;
         if(player == 'r'){
-            for(int i=board.length-1; i>=0; i++){
+            for(int i=board.length-1; i>=0; i--){
                 if(!placed){
                     if(board[i][position-1] == 'y'){
                         // skip
