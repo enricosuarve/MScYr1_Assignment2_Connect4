@@ -27,7 +27,7 @@ public class MyConnectFour {
             // player 1
             String userInput = getUserInput();
             int move = Integer.parseInt(userInput);
-            placeCounter('r',Integer.parseInt(userInput));
+            placeCounter('r',move);
             boolean hasWon = false;
             int count = 0;
             // check horizontal
@@ -125,12 +125,12 @@ public class MyConnectFour {
     }
 
     private void printBoard(){
-        for(int i=0; i<board.length-1; i++){
-            for(int j=0; j<board[i].length-1; j++){
-                if(board[j][i] == 'r'){
+        for(int i=0; i<board.length; i++){
+            for(int j=0; j<board[i].length; j++){
+                if(board[i][j] == 'r'){
                     System.out.print("| r ");
                 }
-                else if(board[j][i] == 'y'){
+                else if(board[i][j] == 'y'){
                     System.out.print("| y ");
                 }
                 else{
@@ -147,11 +147,11 @@ public class MyConnectFour {
         if(player == 'r'){
             for(int i=board.length-1; i>=0; i++){
                 if(!placed){
-                    if(board[i][position] == 'y'){
+                    if(board[i][position-1] == 'y'){
                         // skip
                     }
-                    else if(board[i][position] != 'r'){
-                        board[i][position] = 'r';
+                    else if(board[i][position-1] != 'r'){
+                        board[i][position-1] = 'r';
                         placed = true;
                     }
                 }

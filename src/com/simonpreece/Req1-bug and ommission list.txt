@@ -1,20 +1,20 @@
+############################################
+Basic syntax/compile errors
+############################################
 
 Main.java
-
-
+~~~~~~~~~~~~~~
 Main calls class new MyConnectFour but does not instantiate it (i.e. give it a name) IS THIS AN ISSUE? GET BETTER DESCRIPTION
 
 MyConnectFour.java
+~~~~~~~~~~~~~~~~~~~~~~
+INCLUDE REFERENCE
 Line 6: The class 'myconnectfour' in MyConnectFour.java  has a different capitalisation than the file. According to the standard outlined at https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html#:~:text=Class%20names%20should%20be%20nouns,such%20as%20URL%20or%20HTML). "Class names should be nouns, in mixed case with the first letter of each internal word capitalized."; so the file is capitalised correctly, whereas the declaration is not. (solution: correct Class capitalisation)
-
 Line 21: Missing ';' at the end. (solution: add ';')
-
+INCLUDE REFERENCE
 Line 28: calls method 'getUserInput' with different capitalisation than the definition, where it is 'getUserInput' According to the standard outlined at https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html#:~:text=Class%20names%20should%20be%20nouns,such%20as%20URL%20or%20HTML). "Methods should be verbs, in mixed case with the first letter lowercase, with the first letter of each internal word capitalized."; so the Method is capitalised correctly, whereas the call on L.28 is not. (solution: correct call capitalisation)
-
-Line 30: placeCounter('r',userInput); This line calls the method 'placeCounter'; as a second parameter is passes the string 'userInput'; whereas the method requires a primitive integer for this parameter. (solution: change to integer using Integer.parseInt(userInput)) NOTE this will error if it receives a non integer value so although it gets the code past this point may need strengthening later.
-
+Line 30: placeCounter('r',userInput); This line calls the method 'placeCounter'; as a second parameter is passes the string 'userInput'; whereas the method requires a primitive integer for this parameter; as the previous line already parses userInput into an int 'move' I assume this should be substituted (solution: subsitute 'userInput' for 'move')) NOTE there appears to be no handling logic for if 'move' receives a non integer to this is probably something to pickup in logical checks.
 Line 106: Missing ';' at the end. (solution: add ';')
-
 Line 119: Defines String 'toReturn'; this String has already been defined in the Method scope. (solution remove definition on line 119)
 Line 119: Missing ';' at the end. (solution: add ';')
 Line 128: ';' between the loop defintion and body.(solution: remove ';')
@@ -22,3 +22,46 @@ Line 129: Typo in for loop condition; for loop is comparing i to 'baord' - shoul
 Line 155: Typo in the word 'ture' - should be 'true' as this is a boolean. (solution: correct typo)
 Line 163: If statement comparisson uses a single equals '=', rather than a double '==' so is trying to set the value of the board position to 'r' rather than check if it is 'r'. (solution - change to comparator)
 Line 167: Missing ';' at the end. (solution: add ';')
+
+############################################
+Logical Errors
+############################################
+
+When running the game, although it prompts for a column to drop a counter and accepts an input, it never actually displays a user-entered counter.
+After dropping 2 counters, the game ends with "You Have Won"; it does not appear to matter if the counters are next to each other (i.e. dropping in columns 1 & 3 wins the game).
+Gameplay continues after initial "You Have Won" for another two turns.
+Entering a number outside the range 1-7(or 0-6 depending on row) generates an unhandled exception and terminates the game.
+    e.g. "Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 8 out of bounds for length 7
+	        at com.simonpreece.MyConnectFour.placeCounter(MyConnectFour.java:150)""
+The first counter only ever seems to drop in column 6.
+Counters dropped seem to 'stick' on a random row rather than drop to the bottom .
+The counters dropped by the player 1 does not always appear.
+Either, either player can be y or r or the game ignores where a user puts their counter and displays the progress out of sync (hard to tell)
+There does not appear to be any code for checking for diagonal lines
+
+MyConnectFour.java : Line 29 : There is no code to guard against receiving illegal moves (i.e. those outside the column range or trying to place counters in columns that are already full) and nothing to handle receiving non integer values : Run-Time Error
+Solution: Write code to prompt user for another entry if they enter a number outside 1-7, text or a non-integer value; write and call a column check method to guard against trying to add counters to full columns
+
+
+MyConnectFour.java : 128 & 129 : both for loops are setup with test expression [iterator]<board.length-1; less than length minus one is length minus two so this is counting for zero based indices twice and never getting to the last element : Logical error
+Solution: change to <= or remove the -1 (I chose 'remove -1' as it is clearer)
+
+MyConnectFour.java : 130 & 133 : 2-dimensional array index are reversed; for loops are setup for i to loop through the first dimension of board[][] and then j to loop through the second, but later checks refer to [j][i] : Logical error
+Solution: Reverse [i] & [j] on these lines
+
+MyConnectFour.java : Lines 150, 153 & 154 : Although the prompt is to enter a number in the range 1-7, for player one it actually requires a number in the range 0-6; for playe two it requires a number in the correct range. : Logical Error
+Solution: Change 'position' to 'position-1' to convert user input to zero-based index.
+
+############################################
+Runtime Errors
+############################################
+Entering a number outside the column range (0-6 or 1-7 depending on the row) generates an unhandled exception and terminates the game.
+    e.g. "Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 8 out of bounds for length 7
+	        at com.simonpreece.MyConnectFour.placeCounter(MyConnectFour.java:150)""
+
+
+############################################
+Suggestions for improvement
+############################################
+Implement 'play again?' logic
+Implement the ability for the computer to start the game
