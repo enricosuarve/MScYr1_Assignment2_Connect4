@@ -82,7 +82,7 @@ public class MyConnectFour {
                             }
                         }
                         else{
-
+                            count = 0;
                         }
                     }
                     count = 0;
@@ -98,7 +98,7 @@ public class MyConnectFour {
                             }
                         }
                         else{
-
+                            count = 0;
                         }
                     }
                     count = 0;
