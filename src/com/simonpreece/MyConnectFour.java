@@ -35,7 +35,7 @@ public class MyConnectFour {
                 for(int j=0; j<board[i].length; j++){
                     if(board[i][j] == 'r'){
                         count = count + 1;
-                        if(count > 4){
+                        if(count >= 4){
                             hasWon = true;
                         }
                     }
@@ -51,7 +51,7 @@ public class MyConnectFour {
                 for(int j=0; j<board.length; j++){
                     if(board[j][i] == 'r'){
                         count = count + 1;
-                        if(count > 4){
+                        if(count >= 4){
                             hasWon = true;
                         }
                     }
