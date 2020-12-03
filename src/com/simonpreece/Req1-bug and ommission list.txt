@@ -12,8 +12,8 @@ INCLUDE REFERENCE
 MyConnectFour.java : Line 6: The class 'myconnectfour' has a different capitalisation than the file. According to the standard outlined at https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html#:~:text=Class%20names%20should%20be%20nouns,such%20as%20URL%20or%20HTML). "Class names should be nouns, in mixed case with the first letter of each internal word capitalized."; so the file is capitalised correctly, whereas the declaration is not : Syntax error
 Ssolution: correct Class capitalisation.
 
-MyConnectFour.java : Line 21: Missing ';' at the end : Syntax error
-Solution: Add ';' to the end of the line.
+MyConnectFour.java : Lines 21, 106, 119 & 167 : Missing ';' at the end of each line : Syntax error
+Solution: Add ';' to the end of each line.
 
 INCLUDE REFERENCE
 MyConnectFour.java : Line 28: calls method 'getUserInput' with different capitalisation than the definition, where it is 'getUserInput' According to the standard outlined at https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html#:~:text=Class%20names%20should%20be%20nouns,such%20as%20URL%20or%20HTML). "Methods should be verbs, in mixed case with the first letter lowercase, with the first letter of each internal word capitalized."; so the Method is capitalised correctly, whereas the call on L.28 is not : Syntax error
@@ -22,14 +22,20 @@ Solution: Correct call capitalisation.
 MyConnectFour.java : Line 30: placeCounter('r',userInput); This line calls the method 'placeCounter'; as a second parameter is passes the string 'userInput'; whereas the method requires a primitive integer for this parameter; as the previous line already parses userInput into an int 'move' I assume this should be substituted : Syntax error
 Solution: substitute 'move' for 'userInput'. NOTE there appears to be no handling logic for if 'move' receives a non integer to this is probably something to pickup in logical checks.
 
-Line 106: Missing ';' at the end. (solution: add ';')
-Line 119: Defines String 'toReturn'; this String has already been defined in the Method scope. (solution remove definition on line 119)
-Line 119: Missing ';' at the end. (solution: add ';')
-Line 128: ';' between the loop defintion and body.(solution: remove ';')
-Line 129: Typo in for loop condition; for loop is comparing i to 'baord' - should be 'board' as per the defintion in the Class declarations. (solution correect spelling)
-Line 155: Typo in the word 'ture' - should be 'true' as this is a boolean. (solution: correct typo)
-Line 163: If statement comparisson uses a single equals '=', rather than a double '==' so is trying to set the value of the board position to 'r' rather than check if it is 'r'. (solution - change to comparator)
-Line 167: Missing ';' at the end. (solution: add ';')
+MyConnectFour.java : Line 119: Tries to define String 'toReturn'; this String has already been defined in the Method scope : Syntax error
+Solution: Remove definition (the word 'String') on line 119.
+
+MyConnectFour.java : Line 128: ';' character between the loop definition and body : Syntax error
+Solution: Remove the character ';' from line 128.
+
+MyConnectFour.java : Line 129: Typo in for loop condition; for loop is comparing i to 'baord' - should be 'board' as per the array definition in the Class declarations section : Syntax error
+Solution: Correct spelling on line 129 to 'board'.
+
+MyConnectFour.java : Line 155: Typo in the word 'ture' - should be 'true' as this is a boolean : Syntax error
+Solution: Correct typo and replace 'ture' with 'true'.
+
+MyConnectFour.java : Line 163: If statement comparison uses a single equals '=', rather than a double '==' so is trying to set the value of the board position to 'r' rather than check if it is 'r' : Syntax error
+Solution: Change '=' on line 163 to comparator '=='.
 
 ############################################
 Logical Errors
@@ -40,11 +46,17 @@ Entering a number outside the range 1-7(or 0-6 depending on row) generates an un
 	        at com.simonpreece.MyConnectFour.placeCounter(MyConnectFour.java:150)""
 There does not appear to be any code for checking for diagonal lines
 
+MyConnectFour.java : Lines 17-114 : There is no code to determine whether there are 4 counters in a row for either player 1 or player 2 : Logical error
+Solution: Add code to check for diagonal counters to both player 1 & player 2 (workaround as a better solution will involve taking all horizontal, vertical and diagonal1 checks outside the method 'playGame' and into their own method.)
+
 MyConnectFour.java : Line 29 : There is no code to guard against receiving illegal moves (i.e. those outside the column range or trying to place counters in columns that are already full) and nothing to handle receiving non integer values : Run-Time Error
 Solution: Write code to prompt user for another entry if they enter a number outside 1-7, text or a non-integer value; write and call a column check method to guard against trying to add counters to full columns
 
 MyConnectFour.java : Lines 38 & 54 : These lines check if player 1 has won but check if there are greater than 4 'r' counters meaning player 1 has to get 5 in a row vertically or horizontally to win : Logical error
 Solution: change to greater than or equal to 4.
+
+MyConnectFour.java : Lines 85/88 & 101/104 : The count reset for player 2 on both the horizontal and vertical which should reset the count if a slot doe not have a player 2 counter checks lies outside the loop of the second array dimension; this means that the 4 counters do not need to be consecutive (i.e. y, y, r, y, y  would win) : Logical error
+Solution: move the count reset inside the second loop CHECK THIS IS CORRECT AND DO NOT NEED 2 RESETS
 
 MyConnectFour.java : Line 111 : The prompt that a user has won is inside the while loop 'while(!win)' meaning that it runs every time the second player has has a turn regardless of whether they have won; it also means gameplay continues after displaying the 'you have won' message : Logical error
 Solution: Move the print statement to line 113, outside the while loop.
