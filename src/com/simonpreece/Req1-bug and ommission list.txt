@@ -3,22 +3,19 @@ Requirement 1
 ############################################
 Provide a bug and omission list (1-2 pages of single-spaced, 10 point font) explaining why the version of the code provided doesn't work (in the case of bugs) and/or doesn't provide the functionality needed to play Connect4.
 
-INCLUDE REFERENCE
-MyConnectFour.java : Line 6: The class 'myconnectfour' has a different capitalisation than the file. According to the standard outlined at https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html#:~:text=Class%20names%20should%20be%20nouns,such%20as%20URL%20or%20HTML). "Class names should be nouns, in mixed case with the first letter of each internal word capitalized."; so the file is capitalised correctly, whereas the declaration is not : Syntax error
+MyConnectFour.java : Line 6: The class 'myconnectfour' has a different capitalisation than the file. According to the Oracle standard (King et al., 2020), <i>"Class names should be nouns, in mixed case with the first letter of each internal word capitalized."</i>; so the file is capitalised correctly, whereas the declaration is not : Syntax error
 Solution: correct Class capitalisation.
 
-MyConnectFour.java : Lines 17-114 : There is no code to determine whether there are 4 counters in a row for either player 1 or player 2 : Logical error
+MyConnectFour.java : Lines 17-114 : There is no code to determine whether there are 4 counters diagonally in a row for either player 1 or player 2 : Logical error
 Solution: Add code to check for diagonal counters to both player 1 & player 2 (workaround as a better solution will involve taking all horizontal, vertical and diagonal1 checks outside the method 'playGame' and into their own method.)
 
 MyConnectFour.java : Lines 21, 106, 119 & 167 : Missing ';' at the end of each line : Syntax error
 Solution: Add ';' to the end of each line.
 
-
-INCLUDE REFERENCE
-MyConnectFour.java : Line 28: calls method 'getUserInput' with different capitalisation than the definition, where it is 'getUserInput' According to the standard outlined at https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html#:~:text=Class%20names%20should%20be%20nouns,such%20as%20URL%20or%20HTML). "Methods should be verbs, in mixed case with the first letter lowercase, with the first letter of each internal word capitalized."; so the Method is capitalised correctly, whereas the call on L.28 is not : Syntax error
+MyConnectFour.java : Line 28: calls method 'getUserInput' with different capitalisation than the definition, where it is 'getUserInput' According to the Oracle standard (King et al., 2020), <i>"Methods should be verbs, in mixed case with the first letter lowercase, with the first letter of each internal word capitalized."</i>; so the Method is capitalised correctly, whereas the call on L.28 is not : Syntax error
 Solution: Correct call capitalisation.
 
-MyConnectFour.java : Line 29 : There is no code to guard against receiving illegal moves (i.e. those outside the column range or trying to place counters in columns that are already full) and nothing to handle receiving non integer values : Run-Time Error
+MyConnectFour.java : Line 29 : There is no code to guard against receiving illegal moves (i.e. those outside the column range or trying to place counters in columns that are already full) and nothing to handle receiving non integer values : Runtime Error
 Solution: Write code to prompt user for another entry if they enter a number outside 1-7, text or a non-integer value; write and call a column check method to guard against trying to add counters to full columns
 
 MyConnectFour.java : Line 30: placeCounter('r',userInput); This line calls the method 'placeCounter'; as a second parameter it passes the string 'userInput'; whereas the method requires a primitive integer for this parameter. As the previous line already parses userInput into an int 'move' I assume this should be substituted : Syntax error
@@ -48,7 +45,7 @@ Solution: Correct spelling on line 129 to 'board'.
 MyConnectFour.java : 130 & 133 : 2-dimensional array index are reversed; for loops are setup for i to loop through the first dimension of board[][] and then j to loop through the second, but later checks refer to [j][i] : Logical error
 Solution: Reverse [i] & [j] on these lines
 
-MyConnectFour.java : 148 : This loop appears to be supposed to count down to zero but the increment counts up instead meaning it can produde a value higher than the array it is checking which produces an error: Rin-time error
+MyConnectFour.java : 148 : This loop appears to be supposed to count down to zero but the increment counts up instead meaning it can produce a value higher than the array it is checking which produces an error: Runtime error
 Solution: change i++ to i--.
 
 MyConnectFour.java : Lines 150, 153 & 154 : Although the prompt is to enter a number in the range 1-7, for player 1 it actually requires a number in the range 0-6, as it uses the number entered by the player without any -1 correction to access a zero-indexed array : Logical Error
@@ -61,25 +58,9 @@ MyConnectFour.java : Line 163: If statement comparison uses a single equals '=',
 Solution: Change '=' on line 163 to comparator '=='.
 
 
-############################################
-Runtime Errors
-############################################
-Entering a number outside the column range (0-6 or 1-7 depending on the row) generates an unhandled exception and terminates the game.
-    e.g. "Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 8 out of bounds for length 7
-	        at com.simonpreece.MyConnectFour.placeCounter(MyConnectFour.java:150)""
-
-
-Entering a number outside the range 1-7(or 0-6 depending on row) generates an unhandled exception and terminates the game.
-    e.g. "Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 8 out of bounds for length 7
-	        at com.simonpreece.MyConnectFour.placeCounter(MyConnectFour.java:150)""
-There does not appear to be any code for checking for diagonal lines
-
-
 
 ############################################
-Suggestions for improvement
+Bibliography
 ############################################
-Implement 'play again?' logic
-Implement the ability for the computer to start the game
-Say which player wins
-Colour in the counters
+
+King, P., Naughton, P., DeMoney, M., Kanerva, J., Walrath, K. and Hommel, S., 2020. <i>9 - Naming Conventions.</i> [online] Code Conventions for the Java Programming Language. Available at: <https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html#:~:text=Class%20names%20should%20be%20nouns,such%20as%20URL%20or%20HTML> [Accessed 3 December 2020].

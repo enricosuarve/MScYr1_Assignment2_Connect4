@@ -1,0 +1,8 @@
+
+############################################
+Suggestions for improvement
+############################################
+Implement 'play again?' logic
+Implement the ability for the computer to start the game
+Say which player wins
+Colour in the counters
