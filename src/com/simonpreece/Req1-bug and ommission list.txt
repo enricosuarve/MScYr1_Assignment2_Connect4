@@ -1,0 +1,24 @@
+
+Main.java
+
+
+Main calls class new MyConnectFour but does not instantiate it (i.e. give it a name) IS THIS AN ISSUE? GET BETTER DESCRIPTION
+
+MyConnectFour.java
+Line 6: The class 'myconnectfour' in MyConnectFour.java  has a different capitalisation than the file. According to the standard outlined at https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html#:~:text=Class%20names%20should%20be%20nouns,such%20as%20URL%20or%20HTML). "Class names should be nouns, in mixed case with the first letter of each internal word capitalized."; so the file is capitalised correctly, whereas the declaration is not. (solution: correct Class capitalisation)
+
+Line 21: Missing ';' at the end. (solution: add ';')
+
+Line 28: calls method 'getUserInput' with different capitalisation than the definition, where it is 'getUserInput' According to the standard outlined at https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html#:~:text=Class%20names%20should%20be%20nouns,such%20as%20URL%20or%20HTML). "Methods should be verbs, in mixed case with the first letter lowercase, with the first letter of each internal word capitalized."; so the Method is capitalised correctly, whereas the call on L.28 is not. (solution: correct call capitalisation)
+
+Line 30: placeCounter('r',userInput); This line calls the method 'placeCounter'; as a second parameter is passes the string 'userInput'; whereas the method requires a primitive integer for this parameter. (solution: change to integer using Integer.parseInt(userInput)) NOTE this will error if it receives a non integer value so although it gets the code past this point may need strengthening later.
+
+Line 106: Missing ';' at the end. (solution: add ';')
+
+Line 119: Defines String 'toReturn'; this String has already been defined in the Method scope. (solution remove definition on line 119)
+Line 119: Missing ';' at the end. (solution: add ';')
+Line 128: ';' between the loop defintion and body.(solution: remove ';')
+Line 129: Typo in for loop condition; for loop is comparing i to 'baord' - should be 'board' as per the defintion in the Class declarations. (solution correect spelling)
+Line 155: Typo in the word 'ture' - should be 'true' as this is a boolean. (solution: correct typo)
+Line 163: If statement comparisson uses a single equals '=', rather than a double '==' so is trying to set the value of the board position to 'r' rather than check if it is 'r'. (solution - change to comparator)
+Line 167: Missing ';' at the end. (solution: add ';')
