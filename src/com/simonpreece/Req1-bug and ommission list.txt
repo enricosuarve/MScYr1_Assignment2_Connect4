@@ -38,6 +38,7 @@ Counters dropped seem to 'stick' on a random row rather than drop to the bottom 
 The counters dropped by the player 1 does not always appear.
 Either, either player can be y or r or the game ignores where a user puts their counter and displays the progress out of sync (hard to tell)
 There does not appear to be any code for checking for diagonal lines
+Player 1 needs 5 in a row Horizontally to win
 
 MyConnectFour.java : Line 29 : There is no code to guard against receiving illegal moves (i.e. those outside the column range or trying to place counters in columns that are already full) and nothing to handle receiving non integer values : Run-Time Error
 Solution: Write code to prompt user for another entry if they enter a number outside 1-7, text or a non-integer value; write and call a column check method to guard against trying to add counters to full columns
