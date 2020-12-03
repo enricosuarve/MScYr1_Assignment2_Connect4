@@ -43,7 +43,7 @@ public class MyConnectFour {
                         count = 0;
                     }
                 }
-
+                count = 0;
             }
             // check vertical
             count = 0;
@@ -59,7 +59,7 @@ public class MyConnectFour {
                         count = 0;
                     }
                 }
-
+                count = 0;
             }
             printBoard();
             if(hasWon){

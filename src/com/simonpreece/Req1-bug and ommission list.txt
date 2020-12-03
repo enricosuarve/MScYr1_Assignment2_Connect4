@@ -52,11 +52,14 @@ Solution: Add code to check for diagonal counters to both player 1 & player 2 (w
 MyConnectFour.java : Line 29 : There is no code to guard against receiving illegal moves (i.e. those outside the column range or trying to place counters in columns that are already full) and nothing to handle receiving non integer values : Run-Time Error
 Solution: Write code to prompt user for another entry if they enter a number outside 1-7, text or a non-integer value; write and call a column check method to guard against trying to add counters to full columns
 
-MyConnectFour.java : Lines 38 & 54 : These lines check if player 1 has won but check if there are greater than 4 'r' counters meaning player 1 has to get 5 in a row vertically or horizontally to win : Logical error
+MyConnectFour.java : Lines 38 & 54 : These lines check if player 1 has won, but they check if there are more than 4 'r' counters, meaning player 1 has to get 5 in a row vertically or horizontally to win : Logical error
 Solution: change to greater than or equal to 4.
 
-MyConnectFour.java : Lines 85/88 & 101/104 : The count reset for player 2 on both the horizontal and vertical which should reset the count if a slot doe not have a player 2 counter checks lies outside the loop of the second array dimension; this means that the 4 counters do not need to be consecutive (i.e. y, y, r, y, y  would win) : Logical error
-Solution: move the count reset inside the second loop CHECK THIS IS CORRECT AND DO NOT NEED 2 RESETS
+MyConnectFour.java : Lines 46 & 62 : The count reset for player 1 on both the horizontal and vertical which should reset the count when a new row or column is checked is missing; this means that player 1's counters could be spread across two rows or column (i.e. columns [y, y, y, r, r] & [r, r, y] would win for player 1 as the last 2 'r' counters from row 1 added to the first 2 counters from column 2 makes 4) : Logical error
+Solution: Add 'count = 0;' to lines 46 & 62.
+
+MyConnectFour.java : Lines 85 & 101 : The count reset for player 2 on both the horizontal and vertical which should reset the count if a slot does not have a player 2 counter is missing; this means that the player 2's four counters do not need to be consecutive (i.e. y, y, r, y, y  would win) : Logical error
+Solution: Add 'count = 0;' to lines 85 & 101.
 
 MyConnectFour.java : Line 111 : The prompt that a user has won is inside the while loop 'while(!win)' meaning that it runs every time the second player has has a turn regardless of whether they have won; it also means gameplay continues after displaying the 'you have won' message : Logical error
 Solution: Move the print statement to line 113, outside the while loop.
