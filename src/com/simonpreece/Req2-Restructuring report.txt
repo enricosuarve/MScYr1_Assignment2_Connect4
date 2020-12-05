@@ -5,8 +5,11 @@ Write a report (1-2 pages of single-spaced, 10 point font) describing the ways i
 
 Include a discussion in that report of the extent to which you think that inheritance, abstract classes and interfaces might be used to improve our code. You may argue either for or against their inclusion.
 
+Game Class
+    Contains board, Players
 
-
+UI class
+    MakeMove()
 
 Create user class
     name
