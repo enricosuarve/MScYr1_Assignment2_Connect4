@@ -8,22 +8,27 @@ Include a discussion in that report of the extent to which you think that inheri
 
 The game has some obvious classes that could be considered such as a board and player class; a class to obtain information from the user/s would possibly be a good idea as well. At this stage I would rule out classes for counters at present as they are really just variables in a board, although a database of boards might be a nice idea to keep a history of games.
 
+The usage of classes with appropriate methods should cut down on repeated code. At present in placeCounter(), each turn the same code is used twice to place a counter for either player 1 or player 2 with little variation (literally only the counter letters change); this could easily be condensed into a single iteration using parameters instead of fixed letters and be assigned to a board class as a Method. In the playGame() method, the same checks are performed for horizontal and vertical lines, again differing only in the counter letter; these could be separated out into their own method with the fixed character in the comparator once more being replaced by a variable.
+
 
 Game Class
-    Rules:
-        inARow - how many need to be in a row
-        horizontalWin - do horizontal rows count?
-        verticalWin - do vertical rows count?
-        diagonalWin - do diagonal rows count?
-        allowWrapping - can rows wrap around top/bottom left/right?
-    Settings:
-        counterColours
-        counterCharacters
+    Parameters:
+        *Rules
+            inARow - how many need to be in a row
+            horizontalWin - do horizontal rows count?
+            verticalWin - do vertical rows count?
+            diagonalWin - do diagonal rows count?
+            allowWrapping - can rows wrap around top/bottom left/right?
+        *Settings
+            counterColours
+            counterCharacters
+            numPlayers
 
 
     Contains board, players
 
 UI class
+    editSettings()
     MakeMove()
 
 Create user class
@@ -31,14 +36,15 @@ Create user class
     #wins
 
 Create player class
-    user
-    colour
+    name
+    playerNumber
 
 Board Class
-    Dimensions
-    CheckWin()
+    Parameters:
+        dimensions - dimensions of board
+    checkWin()
     placeCounter()
-    DisplayBoard
+    printBoard()
 
 
 
