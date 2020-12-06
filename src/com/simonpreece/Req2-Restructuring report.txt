@@ -5,8 +5,23 @@ Write a report (1-2 pages of single-spaced, 10 point font) describing the ways i
 
 Include a discussion in that report of the extent to which you think that inheritance, abstract classes and interfaces might be used to improve our code. You may argue either for or against their inclusion.
 
+
+The game has some obvious classes that could be considered such as a board and player class; a class to obtain information from the user/s would possibly be a good idea as well. At this stage I would rule out classes for counters at present as they are really just variables in a board, although a database of boards might be a nice idea to keep a history of games.
+
+
 Game Class
-    Contains board, Players
+    Rules:
+        inARow - how many need to be in a row
+        horizontalWin - do horizontal rows count?
+        verticalWin - do vertical rows count?
+        diagonalWin - do diagonal rows count?
+        allowWrapping - can rows wrap around top/bottom left/right?
+    Settings:
+        counterColours
+        counterCharacters
+
+
+    Contains board, players
 
 UI class
     MakeMove()
