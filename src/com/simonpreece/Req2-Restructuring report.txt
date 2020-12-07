@@ -12,9 +12,12 @@ The usage of classes with appropriate methods should cut down on repeated code. 
 
 getUserInput() could be expanded to perform checks for valid inputs, displaying feedback if a response is not valid and returning an int rather than performing parseInt inside the calling method; however, if we use getUserInput() for other extended features such as requesting usernames it may be best to wrap calls to it in other methods to perform the validations.
 
+//TODO put the planned class model here
+
 Unless different types of board or special counters are created I am not really sure there is much to gain from inheritance as the objects are quite distinct already and although they relate to one another, they do not pass the "object a 'is a' object b" test. A counter relates to a board but does not have squares or co-ordinates; similarly a board relates to a game but does not in itself have rules or settings. If we were to introduce different types of board (different dimensions, boards that fill bottom to top etc), we could use inheritance and polymorphism for aspects that stay the same such as printing the board out, but override methods that change so counters are added from the top down etc.
 
-As the classes model I am envisioning is so flat I cannot see that abstract classes or interfaces would really help with the code. If we create more classes of board it may be beneficial to have an abstract board class that declares each sub board should have a 'move()' method and a 'checkForWin()' method as the code to implement these could be quite different, so it would be a waste of code to enter generic methods in the top level class and overwrite them every time; whereas PRINT STATEMENT SAME. Similarly if Connect4 were to be expanded out into a larger suite of board games with diffe
+As the classes model I am envisioning is so flat, I cannot see that abstract classes or interfaces would really help with the code. If we create more sub-classes of board it may be beneficial to make the Board class abstract and declare abstract methods 'move()' and 'checkForWin()', as the code to implement these could be quite different per sub-class, so it would be a waste of code to enter generic methods in the top level class, overwriting them every time; whereas methods such as printBoard() would likely be the same, so should be declared once in the main Board class.
+ Similarly, I can't see a way that the program would benefit in any discernable way from using interfaces in its present form, however if Connect4 were to be made a sub-class of a larger BoardGame class, interfaces could be used to ensure that all Connect4 and other board games implement a highScore() or saveGame() method, enabling consistency.
 
 Game Class
     Parameters:
