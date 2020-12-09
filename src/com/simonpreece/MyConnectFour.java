@@ -3,13 +3,26 @@ package com.simonpreece;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+/*
+Requirement 3
+Submit a revised version of our code which compiles and runs to provide a working version of the game Connect4.
+
+More specifically, provide an altered reworking of our code that a human marker can use to play a complete game of Connect4 against the computer.
+
+You may wish (but are not obliged) to start by commenting out large parts of our code and altering our printBoard() method. This approach has the advantage of giving you a relatively manageable starting point in the debugging process.
+
+You may also wish to tackle our placeCounter() method next.
+ */
+
 public class MyConnectFour {
 
     private BufferedReader input;
     private char[][] board;
 
     public MyConnectFour(){
-        board = new char[6][7];
+        Board board = new Board(7, 6);
+        //board = new char[6][7];
+        UI ui = new UI();
         input = new BufferedReader(new InputStreamReader(System.in));
         playGame();
     }

@@ -10,16 +10,13 @@ The game has some obvious classes that could be considered such as a Board and P
 
 The usage of classes with appropriate methods should cut down on repeated code. At present in placeCounter(), each turn the same code is used twice to place a counter for either player 1 or player 2 with little variation (literally only the counter letters change); this could easily be condensed into a single iteration using parameters instead of fixed letters and be assigned to a board class as a method. In the playGame() method, the same checks are performed for winning horizontal and vertical lines, again differing only in the counter letter; these could be separated out into their own method, with the fixed character in the comparator once more being replaced by a variable.
 
+Out of pure preference I would also swap the rows and columns around in array - at the moment the order is rows them columns (so y, x) and I find this constantly confusing me; I would swap so it was columns, rows (or x, y).
+
 getUserInput() could be expanded to perform checks for valid inputs, displaying feedback if a response is not valid and returning an int rather than performing parseInt inside the calling method; however, if we use getUserInput() for other extended features such as requesting usernames it may be best to wrap calls to it in other methods to perform the validations.
 
-//TODO put the planned class model here
+My rough outline for planned classes and their contents & methods would be:
 
-Unless different types of board or special counters are created I am not really sure there is much to gain from inheritance as the objects are quite distinct already and although they relate to one another, they do not pass the "object a 'is a' object b" test. A counter relates to a board but does not have squares or co-ordinates; similarly a board relates to a game but does not in itself have rules or settings. If we were to introduce different types of board (different dimensions, boards that fill bottom to top etc), we could use inheritance and polymorphism for aspects that stay the same such as printing the board out, but override methods that change so counters are added from the top down etc.
-
-As the classes model I am envisioning is so flat, I cannot see that abstract classes or interfaces would really help with the code. If we create more sub-classes of board it may be beneficial to make the Board class abstract and declare abstract methods 'move()' and 'checkForWin()', as the code to implement these could be quite different per sub-class, so it would be a waste of code to enter generic methods in the top level class, overwriting them every time; whereas methods such as printBoard() would likely be the same, so should be declared once in the main Board class.
- Similarly, I can't see a way that the program would benefit in any discernable way from using interfaces in its present form, however if Connect4 were to be made a sub-class of a larger BoardGame class, interfaces could be used to ensure that all Connect4 and other board games implement a highScore() or saveGame() method, enabling consistency.
-
-Game Class
+Connect4 Class
     Parameters:
         *Rules
             inARow - how many need to be in a row
@@ -32,20 +29,7 @@ Game Class
             counterCharacters
             numPlayers
 
-
     Contains board, players
-
-UI class
-    editSettings()
-    MakeMove()
-
-Create user class
-    name
-    #wins
-
-Create player class
-    name
-    playerNumber
 
 Board Class
     Parameters:
@@ -53,6 +37,21 @@ Board Class
     checkWin()
     placeCounter()
     printBoard()
+
+Player class
+    name
+    playerNumber
+    #wins
+
+UI class
+    editSettings()
+    MakeMove()
+
+
+Unless different types of board or special counters are created I am not really sure there is much to gain from inheritance as the objects are quite distinct already and although they relate to one another, they do not pass the "object a 'is a' object b" test. A counter relates to a board but does not have squares or co-ordinates; similarly a board relates to a game but does not in itself have rules or settings. If we were to introduce different types of board (different dimensions, boards that fill bottom to top etc), we could use inheritance and polymorphism for aspects that stay the same such as printing the board out, but override methods that change so counters are added from the top down etc.
+
+As the classes model I am envisioning is so flat, I cannot see that abstract classes or interfaces would really help with the code. If we create more sub-classes of board it may be beneficial to make the Board class abstract and declare abstract methods 'move()' and 'checkForWin()', as the code to implement these could be quite different per sub-class, so it would be a waste of code to enter generic methods in the top level class, overwriting them every time; whereas methods such as printBoard() would likely be the same, so should be declared once in the main Board class.
+ Similarly, I can't see a way that the program would benefit in any discernable way from using interfaces in its present form, however if Connect4 were to be made a sub-class of a larger BoardGame class, interfaces could be used to ensure that all Connect4 and other board games implement a highScore() or saveGame() method, enabling consistency.
 
 
 
