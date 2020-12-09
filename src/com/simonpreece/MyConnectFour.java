@@ -14,6 +14,8 @@ You may wish (but are not obliged) to start by commenting out large parts of our
 You may also wish to tackle our placeCounter() method next.
  */
 
+
+
 public class MyConnectFour {
 
     private BufferedReader input;
@@ -21,6 +23,9 @@ public class MyConnectFour {
 
     public MyConnectFour(){
         Board board = new Board(7, 6);
+//todo enter a UI check for name and preferred character
+        Player player1 = new Player("Steve", 'X');
+        Player player2 = new Player("Emily", 'O');
         //board = new char[6][7];
         UI ui = new UI();
         //input = new BufferedReader(new InputStreamReader(System.in));

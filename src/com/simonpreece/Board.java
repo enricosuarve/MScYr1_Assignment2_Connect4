@@ -13,8 +13,8 @@ Board Class
 import java.util.Arrays;
 
 public class Board {
-    private int numRows;
-    private int numCols;
+    private final int numRows;
+    private final int numCols;
     private char[][] boardData;
 
     public Board() {
