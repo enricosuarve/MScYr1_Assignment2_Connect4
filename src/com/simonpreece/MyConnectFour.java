@@ -23,18 +23,18 @@ public class MyConnectFour {
         Board board = new Board(7, 6);
         //board = new char[6][7];
         UI ui = new UI();
-        input = new BufferedReader(new InputStreamReader(System.in));
-        playGame();
+        //input = new BufferedReader(new InputStreamReader(System.in));
+        playGame(board);
     }
 
-    private void playGame(){
+    private void playGame(Board board){
         System.out.println("Welcome to Connect 4");
         System.out.println("There are 2 players red and yellow");
         System.out.println("Player 1 is Red, Player 2 is Yellow");
         System.out.println("To play the game type in the number of the column you want to drop you counter in");
         System.out.println("A player wins by connecting 4 counters in a row - vertically, horizontally or diagonally");
         System.out.println("");
-        printBoard();
+        board.printBoard();
         boolean win = false;
         while(!win){
             // player 1
@@ -44,36 +44,36 @@ public class MyConnectFour {
             boolean hasWon = false;
             int count = 0;
             // check horizontal
-            for(int i=0; i<board.length; i++){
-                for(int j=0; j<board[i].length; j++){
-                    if(board[i][j] == 'r'){
-                        count = count + 1;
-                        if(count >= 4){
-                            hasWon = true;
-                        }
-                    }
-                    else{
-                        count = 0;
-                    }
-                }
-                count = 0;
-            }
+//            for(int i=0; i<board.length; i++){
+//                for(int j=0; j<board[i].length; j++){
+//                    if(board[i][j] == 'r'){
+//                        count = count + 1;
+//                        if(count >= 4){
+//                            hasWon = true;
+//                        }
+//                    }
+//                    else{
+//                        count = 0;
+//                    }
+//                }
+//                count = 0;
+//            }
             // check vertical
             count = 0;
-            for(int i=0; i<board[0].length; i++){
-                for(int j=0; j<board.length; j++){
-                    if(board[j][i] == 'r'){
-                        count = count + 1;
-                        if(count >= 4){
-                            hasWon = true;
-                        }
-                    }
-                    else{
-                        count = 0;
-                    }
-                }
-                count = 0;
-            }
+//            for(int i=0; i<board[0].length; i++){
+//                for(int j=0; j<board.length; j++){
+//                    if(board[j][i] == 'r'){
+//                        count = count + 1;
+//                        if(count >= 4){
+//                            hasWon = true;
+//                        }
+//                    }
+//                    else{
+//                        count = 0;
+//                    }
+//                }
+//                count = 0;
+//            }
             printBoard();
             if(hasWon){
                 win = true;
@@ -86,36 +86,36 @@ public class MyConnectFour {
                 hasWon = false;
                 count = 0;
                 // check horizontal
-                for(int i=0; i<board.length; i++){
-                    for(int j=0; j<board[i].length; j++){
-                        if(board[i][j] == 'y'){
-                            count = count + 1;
-                            if(count >= 4){
-                                hasWon = true;
-                            }
-                        }
-                        else{
-                            count = 0;
-                        }
-                    }
-                    count = 0;
-                }
+//                for(int i=0; i<board.length; i++){
+//                    for(int j=0; j<board[i].length; j++){
+//                        if(board[i][j] == 'y'){
+//                            count = count + 1;
+//                            if(count >= 4){
+//                                hasWon = true;
+//                            }
+//                        }
+//                        else{
+//                            count = 0;
+//                        }
+//                    }
+//                    count = 0;
+//                }
                 // check vertical
                 count = 0;
-                for(int i=0; i<board[0].length; i++){
-                    for(int j=0; j<board.length; j++){
-                        if(board[j][i] == 'y'){
-                            count = count + 1;
-                            if(count >= 4){
-                                hasWon = true;
-                            }
-                        }
-                        else{
-                            count = 0;
-                        }
-                    }
-                    count = 0;
-                }
+//                for(int i=0; i<board[0].length; i++){
+////                    for(int j=0; j<board.length; j++){
+////                        if(board[j][i] == 'y'){
+////                            count = count + 1;
+////                            if(count >= 4){
+////                                hasWon = true;
+////                            }
+////                        }
+////                        else{
+////                            count = 0;
+////                        }
+////                    }
+//                    count = 0;
+//                }
                 printBoard();
                 if(hasWon){
                     win = true;

@@ -16,7 +16,7 @@ getUserInput() could be expanded to perform checks for valid inputs, displaying 
 
 My rough outline for planned classes and their contents & methods would be:
 
-Connect4 Class
+MyConnectFour Class
     Parameters:
         *Rules
             inARow - how many need to be in a row
