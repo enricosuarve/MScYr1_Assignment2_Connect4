@@ -1,0 +1,10 @@
+ |   |   |   |   |   |   |   |
+ |   |   |   |   |   | b |   |
+ |   | a |   | b | b | a |   |
+ | a | b | a | b | b | b |   |
+ | a | a | b | a | a | a |   |
+ | a | b | b | b | a | a |   |
+   1   2   3   4   5   6   7
+
+   above player a won with diagonal line from cols 2-5, but player b did not with lin from 2-6
+   //todo - fix above (need to include more dxdy vectors?)
