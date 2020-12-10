@@ -30,14 +30,14 @@ public class MyConnectFour {
     }
 
     private void setupGame() {
-        System.out.println(" .d8888b.   .d88888b.  888b    888 888b    888 8888888888 .d8888b. 88888888888  d8888");
-        System.out.println("d88P  Y88b d88P\" \"Y88b 8888b   888 8888b   888 888       d88P  Y88b    888     d8P888");
-        System.out.println("888    888 888     888 88888b  888 88888b  888 888       888    888    888    d8P 888");
-        System.out.println("888        888     888 888Y88b 888 888Y88b 888 8888888   888           888   d8P  888");
-        System.out.println("888        888     888 888 Y88b888 888 Y88b888 888       888           888  d88   888");
-        System.out.println("888    888 888     888 888  Y88888 888  Y88888 888       888    888    888  8888888888");
-        System.out.println("Y88b  d88P Y88b. .d88P 888   Y8888 888   Y8888 888       Y88b  d88P    888        888");
-        System.out.println(" \"Y8888P\"   \"Y88888P\"  888    Y888 888    Y888 8888888888 \"Y8888P\"     888        888");
+        System.out.println("\033[0;97m .d8888b.   .d88888b.  888b    888 888b    888 8888888888 .d8888b. 88888888888 \033[0;31m d8888 \033[0;97m");
+        System.out.println("d88P  Y88b d88P\" \"Y88b 8888b   888 8888b   888 888       d88P  Y88b    888   \033[0;31m  d8P888 \033[0;97m");
+        System.out.println("888    888 888     888 88888b  888 88888b  888 888       888    888    888  \033[0;31m  d8P 888 \033[0;97m");
+        System.out.println("888        888     888 888Y88b 888 888Y88b 888 8888888   888           888  \033[0;31m d8P  888 \033[0;97m");
+        System.out.println("888        888     888 888 Y88b888 888 Y88b888 888       888           888 \033[0;31m d88   888 \033[0;97m");
+        System.out.println("888    888 888     888 888  Y88888 888  Y88888 888       888    888    888 \033[0;31m 8888888888 \033[0;97m");
+        System.out.println("Y88b  d88P Y88b. .d88P 888   Y8888 888   Y8888 888       Y88b  d88P    888       \033[0;31m 888 \033[0;97m");
+        System.out.println(" \"Y8888P\"   \"Y88888P\"  888    Y888 888    Y888 8888888888 \"Y8888P\"     888       \033[0;31m 888 \033[0;57m");
         System.out.println("");
         System.out.println("Welcome to Connect 4");
         System.out.println("There are 2 players red and yellow");
@@ -48,9 +48,7 @@ public class MyConnectFour {
         board = new Board(6, 7);
         players.add(new Player());
         players.add(new Player());
-        for (Player i : players) {
-            System.out.printf("Player %d (%s) is using counter %c\n", i.getPlayerNumber(), i.getName(), i.getCounter());
-        }
+        System.out.println("\nStarting game....\n");
     }
 
     private int getNextEmptyRow(int colNum) {
