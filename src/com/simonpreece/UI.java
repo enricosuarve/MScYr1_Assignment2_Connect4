@@ -12,9 +12,12 @@ public class UI {
 
     public String getUserInput(String requestToUser) {
         System.out.println(requestToUser);
-        String toReturn = null;
+        String toReturn = "";
         try {
-            toReturn = input.readLine().trim();
+            while (toReturn.length() == 0) {
+                toReturn = input.readLine().trim();
+            }
+
         } catch (Exception e) {
             System.out.printf("Exception '%s' occurred whilst trying to getUserInput()", e.toString());
         }

@@ -21,7 +21,6 @@ public class Board {
         // create default board if no size given
         numCols = 7;
         numRows = 6;
-        boardData = new char[numCols][numRows];
         initialiseBoard();
     }
 
@@ -32,13 +31,14 @@ public class Board {
     }
 
     private void initialiseBoard() {
-        boardData = new char[numCols][numRows];
+        boardData = new char[numRows][numCols];
         for (char[] boardDatum : boardData) {
             Arrays.fill(boardDatum, ' ');
         }
     }
 
     public char getValueAtPosition(int x, int y) {
+        System.out.printf("Position requested x:%d, y:%d\n",x,y);
         return boardData[y][x];
     }
 
@@ -50,7 +50,7 @@ public class Board {
         int x, y;
         for (y = 0; y < boardData.length; y++) {
             System.out.print(" ");
-            for (x = 0; x < boardData[y].length; x++) {
+            for (x = 0; x < boardData[0].length; x++) {
                 System.out.printf("| %c ", boardData[y][x]);
             }
             System.out.println("|");

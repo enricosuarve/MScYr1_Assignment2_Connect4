@@ -45,7 +45,7 @@ public class MyConnectFour {
         System.out.println("To play the game type in the number of the column you want to drop you counter in");
         System.out.println("A player wins by connecting 4 counters in a row - vertically, horizontally or diagonally");
         System.out.println("");
-        board = new Board(7, 6);
+        board = new Board(6, 7);
         players.add(new Player());
         players.add(new Player());
         for (Player i : players) {
@@ -55,8 +55,8 @@ public class MyConnectFour {
 
     private int getNextEmptyRow(int colNum) {
         int nextEmptyRow = -1;
-        for (int y = 0; y < board.boardData[colNum].length; y++) {
-            if (board.boardData[colNum][y] == ' ') {
+        for (int y = 0; y < board.getNumRows(); y++) {
+            if (board.getValueAtPosition(colNum - 1, y) == ' ') {
                 nextEmptyRow = y;
             }
         }
@@ -66,25 +66,26 @@ public class MyConnectFour {
     private void playGame(Board board) {
         int move;
         board.printBoard();
+        Player currentPlayer = null;
         boolean win = false;
         while (!win) {
             for (Player player : players) {
-                move = getMoveFromUser(String.format("Player %d - enter a column to drop a counter", player.getPlayerNumber()));
+                currentPlayer = player;
+                move = getMoveFromUser(String.format("Player %d - enter a column to drop a counter", currentPlayer.getPlayerNumber()));
 //                move = ui.getUserInteger(String.format("Player %d - enter a column to drop a counter", player.getPlayerNumber()));
                 System.out.println("move was: " + move);
-                placeCounter(player, move);
-                win = checkHorizontalWin(player);
-                win = checkVerticalWin(player);
+                placeCounter(currentPlayer, move);
+                win = checkHorizontalWin(currentPlayer);
+                win = checkVerticalWin(currentPlayer);
                 board.printBoard();
                 if (win) {
                     break;
                 }
-                System.out.printf("Player %d '%s' has Won!!!\n", player.getPlayerNumber(), player.getName());
             }
+        }
+        System.out.printf("Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
 
-            boolean hasWon = false;
-            int count = 0;
-            // check horizontal
+        // check horizontal
 //            for(int i=0; i<board.length; i++){
 //                for(int j=0; j<board[i].length; j++){
 //                    if(board[i][j] == 'r'){
@@ -99,9 +100,9 @@ public class MyConnectFour {
 //                }
 //                count = 0;
 //            }
-            // check vertical
+        // check vertical
 //            printBoard();
-            // check horizontal
+        // check horizontal
 //                for(int i=0; i<board.length; i++){
 //                    for(int j=0; j<board[i].length; j++){
 //                        if(board[i][j] == 'y'){
@@ -116,8 +117,8 @@ public class MyConnectFour {
 //                    }
 //                    count = 0;
 //                }
-            // check vertical
-            //            count = 0;
+        // check vertical
+        //            count = 0;
 //                for(int i=0; i<board[0].length; i++){
 ////                    for(int j=0; j<board.length; j++){
 ////                        if(board[j][i] == 'y'){
@@ -140,52 +141,31 @@ public class MyConnectFour {
 //
 //        }
 //        System.out.println("You Have Won!!!");
-        }
+
     }
 
     private void placeCounter(Player player, int move) {
-        //todo methodise this
-  /*private void placeCounter(char player, int position) {
         boolean placed = false;
-        if (player == 'r') {
-            for (int i = board.length - 1; i >= 0; i--) {
-                if (!placed) {
-                    if (board[i][position - 1] == 'y') {
-                        // skip
-                    }
-                    else if (board[i][position - 1] != 'r') {
-                        board[i][position - 1] = 'r';
-                        placed = true;
-                    }
+        for (int i = board.getNumRows() - 1; i >= 0; i--) {
+            if (!placed) {
+                if (board.getValueAtPosition(move - 1, i) == ' ') {
+                    board.setValueAtPosition(move - 1, i, player.getCounter());
+                    placed = true;
                 }
             }
         }
-        else {
-            for (int i = board.length - 1; i >= 0; i--) {
-                if (!placed) {
-                    if (board[i][position - 1] == 'r') {
-                        // skip
-                    }
-                    else if (board[i][position - 1] != 'y') {
-                        board[i][position - 1] = 'y';
-                        placed = true;
-                    }
-                }
-            }
-        }
-    }*/
-
     }
 
     private boolean checkHorizontalWin(Player player) {
+        //todo - does not seem to work for either player - fix
         //todo - see if can merge check horizontal and vertical
         int countersInARow = 0;
         char counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
-        for (int y = 0; y < boardWidth; y++) {
-            for (int x = 0; x < boardHeight; x++) {
-                if (board.boardData[y][x] == counter) {
+        for (int y = 0; y < boardHeight; y++) {
+            for (int x = 0; x < boardWidth; x++) {
+                if (board.getValueAtPosition(x, y) == counter) {
                     countersInARow++;
                     if (countersInARow >= 4) {
                         return true;
@@ -208,7 +188,7 @@ public class MyConnectFour {
 
         for (int x = 0; x < boardWidth; x++) {
             for (int y = 0; y < boardHeight; y++) {
-                if (board.boardData[y][x] == counter) {
+                if (board.getValueAtPosition(x, y) == counter) {
                     countersInARow++;
                     if (countersInARow >= 4) {
                         return true;
