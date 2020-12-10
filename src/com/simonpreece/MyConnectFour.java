@@ -21,8 +21,12 @@ public class MyConnectFour {
     private Board board;
 
     public MyConnectFour() {
+        boolean playAgain = true;
         setupGame();
-        playGame(board);
+        while(playAgain) {
+            playGame(board);
+            playAgain = ui.getUserYN("Play again?");
+        }
     }
 
     private void setupGame() {
@@ -44,23 +48,15 @@ public class MyConnectFour {
         board = new Board(6, 7);
         players.add(new Player());
         players.add(new Player());
-        System.out.println("\nStarting game....\n");
     }
 
-    private int getNextEmptyRow(int colNum) {
-        int nextEmptyRow = -1;
-        for (int y = 0; y < board.getNumRows(); y++) {
-            if (board.getValueAtPosition(colNum - 1, y) == ' ') {
-                nextEmptyRow = y;
-            }
-        }
-        return nextEmptyRow;
-    }
 
     private void playGame(Board board) {
         int move;
         int numTurns = 0;
         int maxTurns = board.getNumCols() * board.getNumRows();
+        System.out.println("\nStarting game....\n");
+        board.initialiseBoard();
         board.printBoard();
         Player currentPlayer = null;
         boolean win = false;
@@ -160,6 +156,17 @@ public class MyConnectFour {
             move = ui.getUserInteger(requestToUser);
         }
     }
+
+    private int getNextEmptyRow(int colNum) {
+        int nextEmptyRow = -1;
+        for (int y = 0; y < board.getNumRows(); y++) {
+            if (board.getValueAtPosition(colNum - 1, y) == ' ') {
+                nextEmptyRow = y;
+            }
+        }
+        return nextEmptyRow;
+    }
+
 }
 
 

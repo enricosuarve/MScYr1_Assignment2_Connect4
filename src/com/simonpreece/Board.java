@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class Board {
     private final int numRows;
     private final int numCols;
-    protected char[][] boardData;
+    private char[][] boardData;
 
     public Board() {
         // create default board if no size given
@@ -30,7 +30,7 @@ public class Board {
         initialiseBoard();
     }
 
-    private void initialiseBoard() {
+    protected void initialiseBoard() {
         boardData = new char[numRows][numCols];
         for (char[] boardDatum : boardData) {
             Arrays.fill(boardDatum, ' ');

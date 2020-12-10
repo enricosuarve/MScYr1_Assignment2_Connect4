@@ -37,4 +37,21 @@ public class UI {
             }
         }
     }
+
+    public boolean getUserYN(String requestToUser) {
+        while (true) {
+            String result = getUserInput(requestToUser);
+            char ynResponse = result.charAt(0);
+            switch (ynResponse) {
+                case 'y':
+                case 'Y':
+                    return true;
+                case 'n':
+                case 'N':
+                    return false;
+                default:
+                    System.out.printf("You answered '%c', please answer (Y)es or (N)o\n", ynResponse);
+            }
+        }
+    }
 }
