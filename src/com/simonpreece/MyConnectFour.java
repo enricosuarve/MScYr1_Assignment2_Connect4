@@ -1,7 +1,5 @@
 package com.simonpreece;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /*
@@ -18,13 +16,11 @@ You may also wish to tackle our placeCounter() method next.
 
 public class MyConnectFour {
 
-    private BufferedReader input;
+    private final ArrayList<Player> players = new ArrayList<>();
+    private final UI ui = new UI();
     private Board board;
-    private ArrayList<Player> players = new ArrayList<>();
-    private UI ui = new UI();
 
     public MyConnectFour() {
-        UI ui = new UI();
         setupGame();
         playGame(board);
     }
@@ -38,13 +34,13 @@ public class MyConnectFour {
         System.out.println("888    888 888     888 888  Y88888 888  Y88888 888       888    888    888 \033[0;31m 8888888888 \033[0;97m");
         System.out.println("Y88b  d88P Y88b. .d88P 888   Y8888 888   Y8888 888       Y88b  d88P    888       \033[0;31m 888 \033[0;97m");
         System.out.println(" \"Y8888P\"   \"Y88888P\"  888    Y888 888    Y888 8888888888 \"Y8888P\"     888       \033[0;31m 888 \033[0;57m");
-        System.out.println("");
+        System.out.println();
         System.out.println("Welcome to Connect 4");
         System.out.println("There are 2 players red and yellow");
         System.out.println("Player 1 is Red, Player 2 is Yellow");
         System.out.println("To play the game type in the number of the column you want to drop you counter in");
         System.out.println("A player wins by connecting 4 counters in a row - vertically, horizontally or diagonally");
-        System.out.println("");
+        System.out.println();
         board = new Board(6, 7);
         players.add(new Player());
         players.add(new Player());
@@ -63,23 +59,32 @@ public class MyConnectFour {
 
     private void playGame(Board board) {
         int move;
+        int numTurns = 0;
+        int maxTurns = board.getNumCols() * board.getNumRows();
         board.printBoard();
         Player currentPlayer = null;
         boolean win = false;
-        while (!win) {
+        while (!win && numTurns < maxTurns) {
             for (Player player : players) {
                 currentPlayer = player;
                 move = getMoveFromUser(String.format("Player %d - enter a column to drop a counter", currentPlayer.getPlayerNumber()));
-                System.out.println("move was: " + move);
                 placeCounter(currentPlayer, move);
                 board.printBoard();
                 if (checkHorizontalWin(currentPlayer) || checkVerticalWin(currentPlayer)) {
                     win = true;
                     break;
                 }
+                if (++numTurns == maxTurns) {
+                    break;
+                }
             }
         }
-        System.out.printf("Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
+        if (win) {
+            System.out.printf("Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
+        }
+        else {
+            System.out.println("It's a draw - how disappointing...");
+        }
     }
 
     private void placeCounter(Player player, int move) {
@@ -155,17 +160,6 @@ public class MyConnectFour {
             move = ui.getUserInteger(requestToUser);
         }
     }
-
-    private String getUserInput() {
-        String toReturn = null;
-        try {
-            toReturn = input.readLine();
-        } catch (Exception e) {
-
-        }
-        return toReturn;
-    }
-
 }
 
 
