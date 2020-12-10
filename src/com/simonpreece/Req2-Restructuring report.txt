@@ -29,7 +29,7 @@ MyConnectFour Class
             counterCharacters
             numPlayers
 
-    Contains board, players
+    Contains board, players<player>
 
 Board Class
     Parameters:

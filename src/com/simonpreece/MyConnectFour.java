@@ -2,6 +2,7 @@ package com.simonpreece;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /*
 Requirement 3
@@ -20,12 +21,19 @@ public class MyConnectFour {
 
     private BufferedReader input;
     private char[][] board;
+    private ArrayList<Player> players = new ArrayList<>();
 
     public MyConnectFour(){
         Board board = new Board(7, 6);
 //todo enter a UI check for name and preferred character
-        Player player1 = new Player("Steve", 'X');
-        Player player2 = new Player("Emily", 'O');
+        players.add(new Player("Steve", 'X'));
+        players.add(new Player("Emily", 'O'));
+        players.add(new  Player());
+        players.add(new  Player());
+        for(Player i : players){
+            System.out.printf("Player %d (%s) is using counter %c\n", i.getPlayerNumber(), i.getName(),i.getCounter());
+        }
+
         //board = new char[6][7];
         UI ui = new UI();
         //input = new BufferedReader(new InputStreamReader(System.in));
