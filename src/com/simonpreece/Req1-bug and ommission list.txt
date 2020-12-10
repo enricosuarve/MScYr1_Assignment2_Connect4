@@ -1,6 +1,9 @@
 ############################################
 Requirement 1
 ############################################
+//todo check that my omissions include the lack of checking of user input
+//todo add ommission of AI
+
 Provide a bug and omission list (1-2 pages of single-spaced, 10 point font) explaining why the version of the code provided doesn't work (in the case of bugs) and/or doesn't provide the functionality needed to play Connect4.
 
 MyConnectFour.java : Line 6: The class 'myconnectfour' has a different capitalisation than the file. According to the Oracle standard (King et al., 2020), <i>"Class names should be nouns, in mixed case with the first letter of each internal word capitalized."</i>; so the file is capitalised correctly, whereas the declaration is not : Syntax error

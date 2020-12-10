@@ -13,11 +13,10 @@ public class Player {
     }
 
     public Player() {
-        //todo add check userNumber not already assigned
         this.playerNumber = ++lastPlayerNumber;
         UI ui = new UI();
         name = ui.getUserInput("Enter a name for player " + playerNumber);
-        counter = ui.getUserInput("Enter a name for player " + playerNumber).charAt(0);
+        counter = ui.getUserInput("Enter a counter symbol for player " + playerNumber).charAt(0);
     }
 
     public String getName() {

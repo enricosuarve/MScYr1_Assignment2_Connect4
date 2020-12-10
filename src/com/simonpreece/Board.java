@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class Board {
     private final int numRows;
     private final int numCols;
-    private char[][] boardData;
+    protected char[][] boardData;
 
     public Board() {
         // create default board if no size given
@@ -59,6 +59,17 @@ public class Board {
             System.out.print("   " + x);
         }
         System.out.print('\n');
+    }
+
+    public int getNumRows(){
+        return numRows;
+    }
+
+    public int getNumCols() {
+        return numCols;
+    }
+    public int getNumCols(int row) {
+        return numCols;
     }
 }
 

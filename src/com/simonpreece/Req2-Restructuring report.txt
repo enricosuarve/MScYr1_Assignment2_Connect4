@@ -1,6 +1,7 @@
 ############################################
 Requirement 2
 ############################################
+//todo check into using helper classes
 Write a report (1-2 pages of single-spaced, 10 point font) describing the ways in which our code could be restructured to better reflect the fundamental OO concepts of modularisation and encapsulation.
 
 Include a discussion in that report of the extent to which you think that inheritance, abstract classes and interfaces might be used to improve our code. You may argue either for or against their inclusion.
