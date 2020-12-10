@@ -23,7 +23,7 @@ public class MyConnectFour {
     public MyConnectFour() {
         boolean playAgain = true;
         setupGame();
-        while(playAgain) {
+        while (playAgain) {
             playGame(board);
             playAgain = ui.getUserYN("Play again?");
         }
@@ -66,7 +66,8 @@ public class MyConnectFour {
                 move = getMoveFromUser(String.format("Player %d - enter a column to drop a counter", currentPlayer.getPlayerNumber()));
                 placeCounter(currentPlayer, move);
                 board.printBoard();
-                if (checkHorizontalWin(currentPlayer) || checkVerticalWin(currentPlayer)) {
+                if (checkHorizontalWin(currentPlayer) || checkVerticalWin(currentPlayer) ||
+                        checkDiagonalWin_Positive(currentPlayer) || checkDiagonalWin_Negative(currentPlayer)) {
                     win = true;
                     break;
                 }
@@ -135,6 +136,56 @@ public class MyConnectFour {
                 else {
                     countersInARow = 0;
                 }
+            }
+            countersInARow = 0;
+        }
+        return false;
+    }
+
+    private boolean checkDiagonalWin_Positive(Player player) {
+        int countersInARow = 0;
+        char counter = player.getCounter();
+        int boardWidth = board.getNumCols();
+        int boardHeight = board.getNumRows();
+        for (int x = 0; x < boardWidth - 3; x++) {
+            for (int y = 0; y < boardHeight - 3; y++) {
+                for (int i = 0; i < 4; i++) {
+                    if (board.getValueAtPosition(x + i, y + i) == counter) {
+                        countersInARow++;
+                        if (countersInARow >= 4) {
+                            return true;
+                        }
+                    }
+                    else {
+                        countersInARow = 0;
+                    }
+                }
+                countersInARow = 0;
+            }
+            countersInARow = 0;
+        }
+        return false;
+    }
+
+    private boolean checkDiagonalWin_Negative(Player player) {
+        int countersInARow = 0;
+        char counter = player.getCounter();
+        int boardWidth = board.getNumCols();
+        int boardHeight = board.getNumRows();
+        for (int x = boardWidth - 1; x > 3; x--) {
+            for (int y = boardHeight - 1; y > 3; y--) {
+                for (int i = 0; i < 4; i++) {
+                    if (board.getValueAtPosition(x - i, y - i) == counter) {
+                        countersInARow++;
+                        if (countersInARow >= 4) {
+                            return true;
+                        }
+                    }
+                    else {
+                        countersInARow = 0;
+                    }
+                }
+                countersInARow = 0;
             }
             countersInARow = 0;
         }
