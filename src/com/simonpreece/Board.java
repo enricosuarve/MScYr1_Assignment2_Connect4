@@ -38,7 +38,6 @@ public class Board {
     }
 
     public char getValueAtPosition(int x, int y) {
-        System.out.printf("Position requested x:%d, y:%d\n",x,y);
         return boardData[y][x];
     }
 

@@ -72,76 +72,16 @@ public class MyConnectFour {
             for (Player player : players) {
                 currentPlayer = player;
                 move = getMoveFromUser(String.format("Player %d - enter a column to drop a counter", currentPlayer.getPlayerNumber()));
-//                move = ui.getUserInteger(String.format("Player %d - enter a column to drop a counter", player.getPlayerNumber()));
                 System.out.println("move was: " + move);
                 placeCounter(currentPlayer, move);
-                win = checkHorizontalWin(currentPlayer);
-                win = checkVerticalWin(currentPlayer);
                 board.printBoard();
-                if (win) {
+                if (checkHorizontalWin(currentPlayer) || checkVerticalWin(currentPlayer)) {
+                    win = true;
                     break;
                 }
             }
         }
         System.out.printf("Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
-
-        // check horizontal
-//            for(int i=0; i<board.length; i++){
-//                for(int j=0; j<board[i].length; j++){
-//                    if(board[i][j] == 'r'){
-//                        count = count + 1;
-//                        if(count >= 4){
-//                            hasWon = true;
-//                        }
-//                    }
-//                    else{
-//                        count = 0;
-//                    }
-//                }
-//                count = 0;
-//            }
-        // check vertical
-//            printBoard();
-        // check horizontal
-//                for(int i=0; i<board.length; i++){
-//                    for(int j=0; j<board[i].length; j++){
-//                        if(board[i][j] == 'y'){
-//                            count = count + 1;
-//                            if(count >= 4){
-//                                hasWon = true;
-//                            }
-//                        }
-//                        else{
-//                            count = 0;
-//                        }
-//                    }
-//                    count = 0;
-//                }
-        // check vertical
-        //            count = 0;
-//                for(int i=0; i<board[0].length; i++){
-////                    for(int j=0; j<board.length; j++){
-////                        if(board[j][i] == 'y'){
-////                            count = count + 1;
-////                            if(count >= 4){
-////                                hasWon = true;
-////                            }
-////                        }
-////                        else{
-////                            count = 0;
-////                        }
-////                    }
-//                    count = 0;
-//                }
-//                printBoard();
-//                if (hasWon) {
-//                    win = true;
-//                }
-//            }
-//
-//        }
-//        System.out.println("You Have Won!!!");
-
     }
 
     private void placeCounter(Player player, int move) {
@@ -157,7 +97,6 @@ public class MyConnectFour {
     }
 
     private boolean checkHorizontalWin(Player player) {
-        //todo - does not seem to work for either player - fix
         //todo - see if can merge check horizontal and vertical
         int countersInARow = 0;
         char counter = player.getCounter();
