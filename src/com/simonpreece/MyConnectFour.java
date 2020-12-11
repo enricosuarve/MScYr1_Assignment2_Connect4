@@ -19,7 +19,7 @@ public class MyConnectFour extends Game implements HasBotPlayer {
 
     private final ArrayList<Player> players = new ArrayList<>();
     private final UI ui = new UI();
-    private final AI ai = new connect4AI();
+    private final AI ai = new Connect4AI();
     protected Board board;
 
     public MyConnectFour() {
@@ -34,6 +34,7 @@ public class MyConnectFour extends Game implements HasBotPlayer {
 
     @Override
     protected void setupGame() {
+        // ASCII art created using tool at http://www.patorjk.com/software/taag/#p=display&f=Stop&t=o (Colossal font)
         System.out.println("\033[0;97m .d8888b.   .d88888b.  888b    888 888b    888 8888888888 .d8888b. 88888888888 \033[0;31m d8888 \033[0;97m");
         System.out.println("d88P  Y88b d88P\" \"Y88b 8888b   888 8888b   888 888       d88P  Y88b    888   \033[0;31m  d8P888 \033[0;97m");
         System.out.println("888    888 888     888 88888b  888 88888b  888 888       888    888    888  \033[0;31m  d8P 888 \033[0;97m");
@@ -45,7 +46,7 @@ public class MyConnectFour extends Game implements HasBotPlayer {
         System.out.println();
         System.out.println("Welcome to Connect 4");
         System.out.println("There are 2 players red and yellow");
-        System.out.println("Player 1 is Red, Player 2 is Yellow");
+        System.out.println("Player 1 is Red, Player 2 is Yellow\n");
         System.out.println("To play the game type in the number of the column you want to drop you counter in");
         System.out.println("A player wins by connecting 4 counters in a row - vertically, horizontally or diagonally");
         System.out.println();

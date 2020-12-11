@@ -9,11 +9,11 @@ Include a discussion in that report of the extent to which you think that inheri
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The game has some obvious classes that could be considered such as a Board and Player class; a class to obtain information from the user/s would possibly be a good idea as well. At this stage I would rule out classes for counters as they are really just variables in a Board and player 1 & player 2 are really instances of the Player class, although a database of boards might be a nice idea to keep a history of games.
 
-The usage of classes with appropriate methods should cut down on repeated code. At present in placeCounter(), each turn the same code is used twice to place a counter for either player 1 or player 2 with little variation (literally only the counter letters change); this could easily be condensed into a single iteration using parameters instead of fixed letters and be assigned to a board class as a method. In the playGame() method, the same checks are performed for winning horizontal and vertical lines, again differing only in the counter letter; these could be separated out into their own method, with the fixed character in the comparator once more being replaced by a variable.
+The usage of classes with appropriate methods should cut down on repeated code. At present in placeCounter(), each turn the same code is used twice to place a counter for either player 1 or player 2 with little variation (literally only the counter letters change); this could easily be condensed into a single iteration using parameters instead of fixed letters and be assigned to a Board class as a method. In the playGame() method, the same checks are performed for each player for winning horizontal or vertical lines, again differing only in the counter letter; these could be separated out into their own method, with the fixed character in the comparator once more being replaced by a variable.
 
-Out of pure preference I would also swap the rows and columns around in array - at the moment the order is rows them columns (so y, x) and I find this constantly confusing me; I would swap so it was columns, rows (or x, y).
+Out of pure preference I would also swap the naming of the integers involved in looping through the boardarray to x and y, rather than i and ii; whilst the later is sort of a norm, I feel x and y would be more readable.
 
-getUserInput() could be expanded to perform checks for valid inputs, displaying feedback if a response is not valid and returning an int rather than performing parseInt inside the calling method; however, if we use getUserInput() for other extended features such as requesting usernames it may be best to wrap calls to it in other methods to perform the validations.
+getUserInput() could be expanded to perform checks for valid inputs, displaying feedback if a response is not valid and returning a verified int rather than performing parseInt inside the calling method; however, if we use getUserInput() for other extended features such as requesting usernames it may be best to wrap calls to it in other methods to perform the validations.
 
 My rough outline for planned classes and their contents & methods would be:
 
@@ -47,6 +47,23 @@ Player class
 UI class
     editSettings()
     MakeMove()
+
+New structure:
+#Classes
+    AI - Abstract Class
+        Connect4 AI
+    Board
+    Game - Abstract Class
+        MyConnectFour
+    Player - Abstract Class
+        ComputerPlayer
+        HumanPlayer
+    Main
+    UI
+#Interfaces
+    HasBotPlayer - Interface
+
+
 
 
 Unless different types of board or special counters are created I am not really sure there is much to gain from inheritance as the objects are quite distinct already and although they relate to one another, they do not pass the "object a 'is a' object b" test. A counter relates to a board but does not have squares or co-ordinates; similarly a board relates to a game but does not in itself have rules or settings. If we were to introduce different types of board (different dimensions, boards that fill bottom to top etc), we could use inheritance and polymorphism for aspects that stay the same such as printing the board out, but override methods that change so counters are added from the top down etc.

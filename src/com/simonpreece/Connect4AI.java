@@ -1,6 +1,6 @@
 package com.simonpreece;
 
-public class connect4AI extends AI {
+public class Connect4AI extends AI {
 
     @Override
     protected int makeMove(Game game) {
