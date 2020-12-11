@@ -172,10 +172,11 @@ public class MyConnectFour {
         char counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
-        for (int x = boardWidth - 1; x > 3; x--) {
-            for (int y = boardHeight - 1; y > 3; y--) {
+        for (int x = 0; x < boardWidth - 3; x++) {
+            for (int y = 3; y < boardHeight; y++) {
                 for (int i = 0; i < 4; i++) {
-                    if (board.getValueAtPosition(x - i, y - i) == counter) {
+                    System.out.printf("getValueAtPosition(x:%d , y:%d)\n",x+i, y-i);
+                    if (board.getValueAtPosition(x + i, y - i) == counter) {
                         countersInARow++;
                         if (countersInARow >= 4) {
                             return true;
