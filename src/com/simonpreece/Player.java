@@ -5,10 +5,10 @@ public abstract class Player {
     protected static int lastPlayerNumber = 0;
     protected int playerNumber;
     String name;
-    char counter;
+    String counter;
     private int wins = 0;
 
-    public Player(String name, char counter) {
+    public Player(String name, String counter) {
         this.name = name;
         this.counter = counter;
         playerNumber = ++lastPlayerNumber;
@@ -24,8 +24,12 @@ public abstract class Player {
         return name;
     }
 
-    public char getCounter() {
+    public String getCounter() {
         return counter;
+    }
+
+    public void setCounter(String counter) {
+        this.counter = counter;
     }
 
     public int getPlayerNumber() {

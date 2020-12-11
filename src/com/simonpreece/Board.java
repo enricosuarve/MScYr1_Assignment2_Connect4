@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class Board {
     private final int numRows;
     private final int numCols;
-    private char[][] boardData;
+    private String[][] boardData;
 
     public Board() {
         // create default board if no size given
@@ -31,17 +31,17 @@ public class Board {
     }
 
     protected void initialiseBoard() {
-        boardData = new char[numRows][numCols];
-        for (char[] boardDatum : boardData) {
-            Arrays.fill(boardDatum, ' ');
+        boardData = new String[numRows][numCols];
+        for (String[] boardDatum : boardData) {
+            Arrays.fill(boardDatum, " ");
         }
     }
 
-    public char getValueAtPosition(int x, int y) {
+    public String getValueAtPosition(int x, int y) {
         return boardData[y][x];
     }
 
-    public void setValueAtPosition(int x, int y, char value) {
+    public void setValueAtPosition(int x, int y, String value) {
         boardData[y][x] = value;
     }
 
@@ -50,7 +50,7 @@ public class Board {
         for (y = 0; y < boardData.length; y++) {
             System.out.print(" ");
             for (x = 0; x < boardData[0].length; x++) {
-                System.out.printf("| %c ", boardData[y][x]);
+                System.out.printf("| %s ", boardData[y][x]);
             }
             System.out.println("|");
         }
@@ -60,13 +60,14 @@ public class Board {
         System.out.print('\n');
     }
 
-    public int getNumRows(){
+    public int getNumRows() {
         return numRows;
     }
 
     public int getNumCols() {
         return numCols;
     }
+
     public int getNumCols(int row) {
         return numCols;
     }

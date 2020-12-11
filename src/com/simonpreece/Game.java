@@ -1,6 +1,7 @@
 package com.simonpreece;
 
 public abstract class Game {
+    protected Board board;
 
     protected abstract void setupGame();
 

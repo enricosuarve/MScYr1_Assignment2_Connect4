@@ -1,5 +1,7 @@
 package com.simonpreece;
 
+import javax.swing.plaf.ComponentUI;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 /*
@@ -19,7 +21,7 @@ public class MyConnectFour extends Game implements HasBotPlayer {
     private final ArrayList<Player> players = new ArrayList<>();
     private final UI ui = new UI();
     private final AI ai = new connect4AI();
-    private Board board;
+    protected Board board;
 
     public MyConnectFour() {
         boolean playAgain = true;
@@ -50,7 +52,20 @@ public class MyConnectFour extends Game implements HasBotPlayer {
         System.out.println();
         board = new Board(6, 7);
         players.add(new HumanPlayer());
-        players.add(new ComputerPlayer());
+        if (ui.getUserYN("Do you wish to play against the computer? (Y/N)")){
+            players.add(new ComputerPlayer());
+        }else{
+            players.add(new HumanPlayer());
+        }
+        for (Player player : players) {
+            if (player.getPlayerNumber() ==1){
+                player.setCounter("\033[0;31m"+ player.counter+"\033[0;57m");
+            }else{
+                player.setCounter("\033[0;33m"+ player.counter+"\033[0;57m");
+            }
+        }
+
+
     }
 
     @Override
@@ -67,11 +82,12 @@ public class MyConnectFour extends Game implements HasBotPlayer {
             for (Player player : players) {
                 currentPlayer = player;
                 if (currentPlayer.getClass().getSimpleName().equals("HumanPlayer")) {
-                    System.out.println("its a human");
-                    move = currentPlayer.getMoveFromPlayer(String.format("Player %d - enter a column to drop a counter PLEASE", currentPlayer.getPlayerNumber()), board, this);
+                    move = currentPlayer.getMoveFromPlayer(String.format("Player %d: %s - enter a column to drop a counter", currentPlayer.getPlayerNumber(),currentPlayer.getName()), this);
                 }
                 else {
-                    move =currentPlayer.getMoveFromPlayer(String.format("Player %d - enter a column to drop a counter PLEASE", currentPlayer.getPlayerNumber()), board, this, ai);
+                    //todo find a better method that does not involve casting
+                    ComputerPlayer currentComputerPlayer = (ComputerPlayer) player;
+                    move = currentComputerPlayer.getMoveFromAIPlayer(String.format("Computer Player %d - enter a column to drop a counter PLEASE", currentPlayer.getPlayerNumber()), this, ai);
                 }
                 placeCounter(currentPlayer, move);
                 board.printBoard();
@@ -97,6 +113,7 @@ public class MyConnectFour extends Game implements HasBotPlayer {
     public boolean isMoveValid(int move, boolean playerIsHuman) {
         if (move > board.getNumCols() || move < 1) {
             if (playerIsHuman) {
+                Toolkit.getDefaultToolkit().beep();
                 System.out.printf("You entered '%d', which is outside the number of columns in the game - please try again\n", move);
             }
             return false;
@@ -114,7 +131,7 @@ public class MyConnectFour extends Game implements HasBotPlayer {
         boolean placed = false;
         for (int i = board.getNumRows() - 1; i >= 0; i--) {
             if (!placed) {
-                if (board.getValueAtPosition(move - 1, i) == ' ') {
+                if (board.getValueAtPosition(move - 1, i).equals(" ")) {
                     board.setValueAtPosition(move - 1, i, player.getCounter());
                     placed = true;
                 }
@@ -125,12 +142,12 @@ public class MyConnectFour extends Game implements HasBotPlayer {
     private boolean checkHorizontalWin(Player player) {
         //todo - see if can merge check horizontal and vertical
         int countersInARow = 0;
-        char counter = player.getCounter();
+        String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
         for (int y = 0; y < boardHeight; y++) {
             for (int x = 0; x < boardWidth; x++) {
-                if (board.getValueAtPosition(x, y) == counter) {
+                if (board.getValueAtPosition(x, y).equals(counter)) {
                     countersInARow++;
                     if (countersInARow >= 4) {
                         return true;
@@ -147,13 +164,13 @@ public class MyConnectFour extends Game implements HasBotPlayer {
 
     private boolean checkVerticalWin(Player player) {
         int countersInARow = 0;
-        char counter = player.getCounter();
+        String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
 
         for (int x = 0; x < boardWidth; x++) {
             for (int y = 0; y < boardHeight; y++) {
-                if (board.getValueAtPosition(x, y) == counter) {
+                if (board.getValueAtPosition(x, y).equals(counter)) {
                     countersInARow++;
                     if (countersInARow >= 4) {
                         return true;
@@ -170,13 +187,13 @@ public class MyConnectFour extends Game implements HasBotPlayer {
 
     private boolean checkDiagonalWin_Positive(Player player) {
         int countersInARow = 0;
-        char counter = player.getCounter();
+        String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
         for (int x = 0; x < boardWidth - 3; x++) {
             for (int y = 0; y < boardHeight - 3; y++) {
                 for (int i = 0; i < 4; i++) {
-                    if (board.getValueAtPosition(x + i, y + i) == counter) {
+                    if (board.getValueAtPosition(x + i, y + i).equals(counter)) {
                         countersInARow++;
                         if (countersInARow >= 4) {
                             return true;
@@ -195,13 +212,13 @@ public class MyConnectFour extends Game implements HasBotPlayer {
 
     private boolean checkDiagonalWin_Negative(Player player) {
         int countersInARow = 0;
-        char counter = player.getCounter();
+        String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
         for (int x = 0; x < boardWidth - 3; x++) {
             for (int y = 3; y < boardHeight; y++) {
                 for (int i = 0; i < 4; i++) {
-                    if (board.getValueAtPosition(x + i, y - i) == counter) {
+                    if (board.getValueAtPosition(x + i, y - i).equals(counter)) {
                         countersInARow++;
                         if (countersInARow >= 4) {
                             return true;
@@ -237,7 +254,7 @@ public class MyConnectFour extends Game implements HasBotPlayer {
     private int getNextEmptyRow(int colNum) {
         int nextEmptyRow = -1;
         for (int y = 0; y < board.getNumRows(); y++) {
-            if (board.getValueAtPosition(colNum - 1, y) == ' ') {
+            if (board.getValueAtPosition(colNum - 1, y).equals(" ")) {
                 nextEmptyRow = y;
             }
         }
