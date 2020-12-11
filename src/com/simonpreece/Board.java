@@ -50,9 +50,9 @@ public class Board {
         for (y = 0; y < boardData.length; y++) {
             System.out.print(" ");
             for (x = 0; x < boardData[0].length; x++) {
-                System.out.printf("| %s ", boardData[y][x]);
+                System.out.printf("¦ %s ", boardData[y][x]);
             }
-            System.out.println("|");
+            System.out.println("¦");
         }
         for (x = 1; x <= boardData[0].length; x++) {
             System.out.print("   " + x);

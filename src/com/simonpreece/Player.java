@@ -4,7 +4,7 @@ package com.simonpreece;
 public abstract class Player {
     protected static int lastPlayerNumber = 0;
     protected int playerNumber;
-    String name;
+    protected String name;
     String counter;
     private int wins = 0;
 

@@ -87,7 +87,7 @@ public class MyConnectFour extends Game implements HasBotPlayer {
                 else {
                     //todo find a better method that does not involve casting
                     ComputerPlayer currentComputerPlayer = (ComputerPlayer) player;
-                    move = currentComputerPlayer.getMoveFromAIPlayer(String.format("Computer Player %d - enter a column to drop a counter PLEASE", currentPlayer.getPlayerNumber()), this, ai);
+                    move = currentComputerPlayer.getMoveFromAIPlayer(String.format("Computer Player %d is moving", currentPlayer.getPlayerNumber()), this, ai);
                 }
                 placeCounter(currentPlayer, move);
                 board.printBoard();
@@ -99,14 +99,18 @@ public class MyConnectFour extends Game implements HasBotPlayer {
                 if (++numTurns == maxTurns) {
                     break;
                 }
+                System.out.printf("%s dropped a counter in column %d", currentPlayer.getName(),move);
             }
         }
+        System.out.println("\n#####################################################");
         if (win) {
-            System.out.printf("Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
+            Toolkit.getDefaultToolkit().beep();
+            System.out.printf("        Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
         }
         else {
             System.out.println("It's a draw - how disappointing...");
         }
+        System.out.println("#####################################################\n");
     }
 
     @Override
