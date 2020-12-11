@@ -1,5 +1,8 @@
 package com.simonpreece;
 
 public interface HasBotPlayer {
-    int getMoveFromBot();
+
+     int getMoveFromBot();
+     void selectAIClass();
+
 }

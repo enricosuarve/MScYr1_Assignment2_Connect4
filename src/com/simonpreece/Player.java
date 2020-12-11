@@ -40,5 +40,5 @@ public abstract class Player {
         return wins;
     }
 
-    public abstract int getMoveFromPlayer(Board board, Game game);
+    public abstract int getMoveFromPlayer(String format, Board board, Game game);
 }

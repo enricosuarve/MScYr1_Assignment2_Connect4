@@ -18,6 +18,7 @@ public class MyConnectFour extends Game implements HasBotPlayer {
 
     private final ArrayList<Player> players = new ArrayList<>();
     private final UI ui = new UI();
+    private final AI ai = new connect4AI();
     private Board board;
 
     public MyConnectFour() {
@@ -65,10 +66,13 @@ public class MyConnectFour extends Game implements HasBotPlayer {
         while (!win && numTurns < maxTurns) {
             for (Player player : players) {
                 currentPlayer = player;
-                if (currentPlayer.getClass().getSimpleName().equals("HumanPlayer")){
-                System.out.println("its a human" );}
-
-                move = getMoveFromUser(String.format("Player %d - enter a column to drop a counter", currentPlayer.getPlayerNumber()));
+                if (currentPlayer.getClass().getSimpleName().equals("HumanPlayer")) {
+                    System.out.println("its a human");
+                    move = currentPlayer.getMoveFromPlayer(String.format("Player %d - enter a column to drop a counter PLEASE", currentPlayer.getPlayerNumber()), board, this);
+                }
+                else {
+                    move = getMoveFromUser(String.format("Player %d - enter a column for the computer to drop a counter", currentPlayer.getPlayerNumber()));
+                }
                 placeCounter(currentPlayer, move);
                 board.printBoard();
                 if (checkHorizontalWin(currentPlayer) || checkVerticalWin(currentPlayer) ||
@@ -90,8 +94,20 @@ public class MyConnectFour extends Game implements HasBotPlayer {
     }
 
     @Override
-    protected boolean isMoveValid(int move) {
-        return false;
+    public boolean isMoveValid(int move, boolean playerIsHuman) {
+        if (move > board.getNumCols() || move < 1) {
+            if (playerIsHuman) {
+                System.out.printf("You entered '%d', which is outside the number of columns in the game - please try again\n", move);
+            }
+            return false;
+        }
+        else if (getNextEmptyRow(move) == -1) {
+            if (playerIsHuman) {
+                System.out.printf("Column '%d' is already full - please try again\n", move);
+            }
+            return false;
+        }
+        return true;
     }
 
     private void placeCounter(Player player, int move) {
@@ -231,6 +247,11 @@ public class MyConnectFour extends Game implements HasBotPlayer {
     @Override
     public int getMoveFromBot() {
         return 0;
+    }
+
+    @Override
+    public void selectAIClass() {
+
     }
 }
 

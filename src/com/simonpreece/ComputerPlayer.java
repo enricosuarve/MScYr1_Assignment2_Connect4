@@ -2,6 +2,7 @@ package com.simonpreece;
 
 public class ComputerPlayer extends Player {
 
+
     public ComputerPlayer() {
         super();
         UI ui = new UI();
@@ -14,7 +15,7 @@ public class ComputerPlayer extends Player {
     }
 
     @Override
-    public int getMoveFromPlayer(Board board, Game game) {
+    public int getMoveFromPlayer(String requestToUser, Board board, Game game) {
         return 0;
     }
 }
