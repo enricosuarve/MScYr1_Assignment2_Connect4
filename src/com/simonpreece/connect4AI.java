@@ -1,12 +1,6 @@
 package com.simonpreece;
 
-
-import java.util.ArrayList;
-import java.util.Random;
-
 public class connect4AI extends AI {
-
-    Random rand = new Random();
 
     @Override
     protected int makeMove(Game game) {

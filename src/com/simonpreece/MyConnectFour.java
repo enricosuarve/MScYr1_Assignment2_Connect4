@@ -1,6 +1,5 @@
 package com.simonpreece;
 
-import javax.swing.plaf.ComponentUI;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
@@ -52,20 +51,20 @@ public class MyConnectFour extends Game implements HasBotPlayer {
         System.out.println();
         board = new Board(6, 7);
         players.add(new HumanPlayer());
-        if (ui.getUserYN("Do you wish to play against the computer? (Y/N)")){
+        if (ui.getUserYN("Do you wish to play against the computer? (Y/N)")) {
             players.add(new ComputerPlayer());
-        }else{
+        }
+        else {
             players.add(new HumanPlayer());
         }
         for (Player player : players) {
-            if (player.getPlayerNumber() ==1){
-                player.setCounter("\033[0;31m"+ player.counter+"\033[0;57m");
-            }else{
-                player.setCounter("\033[0;33m"+ player.counter+"\033[0;57m");
+            if (player.getPlayerNumber() == 1) {
+                player.setCounter("\033[0;31m" + player.counter + "\033[0;57m");
+            }
+            else {
+                player.setCounter("\033[0;33m" + player.counter + "\033[0;57m");
             }
         }
-
-
     }
 
     @Override
@@ -82,7 +81,7 @@ public class MyConnectFour extends Game implements HasBotPlayer {
             for (Player player : players) {
                 currentPlayer = player;
                 if (currentPlayer.getClass().getSimpleName().equals("HumanPlayer")) {
-                    move = currentPlayer.getMoveFromPlayer(String.format("Player %d: %s - enter a column to drop a counter", currentPlayer.getPlayerNumber(),currentPlayer.getName()), this);
+                    move = currentPlayer.getMoveFromPlayer(String.format("Player %d: %s - enter a column to drop a counter", currentPlayer.getPlayerNumber(), currentPlayer.getName()), this);
                 }
                 else {
                     //todo find a better method that does not involve casting
@@ -99,18 +98,39 @@ public class MyConnectFour extends Game implements HasBotPlayer {
                 if (++numTurns == maxTurns) {
                     break;
                 }
-                System.out.printf("%s dropped a counter in column %d", currentPlayer.getName(),move);
+                System.out.printf("%s dropped a counter in column %d", currentPlayer.getName(), move);
             }
         }
         System.out.println("\n#####################################################");
         if (win) {
+            currentPlayer.addWin();
             Toolkit.getDefaultToolkit().beep();
             System.out.printf("        Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
+            displayScoreboard();
         }
         else {
             System.out.println("It's a draw - how disappointing...");
         }
         System.out.println("#####################################################\n");
+    }
+
+    private void displayScoreboard() {
+        String playerScore;
+        String spaces = "                        ";
+        int spacesBefore, spacesAfter;
+        System.out.println("==============================");
+        System.out.println("|    Scores on the doors     |");
+        System.out.println("==============================");
+        for (Player player : players) {
+            playerScore = player.getName() + "  " + player.getWins();
+            spacesBefore = (28 - playerScore.length()) / 2; //todo stop this erroring if goes into a minus value
+            spacesAfter = 28 - playerScore.length() - spacesBefore;
+            System.out.printf("|%s%s%s|\n",
+                    spaces.substring(0, spacesBefore),
+                    playerScore,
+                    spaces.substring(0, spacesAfter));
+        }
+        System.out.println("==============================");
     }
 
     @Override
@@ -237,22 +257,6 @@ public class MyConnectFour extends Game implements HasBotPlayer {
             countersInARow = 0;
         }
         return false;
-    }
-
-    private int getMoveFromUser(String requestToUser) {
-        int move = ui.getUserInteger(requestToUser);
-        while (true) {
-            if (move > board.getNumCols() || move < 1) {
-                System.out.printf("You entered '%d', which is outside the number of columns in the game - please try again\n", move);
-            }
-            else if (getNextEmptyRow(move) == -1) {
-                System.out.printf("Column '%d' is already full - please try again\n", move);
-            }
-            else {
-                return move;
-            }
-            move = ui.getUserInteger(requestToUser);
-        }
     }
 
     private int getNextEmptyRow(int colNum) {
