@@ -18,6 +18,8 @@ public abstract class Player {
         this.playerNumber = ++lastPlayerNumber;
     }
 
+    public abstract int getMoveFromPlayer();
+
     public String getName() {
         return name;
     }
@@ -37,4 +39,6 @@ public abstract class Player {
     public int getWins() {
         return wins;
     }
+
+    public abstract int getMoveFromPlayer(Board board, Game game);
 }

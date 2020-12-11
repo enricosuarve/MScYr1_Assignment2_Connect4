@@ -14,7 +14,7 @@ You may also wish to tackle our placeCounter() method next.
  */
 
 
-public class MyConnectFour {
+public class MyConnectFour extends Game implements HasBotPlayer {
 
     private final ArrayList<Player> players = new ArrayList<>();
     private final UI ui = new UI();
@@ -26,10 +26,12 @@ public class MyConnectFour {
         while (playAgain) {
             playGame(board);
             playAgain = ui.getUserYN("Play again?");
+            //todo - swap player order??
         }
     }
 
-    private void setupGame() {
+    @Override
+    protected void setupGame() {
         System.out.println("\033[0;97m .d8888b.   .d88888b.  888b    888 888b    888 8888888888 .d8888b. 88888888888 \033[0;31m d8888 \033[0;97m");
         System.out.println("d88P  Y88b d88P\" \"Y88b 8888b   888 8888b   888 888       d88P  Y88b    888   \033[0;31m  d8P888 \033[0;97m");
         System.out.println("888    888 888     888 88888b  888 88888b  888 888       888    888    888  \033[0;31m  d8P 888 \033[0;97m");
@@ -47,11 +49,11 @@ public class MyConnectFour {
         System.out.println();
         board = new Board(6, 7);
         players.add(new HumanPlayer());
-        players.add(new HumanPlayer());
+        players.add(new ComputerPlayer());
     }
 
-
-    private void playGame(Board board) {
+    @Override
+    protected void playGame(Board board) {
         int move;
         int numTurns = 0;
         int maxTurns = board.getNumCols() * board.getNumRows();
@@ -63,6 +65,9 @@ public class MyConnectFour {
         while (!win && numTurns < maxTurns) {
             for (Player player : players) {
                 currentPlayer = player;
+                if (currentPlayer.getClass().getSimpleName().equals("HumanPlayer")){
+                System.out.println("its a human" );}
+
                 move = getMoveFromUser(String.format("Player %d - enter a column to drop a counter", currentPlayer.getPlayerNumber()));
                 placeCounter(currentPlayer, move);
                 board.printBoard();
@@ -82,6 +87,11 @@ public class MyConnectFour {
         else {
             System.out.println("It's a draw - how disappointing...");
         }
+    }
+
+    @Override
+    protected boolean isMoveValid(int move) {
+        return false;
     }
 
     private void placeCounter(Player player, int move) {
@@ -218,6 +228,10 @@ public class MyConnectFour {
         return nextEmptyRow;
     }
 
+    @Override
+    public int getMoveFromBot() {
+        return 0;
+    }
 }
 
 

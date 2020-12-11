@@ -24,6 +24,20 @@ public class UI {
         return toReturn;
     }
 
+    public String getUserInput(String requestToUser, String defaultValue) {
+        System.out.printf(requestToUser + " default=[%s]", defaultValue);
+        String toReturn = "";
+        try {
+            toReturn = input.readLine().trim();
+            if (toReturn.length() == 0) {
+                toReturn = defaultValue;
+            }
+        } catch (Exception e) {
+            System.out.printf("Exception '%s' occurred whilst trying to getUserInput()", e.toString());
+        }
+        return toReturn;
+    }
+
     public int getUserInteger(String requestToUser) {
         String result = getUserInput(requestToUser);
         int returnInteger;
