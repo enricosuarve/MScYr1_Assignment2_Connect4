@@ -15,7 +15,14 @@ public class ComputerPlayer extends Player {
     }
 
     @Override
-    public int getMoveFromPlayer(String requestToUser, Board board, Game game) {
-        return 0;
+    public int getMoveFromPlayer(String requestToUser, Game game) {
+        AI ai = game.
+        UI ui = new UI();
+        while (true) {
+            int move = ui.getUserInteger(requestToUser);
+            if (game.isMoveValid(move, true)) {
+                return move;
+            }
+        }
     }
 }

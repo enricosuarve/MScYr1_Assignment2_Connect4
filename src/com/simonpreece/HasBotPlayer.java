@@ -3,6 +3,7 @@ package com.simonpreece;
 public interface HasBotPlayer {
 
      int getMoveFromBot();
-     void selectAIClass();
+     void setAIClassToUse();
+     void getAIClass();
 
 }

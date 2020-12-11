@@ -14,13 +14,13 @@ public class HumanPlayer extends Player {
     }
 
     @Override
-    public int getMoveFromPlayer(String requestToUser,Board board, Game game) {
+    public int getMoveFromPlayer(String requestToUser, Game game) {
         UI ui = new UI();
-        while(true) {
+        while (true) {
             int move = ui.getUserInteger(requestToUser);
             if (game.isMoveValid(move, true)) {
                 return move;
             }
         }
-}
+    }
 }

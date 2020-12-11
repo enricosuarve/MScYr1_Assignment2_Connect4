@@ -71,7 +71,7 @@ public class MyConnectFour extends Game implements HasBotPlayer {
                     move = currentPlayer.getMoveFromPlayer(String.format("Player %d - enter a column to drop a counter PLEASE", currentPlayer.getPlayerNumber()), board, this);
                 }
                 else {
-                    move = getMoveFromUser(String.format("Player %d - enter a column for the computer to drop a counter", currentPlayer.getPlayerNumber()));
+                    move =currentPlayer.getMoveFromPlayer(String.format("Player %d - enter a column to drop a counter PLEASE", currentPlayer.getPlayerNumber()), board, this, ai);
                 }
                 placeCounter(currentPlayer, move);
                 board.printBoard();
@@ -250,8 +250,13 @@ public class MyConnectFour extends Game implements HasBotPlayer {
     }
 
     @Override
-    public void selectAIClass() {
+    public void setAIClassToUse() {
 
+    }
+
+    @Override
+    public AI getAIClass() {
+        return ai;
     }
 }
 
