@@ -101,36 +101,36 @@ public class MyConnectFour extends Game implements HasBotPlayer {
                 System.out.printf("%s dropped a counter in column %d", currentPlayer.getName(), move);
             }
         }
-        System.out.println("\n#####################################################");
+        System.out.println("\n##################################################");
         if (win) {
             currentPlayer.addWin();
             Toolkit.getDefaultToolkit().beep();
-            System.out.printf("        Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
+            System.out.printf("           Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
             displayScoreboard();
         }
         else {
             System.out.println("It's a draw - how disappointing...");
         }
-        System.out.println("#####################################################\n");
+        System.out.println("##################################################\n");
     }
 
     private void displayScoreboard() {
         String playerScore;
         String spaces = "                        ";
         int spacesBefore, spacesAfter;
-        System.out.println("==============================");
-        System.out.println("|    Scores on the doors     |");
-        System.out.println("==============================");
+        System.out.println("          ==============================");
+        System.out.println("          |    Scores on the doors     |");
+        System.out.println("          ==============================");
         for (Player player : players) {
             playerScore = player.getName() + "  " + player.getWins();
             spacesBefore = (28 - playerScore.length()) / 2; //todo stop this erroring if goes into a minus value
             spacesAfter = 28 - playerScore.length() - spacesBefore;
-            System.out.printf("|%s%s%s|\n",
+            System.out.printf("          |%s%s%s|\n",
                     spaces.substring(0, spacesBefore),
                     playerScore,
                     spaces.substring(0, spacesAfter));
         }
-        System.out.println("==============================");
+        System.out.println("          ==============================");
     }
 
     @Override
