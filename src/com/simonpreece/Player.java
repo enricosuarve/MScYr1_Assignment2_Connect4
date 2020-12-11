@@ -1,10 +1,12 @@
 package com.simonpreece;
 
-public class Player {
-    private static int lastPlayerNumber = 0;
-    private final int playerNumber;
+//todo check that counter is not already assigned
+public abstract class Player {
+    protected static int lastPlayerNumber = 0;
+    protected int playerNumber;
     String name;
     char counter;
+    private int wins = 0;
 
     public Player(String name, char counter) {
         this.name = name;
@@ -14,18 +16,25 @@ public class Player {
 
     public Player() {
         this.playerNumber = ++lastPlayerNumber;
-        UI ui = new UI();
-        name = ui.getUserInput("Enter a name for player " + playerNumber);
-        counter = ui.getUserInput("Enter a counter symbol for player " + playerNumber).charAt(0);
     }
 
     public String getName() {
         return name;
     }
-    public char getCounter(){
+
+    public char getCounter() {
         return counter;
     }
-    public int getPlayerNumber(){
+
+    public int getPlayerNumber() {
         return playerNumber;
+    }
+
+    public void addWin() {
+        wins++;
+    }
+
+    public int getWins() {
+        return wins;
     }
 }

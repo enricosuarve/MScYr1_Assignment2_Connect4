@@ -46,8 +46,8 @@ public class MyConnectFour {
         System.out.println("A player wins by connecting 4 counters in a row - vertically, horizontally or diagonally");
         System.out.println();
         board = new Board(6, 7);
-        players.add(new Player());
-        players.add(new Player());
+        players.add(new HumanPlayer());
+        players.add(new HumanPlayer());
     }
 
 
@@ -175,7 +175,6 @@ public class MyConnectFour {
         for (int x = 0; x < boardWidth - 3; x++) {
             for (int y = 3; y < boardHeight; y++) {
                 for (int i = 0; i < 4; i++) {
-                    System.out.printf("getValueAtPosition(x:%d , y:%d)\n",x+i, y-i);
                     if (board.getValueAtPosition(x + i, y - i) == counter) {
                         countersInARow++;
                         if (countersInARow >= 4) {
