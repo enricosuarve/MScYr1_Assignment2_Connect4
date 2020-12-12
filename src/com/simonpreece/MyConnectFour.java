@@ -19,8 +19,9 @@ You may also wish to tackle our placeCounter() method next.
 public class MyConnectFour extends Game implements HasComputerPlayer {
 
     private final ArrayList<Player> players = new ArrayList<>();
-    private final UI ui = new UI();
+    protected final UI ui = new UI();
     private final AI ai = new Connect4AI();
+    private final int inARow = 4;
     protected Board board;
 
     public MyConnectFour() {
@@ -181,7 +182,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
             for (int x = 0; x < boardWidth; x++) {
                 if (board.getValueAtPosition(x, y).equals(counter)) {
                     countersInARow++;
-                    if (countersInARow >= 4) {
+                    if (countersInARow >= inARow) {
                         return true;
                     }
                 }
@@ -204,7 +205,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
             for (int y = 0; y < boardHeight; y++) {
                 if (board.getValueAtPosition(x, y).equals(counter)) {
                     countersInARow++;
-                    if (countersInARow >= 4) {
+                    if (countersInARow >= inARow) {
                         return true;
                     }
                 }
@@ -222,12 +223,12 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
-        for (int x = 0; x < boardWidth - 3; x++) {
-            for (int y = 0; y < boardHeight - 3; y++) {
-                for (int i = 0; i < 4; i++) {
+        for (int x = 0; x < boardWidth - (inARow - 1); x++) {
+            for (int y = 0; y < boardHeight - (inARow - 1); y++) {
+                for (int i = 0; i < inARow; i++) {
                     if (board.getValueAtPosition(x + i, y + i).equals(counter)) {
                         countersInARow++;
-                        if (countersInARow >= 4) {
+                        if (countersInARow >= inARow) {
                             return true;
                         }
                     }
@@ -247,12 +248,12 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
-        for (int x = 0; x < boardWidth - 3; x++) {
+        for (int x = 0; x < boardWidth - (inARow - 1); x++) {
             for (int y = 3; y < boardHeight; y++) {
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < inARow; i++) {
                     if (board.getValueAtPosition(x + i, y - i).equals(counter)) {
                         countersInARow++;
-                        if (countersInARow >= 4) {
+                        if (countersInARow >= inARow) {
                             return true;
                         }
                     }

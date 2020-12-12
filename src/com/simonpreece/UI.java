@@ -2,6 +2,7 @@ package com.simonpreece;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class UI {
     private BufferedReader input;
@@ -67,5 +68,16 @@ public class UI {
                     System.out.printf("You answered '%c', please answer (Y)es or (N)o\n", ynResponse);
             }
         }
+    }
+
+    public int getUserChoice(String[] choices){
+        //todo - harden type checking etc
+       System.out.printf("Please select from one of the choices below: (1 to %d)\n", choices.length);
+       int i=1;
+       for (String choice : choices){
+           System.out.printf("  %d: %s\n",i, choice);
+           i++;
+        }
+       return getUserInteger("");
     }
 }
