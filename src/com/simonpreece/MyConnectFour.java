@@ -101,7 +101,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
                 if (++numTurns == maxTurns) {
                     break;
                 }
-                System.out.printf("%s dropped a counter in column %d", currentPlayer.getName(), move);
+                System.out.printf("%s dropped a counter in column %d\n", currentPlayer.getName(), move);
             }
         }
         System.out.println("\n##################################################");
