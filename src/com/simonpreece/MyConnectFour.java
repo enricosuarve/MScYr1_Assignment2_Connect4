@@ -1,3 +1,4 @@
+//todo highlight winning row in bold??
 package com.simonpreece;
 
 import java.awt.Toolkit;
@@ -15,7 +16,7 @@ You may also wish to tackle our placeCounter() method next.
  */
 
 
-public class MyConnectFour extends Game implements HasBotPlayer {
+public class MyConnectFour extends Game implements HasComputerPlayer {
 
     private final ArrayList<Player> players = new ArrayList<>();
     private final UI ui = new UI();
@@ -73,6 +74,8 @@ public class MyConnectFour extends Game implements HasBotPlayer {
         int move;
         int numTurns = 0;
         int maxTurns = board.getNumCols() * board.getNumRows();
+        String moveRequestToUser;
+
         System.out.println("\nStarting game....\n");
         board.initialiseBoard();
         board.printBoard();
@@ -82,17 +85,15 @@ public class MyConnectFour extends Game implements HasBotPlayer {
             for (Player player : players) {
                 currentPlayer = player;
                 if (currentPlayer.getClass().getSimpleName().equals("HumanPlayer")) {
-                    move = currentPlayer.getMoveFromPlayer(String.format("Player %d: %s - enter a column to drop a counter", currentPlayer.getPlayerNumber(), currentPlayer.getName()), this);
+                    moveRequestToUser = String.format("Player %d: %s - enter a column to drop a counter", currentPlayer.getPlayerNumber(), currentPlayer.getName());
                 }
                 else {
-                    //todo find a better method that does not involve casting
-                    ComputerPlayer currentComputerPlayer = (ComputerPlayer) player;
-                    move = currentComputerPlayer.getMoveFromAIPlayer(String.format("Computer Player %d is moving", currentPlayer.getPlayerNumber()), this, ai);
+                    moveRequestToUser = String.format("Computer Player %d is moving", currentPlayer.getPlayerNumber());
                 }
+                move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
                 placeCounter(currentPlayer, move);
                 board.printBoard();
-                if (checkHorizontalWin(currentPlayer) || checkVerticalWin(currentPlayer) ||
-                        checkDiagonalWin_Positive(currentPlayer) || checkDiagonalWin_Negative(currentPlayer)) {
+                if (checkForWin(currentPlayer)) {
                     win = true;
                     break;
                 }
@@ -106,7 +107,7 @@ public class MyConnectFour extends Game implements HasBotPlayer {
         if (win) {
             currentPlayer.addWin();
             Toolkit.getDefaultToolkit().beep();
-            System.out.printf("           Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
+            System.out.printf("           Player %d '%s' has Won!!!\n\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
             displayScoreboard();
         }
         else {
@@ -150,6 +151,11 @@ public class MyConnectFour extends Game implements HasBotPlayer {
             return false;
         }
         return true;
+    }
+
+    public boolean checkForWin(Player player){
+        return checkHorizontalWin(player) || checkVerticalWin(player) ||
+                checkDiagonalWin_Positive(player) || checkDiagonalWin_Negative(player);
     }
 
     private void placeCounter(Player player, int move) {

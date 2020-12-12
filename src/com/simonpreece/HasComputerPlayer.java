@@ -1,6 +1,6 @@
 package com.simonpreece;
 
-public interface HasBotPlayer {
+public interface HasComputerPlayer {
 
      int getMoveFromBot();
      void setAIClassToUse();
