@@ -31,6 +31,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
             playAgain = ui.getUserYN("Play again?");
             //todo - swap player order??
         }
+        System.out.println("\nGoodbye...\n");
     }
 
     @Override
@@ -153,7 +154,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         return true;
     }
 
-    public boolean checkForWin(Player player){
+    public boolean checkForWin(Player player) {
         return checkHorizontalWin(player) || checkVerticalWin(player) ||
                 checkDiagonalWin_Positive(player) || checkDiagonalWin_Negative(player);
     }
@@ -274,16 +275,6 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
             }
         }
         return nextEmptyRow;
-    }
-
-    @Override
-    public int getMoveFromBot() {
-        return 0;
-    }
-
-    @Override
-    public void setAIClassToUse() {
-
     }
 
     @Override

@@ -25,11 +25,7 @@ public class ComputerPlayer extends Player {
         try {
             //todo - can I do this without casting??
             this.ai = (AI) game.getClass().getMethod("getAIClass").invoke(game);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
 

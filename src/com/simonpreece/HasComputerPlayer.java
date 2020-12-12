@@ -2,8 +2,7 @@ package com.simonpreece;
 
 public interface HasComputerPlayer {
 
-     int getMoveFromBot();
-     void setAIClassToUse();
+     @SuppressWarnings("unused")
      AI getAIClass();
 
 }
