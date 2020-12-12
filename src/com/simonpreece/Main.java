@@ -7,7 +7,7 @@ class Main {
 
     public static void main(String[] args) {
         Main m = new Main();
-        switch (m.ui.getUserChoice(new String[]{"Connect4", "ConnectN"})) {
+        switch (m.ui.getUserChoice("Pick a game to play",new String[]{"Connect4", "ConnectN"})) {
             case 1:
                 new MyConnectFour();
                 break;

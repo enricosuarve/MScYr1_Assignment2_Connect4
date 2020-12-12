@@ -18,10 +18,10 @@ You may also wish to tackle our placeCounter() method next.
 
 public class MyConnectFour extends Game implements HasComputerPlayer {
 
-    private final ArrayList<Player> players = new ArrayList<>();
+    protected final ArrayList<Player> players = new ArrayList<>();
     protected final UI ui = new UI();
     private final AI ai = new Connect4AI();
-    private final int inARow = 4;
+    protected int inARow = 4;
     protected Board board;
 
     public MyConnectFour() {
@@ -249,7 +249,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
         for (int x = 0; x < boardWidth - (inARow - 1); x++) {
-            for (int y = 3; y < boardHeight; y++) {
+            for (int y = inARow-1; y < boardHeight; y++) {
                 for (int i = 0; i < inARow; i++) {
                     if (board.getValueAtPosition(x + i, y - i).equals(counter)) {
                         countersInARow++;

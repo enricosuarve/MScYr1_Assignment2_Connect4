@@ -70,14 +70,23 @@ public class UI {
         }
     }
 
-    public int getUserChoice(String[] choices){
-        //todo - harden type checking etc
-       System.out.printf("Please select from one of the choices below: (1 to %d)\n", choices.length);
-       int i=1;
-       for (String choice : choices){
-           System.out.printf("  %d: %s\n",i, choice);
-           i++;
+    public int getUserChoice(String requestToUser, String[] choices) {
+        int userResponse;
+        int i;
+        while (true) {
+            i = 1;
+            System.out.printf("%s\nPlease select from one of the choices below: (1 to %d)\n",requestToUser, choices.length);
+            for (String choice : choices) {
+                System.out.printf("  %d: %s\n", i, choice);
+                i++;
+            }
+            userResponse = getUserInteger("");
+            if (userResponse < 1 || userResponse > choices.length) {
+                System.out.printf("You answered '%d' which is outside the range above.", userResponse);
+            }
+            else {
+                return userResponse;
+            }
         }
-       return getUserInteger("");
     }
 }
