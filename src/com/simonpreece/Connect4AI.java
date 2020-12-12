@@ -6,14 +6,13 @@ public class Connect4AI extends AI {
 
     @Override
     protected int makeMove(Game game) {
-        int maxRandom = 7;
-        /*int maxRandom = 0;
+        int maxRandom=0;
         try {
-            maxRandom = (int) game.board.getClass().getMethod("getNumCols").invoke(game.board);
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            maxRandom = (int) game.getClass().getMethod("getNumCols").invoke(game);
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
-        }*/
-        //game.board.getNumCols(); //todo - enter working code to dynamically get the max number
+        }
+        System.out.printf("maxRandom = %d\n",maxRandom);
         int move = 0;
         boolean moveIsValid = false;
 

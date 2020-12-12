@@ -249,7 +249,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
         for (int x = 0; x < boardWidth - (inARow - 1); x++) {
-            for (int y = inARow-1; y < boardHeight; y++) {
+            for (int y = inARow - 1; y < boardHeight; y++) {
                 for (int i = 0; i < inARow; i++) {
                     if (board.getValueAtPosition(x + i, y - i).equals(counter)) {
                         countersInARow++;
@@ -276,6 +276,11 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
             }
         }
         return nextEmptyRow;
+    }
+
+    @SuppressWarnings("unused")//called via .getMethod("getNumCols").invoke(game) from Connect4AI
+    public int getNumCols() {
+        return board.getNumCols();
     }
 
     @Override

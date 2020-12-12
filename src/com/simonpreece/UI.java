@@ -2,10 +2,9 @@ package com.simonpreece;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 public class UI {
-    private BufferedReader input;
+    private final BufferedReader input;
 
     public UI() {
         input = new BufferedReader(new InputStreamReader(System.in));
@@ -53,6 +52,25 @@ public class UI {
         }
     }
 
+    public int getUserInteger(String requestToUser, int min, int max) {
+        String result;
+        int returnInteger;
+        while (true) {
+            result = getUserInput(requestToUser);
+            try {
+                returnInteger = Integer.parseInt(result);
+                if (returnInteger >= min && returnInteger <= max) {
+                    return returnInteger;
+                }
+                else {
+                    System.out.printf("You entered '%d', which is outside the range (%d-%d) - please try again\n", returnInteger, min, max);
+                }
+            } catch (Exception e) {
+                System.out.println("You do not appear to have entered a valid number - please try again");
+            }
+        }
+    }
+
     public boolean getUserYN(String requestToUser) {
         while (true) {
             String result = getUserInput(requestToUser);
@@ -75,7 +93,7 @@ public class UI {
         int i;
         while (true) {
             i = 1;
-            System.out.printf("%s\nPlease select from one of the choices below: (1 to %d)\n",requestToUser, choices.length);
+            System.out.printf("%s\nPlease select from one of the choices below: (1 to %d)\n", requestToUser, choices.length);
             for (String choice : choices) {
                 System.out.printf("  %d: %s\n", i, choice);
                 i++;

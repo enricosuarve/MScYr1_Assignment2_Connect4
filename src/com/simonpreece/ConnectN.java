@@ -32,7 +32,7 @@ public class ConnectN extends MyConnectFour{
         System.out.println("To play the game type in the number of the column you want to drop you counter in");
         System.out.println("A player wins by connecting (n) counters in a row - vertically, horizontally or diagonally");
         System.out.println();
-        inARow = ui.getUserInteger("How many counters in a row to win? (3-6)");
+        inARow = ui.getUserInteger("How many counters in a row to win? (3-6)",3,6);
         board = new Board(6, 7);
         players.add(new HumanPlayer());
         players.add(new ComputerPlayer("Computer 1"));

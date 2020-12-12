@@ -1,7 +1,5 @@
 package com.simonpreece;
 
-import java.util.ArrayList;
-
 class Main {
     UI ui = new UI();
 

@@ -7,5 +7,5 @@ public abstract class Game {
 
     protected abstract void playGame(Board board);
 
-    protected abstract boolean isMoveValid(int move, boolean playerIsHuman);
+    protected abstract boolean isMoveValid(int move, @SuppressWarnings("SameParameterValue") boolean playerIsHuman);
 }
