@@ -3,6 +3,8 @@ package com.simonpreece;
 import java.lang.reflect.InvocationTargetException;
 
 public class Connect4AI extends AI {
+//todo implement detectThreats()
+    //todo implement seekopportunities
 
     @Override
     protected int makeMove(Game game) {
