@@ -26,10 +26,10 @@ public class ComputerPlayer extends Player {
         this.counter = ui.getUserInput("Enter a counter symbol for computer player " + playerNumber, counter).substring(0, 1);
     }
 
-    @Override
-    public int getMoveFromPlayer() {
-        return 0;
-    }
+//    @Override
+//    public int getMoveFromPlayer() {
+//        return 0;
+//    }
 
 
     @Override

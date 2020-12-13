@@ -18,7 +18,6 @@ class Main {
                 }
             }
         }
-        System.out.printf("inARow = %d in main()\n", inARow);
         if (inARow > 0) {
             new ConnectN(inARow);
         }
@@ -34,7 +33,6 @@ class Main {
                         break;
                     case 3:
                         playAgain = false;
-
                         break;
                 }
             }

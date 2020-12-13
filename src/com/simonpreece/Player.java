@@ -19,7 +19,7 @@ public abstract class Player {
     }
 
     @SuppressWarnings("unused")
-    public abstract int getMoveFromPlayer();
+  //  public abstract int getMoveFromPlayer();
 
     public String getName() {
         return name;
@@ -46,4 +46,8 @@ public abstract class Player {
     }
 
     public abstract int getMoveFromPlayer(String format, Game game);
+
+    public static void resetPlayerNumbers(){
+        lastPlayerNumber = 0;
+    }
 }
