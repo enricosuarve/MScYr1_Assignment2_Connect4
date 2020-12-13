@@ -3,6 +3,8 @@ package com.simonpreece;
 
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /*
 Requirement 3
@@ -187,7 +189,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         }
     }
 
-    private boolean checkHorizontalWin(Player player) {
+    private boolean checkHorizontalWinOLD(Player player) {
         //todo - see if can merge check horizontal and vertical
         int countersInARow = 0;
         String counter = player.getCounter();
@@ -208,6 +210,36 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
             countersInARow = 0;
         }
         return false;
+    }
+    private boolean checkHorizontalWin(Player player) {
+        @SuppressWarnings("MismatchedReadAndWriteOfArray") int[][] emptyLineCoordinates = new int[0][];
+        return (!Arrays.equals(checkHorizontal(player, inARow), emptyLineCoordinates));
+    }
+
+
+    private int[][] checkHorizontal(Player player, int inARow) {
+        //todo - see if can merge check horizontal and vertical
+        int countersInARow = 0;
+        int[][] lineCoordinates = new int[0][];
+        String counter = player.getCounter();
+        int boardWidth = board.getNumCols();
+        int boardHeight = board.getNumRows();
+        for (int y = 0; y < boardHeight; y++) {
+            for (int x = 0; x < boardWidth; x++) {
+                if (board.getValueAtPosition(x, y).equals(counter)) {
+                    countersInARow++;
+                    if (countersInARow >= inARow) {
+                        lineCoordinates = new int[][] {{x-(inARow-1), y},{x, y}};
+                        return lineCoordinates;
+                    }
+                }
+                else {
+                    countersInARow = 0;
+                }
+            }
+            countersInARow = 0;
+        }
+        return lineCoordinates;
     }
 
     private boolean checkVerticalWin(Player player) {
