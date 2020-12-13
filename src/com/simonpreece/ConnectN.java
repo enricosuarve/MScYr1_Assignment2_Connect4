@@ -1,9 +1,23 @@
 package com.simonpreece;
 
-public class ConnectN extends MyConnectFour{
-
+public class ConnectN extends MyConnectFour {
     public ConnectN() {
-        inARow = 3;
+        boolean playAgain = true;
+        setupGame();
+        while (playAgain) {
+            playGame(board);
+            playAgain = super.ui.getUserYN("Play again?");
+            //todo - swap player order??
+        }
+        System.out.println("\nGoodbye...\n");
+    }
+
+    public ConnectN(int inARow) {
+        //todo below does not execute as calls the superclass constructor first which calls playgame
+//        this.inARow = inARow;
+//        System.out.printf("this.inARow (%d) = inARow (%d)\n",this.inARow, inARow);
+        System.out.printf("inARow = (%d) in ConnectN constructor\n", inARow);
+
         boolean playAgain = true;
         setupGame();
         while (playAgain) {
@@ -32,13 +46,18 @@ public class ConnectN extends MyConnectFour{
         System.out.println("To play the game type in the number of the column you want to drop you counter in");
         System.out.println("A player wins by connecting (n) counters in a row - vertically, horizontally or diagonally");
         System.out.println();
-        inARow = ui.getUserInteger("How many counters in a row to win? (3-6)",3,6);
+        if (inARow == 0) {
+            inARow = ui.getUserInteger("How many counters in a row to win? (3-6)", 3, 6);
+        }
+        else {
+            System.out.printf("%d in a row specified in command line\n", inARow);
+        }
         board = new Board(6, 7);
         players.add(new HumanPlayer());
         players.add(new ComputerPlayer("Computer 1"));
         players.add(new ComputerPlayer("Computer 2"));
         for (Player player : players) {
-            switch  (player.getPlayerNumber()){
+            switch (player.getPlayerNumber()) {
                 case 1:
                     player.setCounter("\033[0;31m" + player.counter + "\033[0;57m");
                     break;
