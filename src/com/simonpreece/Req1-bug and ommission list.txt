@@ -17,6 +17,9 @@ Solution: Add code to check for diagonal counters to both player 1 & player 2 (w
 MyConnectFour.java : Lines 21, 106, 119 & 167 : Missing ';' at the end of each line : Syntax error
 Solution: Add ';' to the end of each line.
 
+MyConnectFour.java : Line 23 : Typo - "To play the game type in the number of the column you want to drop *you* counter in" : Logical error
+Solution: Correct spelling to "your".
+
 MyConnectFour.java : Line 28: calls method 'getUserInput' with different capitalisation than the definition, where it is 'getUserInput' According to the Oracle standard (King et al., 2020), <i>"Methods should be verbs, in mixed case with the first letter lowercase, with the first letter of each internal word capitalized."</i>; so the Method is capitalised correctly, whereas the call on L.28 is not : Syntax error
 Solution: Correct call capitalisation.
 

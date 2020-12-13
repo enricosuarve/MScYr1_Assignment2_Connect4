@@ -19,6 +19,13 @@ public class ComputerPlayer extends Player {
         counter = ui.getUserInput("Enter a counter symbol for computer player " + playerNumber, "C").substring(0, 1);
     }
 
+    public ComputerPlayer(String name, String counter) {
+        super();
+        UI ui = new UI();
+        this.name = ui.getUserInput("Enter a name for computer player " + playerNumber, name);
+        this.counter = ui.getUserInput("Enter a counter symbol for computer player " + playerNumber, counter).substring(0, 1);
+    }
+
     @Override
     public int getMoveFromPlayer() {
         return 0;

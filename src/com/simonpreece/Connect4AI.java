@@ -14,7 +14,7 @@ public class Connect4AI extends AI {
         } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        System.out.printf("maxRandom = %d\n",maxRandom);
+        //System.out.printf("maxRandom = %d\n",maxRandom);
         int move = 0;
         boolean moveIsValid = false;
 
