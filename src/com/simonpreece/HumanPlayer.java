@@ -15,11 +15,6 @@ public class HumanPlayer extends Player {
         this.counter = ui.getUserInput("Enter a counter symbol for player " + playerNumber,counter).substring(0,1);
     }
 
-//    @Override
-//    public int getMoveFromPlayer() {
-//        return 0;
-//    }
-
     @Override
     public int getMoveFromPlayer(String requestToUser, Game game) {
         UI ui = new UI();

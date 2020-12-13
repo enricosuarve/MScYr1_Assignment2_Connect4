@@ -27,7 +27,6 @@ public class ANSIColourList {
         switch (operatingSystem) {
             case "UNIX":
             case "Mac":
-            case "Windows":
                 Blue = "\033[0;34m";
                 Red = "\033[0;31m";
                 Yellow = "\033[0;33m";
@@ -35,6 +34,7 @@ public class ANSIColourList {
                 BoldWhite = "\033[0;97m";
                 osSupportsAnsiColours = true;
                 break;
+            case "Windows":
             case "Solaris":
             default:
                 //do nothing - leave colours blank as OS either does not reliably support ANSI colors or is unknown

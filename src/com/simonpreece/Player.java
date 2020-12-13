@@ -18,9 +18,6 @@ public abstract class Player {
         this.playerNumber = ++lastPlayerNumber;
     }
 
-    @SuppressWarnings("unused")
-  //  public abstract int getMoveFromPlayer();
-
     public String getName() {
         return name;
     }

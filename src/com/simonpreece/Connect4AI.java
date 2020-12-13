@@ -8,7 +8,7 @@ public class Connect4AI extends AI {
 
     @Override
     protected int makeMove(Game game) {
-        int maxRandom=0;
+        int maxRandom = 0;
         try {
             maxRandom = (int) game.getClass().getMethod("getNumCols").invoke(game);
         } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
@@ -22,7 +22,13 @@ public class Connect4AI extends AI {
             move = (int) (Math.random() * (maxRandom - 1 + 1) + 1);
             moveIsValid = game.isMoveValid(move, true);
         }
-
         return move;
+    }
+
+    @Override
+    protected int detectThreats(Game game) {
+        //detect threats by looking for opponents lines
+
+        return 0;
     }
 }
