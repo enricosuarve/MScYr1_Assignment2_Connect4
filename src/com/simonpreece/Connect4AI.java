@@ -3,6 +3,7 @@ package com.simonpreece;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.lang.Math.*;
+import java.util.Collections;
 
 public class Connect4AI extends AI {
 //todo implement detectThreats()
@@ -53,7 +54,7 @@ public class Connect4AI extends AI {
                 ArrayList<Integer[][]> threatList = detectThreats(game, player, checkInARow);
                 System.out.println("starting decision loop");
                 if (threatList.size()>0){
-                //todo - goes through in a predictable order - how to randomise?
+                    Collections.shuffle(threatList);
                     for (Integer[][] threat : threatList) {
                     System.out.printf("Deciding for %s,%s %s,%s\n", threat[0][0], threat[0][1],threat[1][0],threat[1][1]);
 
@@ -61,6 +62,7 @@ public class Connect4AI extends AI {
                         if (movePossible(threat)) {
                             if (decideToAct(gameInARow, checkInARow)) {
                                 //do something
+                                System.out.println("decided to act (TBD)");
                                 moveMade = true;
                             }
                         }
@@ -80,7 +82,11 @@ public class Connect4AI extends AI {
 
     private boolean movePossible(Integer[][] threat) {
         //determine gradient of line
-        System.out.println("movePossible received threat: "+ threat.toString());
+        if(threat [0][0] == threat[1][0]){System.out.printf("%s,%s : %s,%s is a vertical line\n", threat[0][0], threat[0][1],threat[1][0],threat[1][1]);}
+        else if(threat [0][1] == threat[1][1]){System.out.printf("%s,%s : %s,%s is a Horizontal line\n", threat[0][0], threat[0][1],threat[1][0],threat[1][1]);}
+        else if((threat [1][0] - threat[0][0]) / (threat [1][1] - threat[0][1])==-1){System.out.printf("%s,%s : %s,%s is a negative y diagonal line\n", threat[0][0], threat[0][1],threat[1][0],threat[1][1]);}
+        else if((threat [1][0] - threat[0][0]) / (threat [1][1] - threat[0][1])==1){System.out.printf("%s,%s : %s,%s is a positive y diagonal line\n", threat[0][0], threat[0][1],threat[1][0],threat[1][1]);}
+//        System.out.println("movePossible received threat: "+ threat.toString());
         return true;
     }
 }
