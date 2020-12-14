@@ -210,18 +210,15 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         }
         return false;
     }
-    private boolean checkHorizontalWin(Player player) {
-        //@SuppressWarnings("MismatchedReadAndWriteOfArray") int[][] emptyLineCoordinates = new int[0][];
-//        return (!Arrays.equals(checkHorizontal(player, inARow), emptyLineCoordinates));
-    return !(checkHorizontal(player, inARow).size()==0);
-    }
 
+    private boolean checkHorizontalWin(Player player) {
+        return !(checkHorizontal(player, inARow).size() == 0);
+    }
 
     private ArrayList<Integer[][]> checkHorizontal(Player player, int inARow) {
         //todo - see if can merge check horizontal and vertical
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
-        //int[][] lineCoordinates = new int[0][];
         String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
@@ -230,8 +227,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
                 if (board.getValueAtPosition(x, y).equals(counter)) {
                     countersInARow++;
                     if (countersInARow >= inARow) {
-                        lineCoordinates.add(new Integer[][] {{x-(inARow-1), y},{x, y}});
-//                        lineCoordinates = new int[][] {{x-(inARow-1), y},{x, y}};
+                        lineCoordinates.add(new Integer[][]{{x - (inARow - 1), y}, {x, y}});
                         return lineCoordinates;
                     }
                 }
@@ -245,7 +241,12 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
     }
 
     private boolean checkVerticalWin(Player player) {
+        return !(checkVertical(player, inARow).size() == 0);
+    }
+
+    private ArrayList<Integer[][]> checkVertical(Player player, int inARow) {
         int countersInARow = 0;
+        ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
         String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
@@ -255,7 +256,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
                 if (board.getValueAtPosition(x, y).equals(counter)) {
                     countersInARow++;
                     if (countersInARow >= inARow) {
-                        return true;
+                        lineCoordinates.add(new Integer[][]{{x, y - (inARow - 1)}, {x, y}});
                     }
                 }
                 else {
@@ -264,7 +265,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
             }
             countersInARow = 0;
         }
-        return false;
+        return lineCoordinates;
     }
 
     private boolean checkDiagonalWin_Positive(Player player) {
