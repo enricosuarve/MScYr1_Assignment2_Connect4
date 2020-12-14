@@ -56,6 +56,7 @@ public class Connect4AI extends AI {
                         if (movePossible(threat)) {
                             if (decideToAct(gameInARow, checkInARow)) {
                                 //do something
+                                moveMade = true;
                             }
                         }
                     }
@@ -72,6 +73,7 @@ public class Connect4AI extends AI {
 
     private boolean movePossible(Integer[][] threat) {
         //determine gradient of line
+        System.out.println("movePossible received threat: "+ threat.toString());
         return true;
     }
 }
