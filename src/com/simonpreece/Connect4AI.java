@@ -8,7 +8,7 @@ public class Connect4AI extends AI {
 //todo implement detectThreats()
     //todo implement seekopportunities
 
-    public Connect4AI(double intelligencePercent){
+    public Connect4AI(double intelligencePercent) {
         super(intelligencePercent);
     }
 
@@ -31,28 +31,47 @@ public class Connect4AI extends AI {
         return move;
     }
 
-    @Override
-    protected void detectThreats(Game game, Player player) {
+    private ArrayList<Integer[][]> detectThreats(Game game, Player player, int inARow) {
         //detect threats by looking for opponents lines
         //check for 3 in a row
-        for (int i = ((MyConnectFour) game).inARow - 1; i > 1; i--) {
-            ArrayList<Integer[][]> threatList = new ArrayList<>();
-            threatList = ((MyConnectFour) game).checkHorizontal(player, i, false);
-            threatList.addAll(((MyConnectFour) game).checkVertical(player, i, false));
-            threatList.addAll(((MyConnectFour) game).checkDiagonal_Negative(player, i, false));
-            threatList.addAll(((MyConnectFour) game).checkDiagonal_Positive(player, i, false));
-            System.out.printf("%d in a row found = %b\n", i, threatList.size() > 0);
-            respondToThreat(threatList, i);
-
-        }
+        ArrayList<Integer[][]> threatList = new ArrayList<>();
+        threatList = ((MyConnectFour) game).checkHorizontal(player, inARow, false);
+        threatList.addAll(((MyConnectFour) game).checkVertical(player, inARow, false));
+        threatList.addAll(((MyConnectFour) game).checkDiagonal_Negative(player, inARow, false));
+        threatList.addAll(((MyConnectFour) game).checkDiagonal_Positive(player, inARow, false));
+        System.out.printf("%d in a row found = %b\n", inARow, threatList.size() > 0);
+        return threatList;
     }
 
-    private void respondToThreat(ArrayList<Integer[][]> threatList, int inARow) {
-        for (Integer[][] threat:threatList){
-            if(aiSpotsThreatOpportunity()){
-
+    @Override
+    protected void respondToThreat(Game game, Player player) {
+        boolean moveMade = false;
+        int gameInARow = ((MyConnectFour) game).inARow;
+        int checkInARow;
+        while (!moveMade) {
+            for (checkInARow = ((MyConnectFour) game).inARow - 1; checkInARow > 1; checkInARow--) {
+                ArrayList<Integer[][]> threatList = detectThreats(game, player, checkInARow);
+                for (Integer[][] threat : threatList) {
+                    if (aiSpotsThreatOpportunity()) {
+                        if (movePossible(threat)) {
+                            if (decideToAct(gameInARow, checkInARow)) {
+                                //do something
+                            }
+                        }
+                    }
+                }
             }
         }
 
+
+    }
+
+    private boolean decideToAct(int gameInARow, int checkInARow) {
+        return true;
+    }
+
+    private boolean movePossible(Integer[][] threat) {
+        //determine gradient of line
+        return true;
     }
 }
