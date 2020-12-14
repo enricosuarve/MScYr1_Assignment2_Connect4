@@ -20,7 +20,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
 
     protected final ArrayList<Player> players = new ArrayList<>();
     protected final UI ui = new UI();
-    private final AI ai = new Connect4AI();
+    private final AI ai = new Connect4AI(.75);
     protected int inARow;
     protected Board board;
     protected ANSIColourList colours = new ANSIColourList();
@@ -211,7 +211,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
     }
 
     private boolean checkHorizontalWin(Player player) {
-        return !(checkHorizontal(player, inARow, false).size() == 0);
+        return !(checkHorizontal(player, inARow, true).size() == 0);
     }
 
     protected ArrayList<Integer[][]> checkHorizontal(Player player, int inARow, boolean checkForThisPlayer) {
@@ -221,9 +221,13 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
+        String valueAtPosition;
         for (int y = 0; y < boardHeight; y++) {
             for (int x = 0; x < boardWidth; x++) {
-                if (board.getValueAtPosition(x, y).equals(counter)) {
+                valueAtPosition = board.getValueAtPosition(x, y);
+                if ((checkForThisPlayer ?
+                        valueAtPosition.equals(counter) :
+                        !valueAtPosition.equals(counter) && !valueAtPosition.equals(" "))) {
                     countersInARow++;
                     if (countersInARow >= inARow) {
                         lineCoordinates.add(new Integer[][]{{x - (inARow - 1), y}, {x, y}});
@@ -236,23 +240,27 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
             }
             countersInARow = 0;
         }
-return lineCoordinates;
+        return lineCoordinates;
     }
 
     private boolean checkVerticalWin(Player player) {
-        return !(checkVertical(player, inARow).size() == 0);
+        return !(checkVertical(player, inARow, true).size() == 0);
     }
 
-    private ArrayList<Integer[][]> checkVertical(Player player, int inARow) {
+    protected ArrayList<Integer[][]> checkVertical(Player player, int inARow, boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
         String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
+        String valueAtPosition;
 
         for (int x = 0; x < boardWidth; x++) {
             for (int y = 0; y < boardHeight; y++) {
-                if (board.getValueAtPosition(x, y).equals(counter)) {
+                valueAtPosition = board.getValueAtPosition(x, y);
+                if ((checkForThisPlayer ?
+                        valueAtPosition.equals(counter) :
+                        !valueAtPosition.equals(counter) && !valueAtPosition.equals(" "))) {
                     countersInARow++;
                     if (countersInARow >= inARow) {
                         lineCoordinates.add(new Integer[][]{{x, y - (inARow - 1)}, {x, y}});
@@ -268,19 +276,23 @@ return lineCoordinates;
     }
 
     private boolean checkDiagonalWin_Positive(Player player) {
-        return !(checkDiagonal_Positive(player, inARow).size() == 0);
+        return !(checkDiagonal_Positive(player, inARow, true).size() == 0);
     }
 
-    private ArrayList<Integer[][]> checkDiagonal_Positive(Player player, int inARow) {
+    protected ArrayList<Integer[][]> checkDiagonal_Positive(Player player, int inARow, boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
         String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
+        String valueAtPosition;
         for (int x = 0; x < boardWidth - (inARow - 1); x++) {
             for (int y = 0; y < boardHeight - (inARow - 1); y++) {
                 for (int i = 0; i < inARow; i++) {
-                    if (board.getValueAtPosition(x + i, y + i).equals(counter)) {
+                    valueAtPosition = board.getValueAtPosition(x + i, y + i);
+                    if ((checkForThisPlayer ?
+                            valueAtPosition.equals(counter) :
+                            !valueAtPosition.equals(counter) && !valueAtPosition.equals(" "))) {
                         countersInARow++;
                         if (countersInARow >= inARow) {
                             lineCoordinates.add(new Integer[][]{{x - (inARow - 1), y - (inARow - 1)}, {x, y}});
@@ -298,19 +310,23 @@ return lineCoordinates;
     }
 
     private boolean checkDiagonalWin_Negative(Player player) {
-        return !(checkDiagonal_Negative(player, inARow).size() == 0);
+        return !(checkDiagonal_Negative(player, inARow, true).size() == 0);
     }
 
-    private ArrayList<Integer[][]> checkDiagonal_Negative(Player player, int inARow) {
+    protected ArrayList<Integer[][]> checkDiagonal_Negative(Player player, int inARow,boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
         String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
+        String valueAtPosition;
         for (int x = 0; x < boardWidth - (inARow - 1); x++) {
             for (int y = inARow - 1; y < boardHeight; y++) {
                 for (int i = 0; i < inARow; i++) {
-                    if (board.getValueAtPosition(x + i, y - i).equals(counter)) {
+                    valueAtPosition = board.getValueAtPosition(x + i, y- i);
+                    if ((checkForThisPlayer ?
+                            valueAtPosition.equals(counter) :
+                            !valueAtPosition.equals(counter) && !valueAtPosition.equals(" "))) {
                         countersInARow++;
                         if (countersInARow >= inARow) {
                             lineCoordinates.add(new Integer[][]{{x - (inARow - 1), y + (inARow - 1)}, {x, y}});
