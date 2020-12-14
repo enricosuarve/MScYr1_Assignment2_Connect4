@@ -4,7 +4,6 @@ package com.simonpreece;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 /*
 Requirement 3
@@ -212,15 +211,17 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         return false;
     }
     private boolean checkHorizontalWin(Player player) {
-        @SuppressWarnings("MismatchedReadAndWriteOfArray") int[][] emptyLineCoordinates = new int[0][];
-        return (!Arrays.equals(checkHorizontal(player, inARow), emptyLineCoordinates));
+        //@SuppressWarnings("MismatchedReadAndWriteOfArray") int[][] emptyLineCoordinates = new int[0][];
+//        return (!Arrays.equals(checkHorizontal(player, inARow), emptyLineCoordinates));
+    return !(checkHorizontal(player, inARow).size()==0);
     }
 
 
-    private int[][] checkHorizontal(Player player, int inARow) {
+    private ArrayList<Integer[][]> checkHorizontal(Player player, int inARow) {
         //todo - see if can merge check horizontal and vertical
         int countersInARow = 0;
-        int[][] lineCoordinates = new int[0][];
+        ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
+        //int[][] lineCoordinates = new int[0][];
         String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
@@ -229,7 +230,8 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
                 if (board.getValueAtPosition(x, y).equals(counter)) {
                     countersInARow++;
                     if (countersInARow >= inARow) {
-                        lineCoordinates = new int[][] {{x-(inARow-1), y},{x, y}};
+                        lineCoordinates.add(new Integer[][] {{x-(inARow-1), y},{x, y}});
+//                        lineCoordinates = new int[][] {{x-(inARow-1), y},{x, y}};
                         return lineCoordinates;
                     }
                 }
