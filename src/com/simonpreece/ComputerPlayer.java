@@ -35,7 +35,7 @@ public class ComputerPlayer extends Player {
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
-
+        ai.detectThreats(game, this);
         return ai.makeMove(game);
     }
 }

@@ -1,6 +1,7 @@
 package com.simonpreece;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 public class Connect4AI extends AI {
 //todo implement detectThreats()
@@ -26,9 +27,11 @@ public class Connect4AI extends AI {
     }
 
     @Override
-    protected int detectThreats(Game game) {
+    protected void detectThreats(Game game, Player player) {
         //detect threats by looking for opponents lines
-
-        return 0;
+        //check for 3 in a row
+        ArrayList<Integer[][]> threatList = new ArrayList<>();
+        threatList = ((MyConnectFour)game).checkHorizontal(player, ((MyConnectFour) game).inARow-1,false);
+        System.out.printf("3 in a row found = %b\n",threatList.size()>0);
     }
 }

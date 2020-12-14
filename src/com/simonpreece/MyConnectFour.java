@@ -3,7 +3,6 @@ package com.simonpreece;
 
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /*
 Requirement 3
@@ -212,10 +211,10 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
     }
 
     private boolean checkHorizontalWin(Player player) {
-        return !(checkHorizontal(player, inARow).size() == 0);
+        return !(checkHorizontal(player, inARow, false).size() == 0);
     }
 
-    private ArrayList<Integer[][]> checkHorizontal(Player player, int inARow) {
+    protected ArrayList<Integer[][]> checkHorizontal(Player player, int inARow, boolean checkForThisPlayer) {
         //todo - see if can merge check horizontal and vertical
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
@@ -237,7 +236,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
             }
             countersInARow = 0;
         }
-        return lineCoordinates;
+return lineCoordinates;
     }
 
     private boolean checkVerticalWin(Player player) {
@@ -299,7 +298,12 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
     }
 
     private boolean checkDiagonalWin_Negative(Player player) {
+        return !(checkDiagonal_Negative(player, inARow).size() == 0);
+    }
+
+    private ArrayList<Integer[][]> checkDiagonal_Negative(Player player, int inARow) {
         int countersInARow = 0;
+        ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
         String counter = player.getCounter();
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
@@ -309,7 +313,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
                     if (board.getValueAtPosition(x + i, y - i).equals(counter)) {
                         countersInARow++;
                         if (countersInARow >= inARow) {
-                            return true;
+                            lineCoordinates.add(new Integer[][]{{x - (inARow - 1), y + (inARow - 1)}, {x, y}});
                         }
                     }
                     else {
@@ -320,7 +324,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
             }
             countersInARow = 0;
         }
-        return false;
+        return lineCoordinates;
     }
 
     private int getNextEmptyRow(int colNum) {
