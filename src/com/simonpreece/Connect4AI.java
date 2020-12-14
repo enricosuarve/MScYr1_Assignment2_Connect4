@@ -48,10 +48,15 @@ public class Connect4AI extends AI {
         boolean moveMade = false;
         int gameInARow = ((MyConnectFour) game).inARow;
         int checkInARow;
-        while (!moveMade) {
             for (checkInARow = ((MyConnectFour) game).inARow - 1; checkInARow > 1; checkInARow--) {
+                System.out.printf("checking for %d in a row threats\n", checkInARow);
                 ArrayList<Integer[][]> threatList = detectThreats(game, player, checkInARow);
-                for (Integer[][] threat : threatList) {
+                System.out.println("starting decision loop");
+                if (threatList.size()>0){
+                //todo - goes through in a predictable order - how to randomise?
+                    for (Integer[][] threat : threatList) {
+                    System.out.printf("Deciding for %s,%s %s,%s\n", threat[0][0], threat[0][1],threat[1][0],threat[1][1]);
+
                     if (aiSpotsThreatOpportunity()) {
                         if (movePossible(threat)) {
                             if (decideToAct(gameInARow, checkInARow)) {
@@ -60,9 +65,11 @@ public class Connect4AI extends AI {
                             }
                         }
                     }
+                }}else{
+                    System.out.printf("no %d in a row threats\n", checkInARow);
                 }
             }
-        }
+
 
 
     }

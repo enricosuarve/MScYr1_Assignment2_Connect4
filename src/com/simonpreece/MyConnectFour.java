@@ -295,7 +295,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
                             !valueAtPosition.equals(counter) && !valueAtPosition.equals(" "))) {
                         countersInARow++;
                         if (countersInARow >= inARow) {
-                            lineCoordinates.add(new Integer[][]{{x - (inARow - 1), y - (inARow - 1)}, {x, y}});
+                            lineCoordinates.add(new Integer[][]{{x, y}, {x + i, y + i}});
                         }
                     }
                     else {
@@ -313,7 +313,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         return !(checkDiagonal_Negative(player, inARow, true).size() == 0);
     }
 
-    protected ArrayList<Integer[][]> checkDiagonal_Negative(Player player, int inARow,boolean checkForThisPlayer) {
+    protected ArrayList<Integer[][]> checkDiagonal_Negative(Player player, int inARow, boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
         String counter = player.getCounter();
@@ -323,13 +323,13 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         for (int x = 0; x < boardWidth - (inARow - 1); x++) {
             for (int y = inARow - 1; y < boardHeight; y++) {
                 for (int i = 0; i < inARow; i++) {
-                    valueAtPosition = board.getValueAtPosition(x + i, y- i);
+                    valueAtPosition = board.getValueAtPosition(x + i, y - i);
                     if ((checkForThisPlayer ?
                             valueAtPosition.equals(counter) :
                             !valueAtPosition.equals(counter) && !valueAtPosition.equals(" "))) {
                         countersInARow++;
                         if (countersInARow >= inARow) {
-                            lineCoordinates.add(new Integer[][]{{x - (inARow - 1), y + (inARow - 1)}, {x, y}});
+                            lineCoordinates.add(new Integer[][]{{x, y}, {x + i, y - i}});
                         }
                     }
                     else {
