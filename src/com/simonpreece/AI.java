@@ -18,4 +18,6 @@ public abstract class AI {
         System.out.println("AI spotted threat?" + threatSpotted);
         return threatSpotted; // Math.random() < intelligencePercent;
     }
+
+    protected abstract int respondToOpportunities(Game game, Player player);
 }

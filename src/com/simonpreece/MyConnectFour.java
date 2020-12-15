@@ -20,7 +20,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
 
     protected final ArrayList<Player> players = new ArrayList<>();
     protected final UI ui = new UI();
-    private final AI ai = new Connect4AI(.75, this);
+    private final AI ai = new Connect4AI(.925, this);
     protected int inARow;
     protected ANSIColourList colours = new ANSIColourList();
 
@@ -142,8 +142,8 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         System.out.println("          ==============================");
         for (Player player : players) {
             playerScore = player.getName() + "  " + player.getWins();
-            spacesBefore = (28 - playerScore.length()) / 2; //todo stop this erroring if goes into a minus value
-            spacesAfter = 28 - playerScore.length() - spacesBefore;
+            spacesBefore = Math.max(0, (28 - playerScore.length()) / 2);
+            spacesAfter = Math.max(0, 28 - playerScore.length() - spacesBefore);
             System.out.printf("          |%s%s%s|\n",
                     spaces.substring(0, spacesBefore),
                     playerScore,
@@ -357,6 +357,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
     public int getNumCols() {
         return board.getNumCols();
     }
+
     public int getNumRows() {
         return board.getNumRows();
     }

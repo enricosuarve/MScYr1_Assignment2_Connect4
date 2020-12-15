@@ -18,6 +18,10 @@ public abstract class Player {
         this.playerNumber = ++lastPlayerNumber;
     }
 
+    public static void resetPlayerNumbers() {
+        lastPlayerNumber = 0;
+    }
+
     public String getName() {
         return name;
     }
@@ -43,8 +47,4 @@ public abstract class Player {
     }
 
     public abstract int getMoveFromPlayer(String format, Game game);
-
-    public static void resetPlayerNumbers(){
-        lastPlayerNumber = 0;
-    }
 }

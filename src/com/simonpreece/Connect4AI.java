@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Connect4AI extends AI {
+    private final Game game;
     int gameInARow;
     //todo implement seekOpportunities
     //todo check for winning move first
     //todo sometimes when responding to a 2 in a row computer sets up player for a 4 in a row...
     private int numCols;
     private int numRows;
-    private final Game game;
 
     public Connect4AI(double intelligencePercent, Game game) {
         super(intelligencePercent);
@@ -29,12 +29,24 @@ public class Connect4AI extends AI {
         }
         gameInARow = ((MyConnectFour) game).inARow;
 
-        move = respondToThreat(game, player);
-        if (move > -1) {
-            return move + 1; //moves are not zero indexed in the front end cos of humans.....
+        move = respondToOpportunities(game, player, true);
+        if (move > -1) { //moves are not zero indexed in the front end cos of humans.....
+            return move + 1;
         }
         else {
-            return randomMove();
+            move = respondToThreat(game, player);
+            if (move > -1) {
+                return move + 1;
+            }
+            else {
+                move = respondToOpportunities(game, player, false);
+                if (move > -1) {
+                    return move + 1;
+                }
+                else {
+                    return randomMove();
+                }
+            }
         }
     }
 
@@ -53,20 +65,32 @@ public class Connect4AI extends AI {
 
     private ArrayList<Integer[][]> detectThreats(Game game, Player player, int inARow) {
         //detect threats by looking for opponents lines
-        //check for 3 in a row
         ArrayList<Integer[][]> threatList;
+        //todo - current logic identifies all opposing players as the same player (i.e. not me) - fix in check methods
         threatList = ((MyConnectFour) game).checkHorizontal(player, inARow, false);
         threatList.addAll(((MyConnectFour) game).checkVertical(player, inARow, false));
         threatList.addAll(((MyConnectFour) game).checkDiagonal_Negative(player, inARow, false));
         threatList.addAll(((MyConnectFour) game).checkDiagonal_Positive(player, inARow, false));
-        System.out.printf("%d in a row found = %b\n", inARow, threatList.size() > 0);
+        System.out.printf("threat %d in a row found = %b\n", inARow, threatList.size() > 0);
         return threatList;
+    }
+
+    private ArrayList<Integer[][]> detectOpportunities(Game game, Player player, int inARow) {
+        //detect opportunities by looking for lines
+        //check for 3 in a row
+        ArrayList<Integer[][]> opportunityList;
+        opportunityList = ((MyConnectFour) game).checkHorizontal(player, inARow, true);
+        opportunityList.addAll(((MyConnectFour) game).checkVertical(player, inARow, true));
+        opportunityList.addAll(((MyConnectFour) game).checkDiagonal_Negative(player, inARow, true));
+        opportunityList.addAll(((MyConnectFour) game).checkDiagonal_Positive(player, inARow, true));
+        System.out.printf("opportunity %d in a row found = %b\n", inARow, opportunityList.size() > 0);
+        return opportunityList;
     }
 
     @Override
     protected int respondToThreat(Game game, Player player) {
         int checkInARow;
-        int possibleMove = -1;
+        int possibleMove;
         for (checkInARow = ((MyConnectFour) game).inARow - 1; checkInARow > 1; checkInARow--) {
             System.out.printf("checking for %d in a row threats\n", checkInARow);
             ArrayList<Integer[][]> threatList = detectThreats(game, player, checkInARow);
@@ -84,8 +108,44 @@ public class Connect4AI extends AI {
                                 System.out.printf("decided to act - placing counter in column %d\n", possibleMove + 1);
                                 return possibleMove;
                             }
-                            else {
-                                possibleMove = -1; //reset as 'decided' to ignore.
+
+                        }
+                    }
+                }
+            }
+            else {
+                System.out.printf("no %d in a row threats\n", checkInARow);
+            }
+        }
+        return -1;
+    }
+
+
+    @Override
+    protected int respondToOpportunities(Game game, Player player) {
+        return respondToOpportunities(game, player, false);
+    }
+
+    protected int respondToOpportunities(Game game, Player player, boolean checkForNMinusOne) {
+        int checkInARow;
+        int possibleMove;
+        int checkInARowStart = (checkForNMinusOne ? ((MyConnectFour) game).inARow - 1 : ((MyConnectFour) game).inARow - 2);
+        int checkInARowLimit = (checkForNMinusOne ? (((MyConnectFour) game).inARow - 2) : 1);
+        for (checkInARow = checkInARowStart; checkInARow > checkInARowLimit; checkInARow--) {
+            System.out.printf("checking for %d in a row opportunities\n", checkInARow);
+            ArrayList<Integer[][]> opportunityList = detectOpportunities(game, player, checkInARow);
+            System.out.println("starting decision loop");
+            if (opportunityList.size() > 0) {
+                Collections.shuffle(opportunityList); //randomise order of threat checks so doesn't always start with horizontal lines at (0, 0)
+                for (Integer[][] threat : opportunityList) {
+                    System.out.printf("Deciding for %s,%s %s,%s\n", threat[0][0], threat[0][1], threat[1][0], threat[1][1]);
+                    if (aiSpotsThreatOpportunity()) {
+                        possibleMove = linePossible(game, threat, checkInARow);
+                        if (possibleMove > -1) {
+                            if (decideToAct(checkInARow)) {
+                                //do something
+                                System.out.printf("decided to act - placing counter in column %d\n", possibleMove + 1);
+                                return possibleMove;
                             }
                         }
                     }
@@ -95,7 +155,7 @@ public class Connect4AI extends AI {
                 System.out.printf("no %d in a row threats\n", checkInARow);
             }
         }
-        return possibleMove;
+        return -1;
     }
 
     /**
@@ -123,7 +183,7 @@ public class Connect4AI extends AI {
      * @return -1 if there is no next move possible (i.e. the next slot in a column would not block or extend a line
      * otherwise returns a zero indexed column reference of a potential counter attack/move.
      */
-    private int linePossible(Game game,  Integer[][] threat, int checkInARow) {
+    private int linePossible(Game game, Integer[][] threat, int checkInARow) {
         //determine gradient of line
         int possibleSquares;
         int PossibleMove;
@@ -133,62 +193,62 @@ public class Connect4AI extends AI {
             possibleSquares = checkVerticalBlanks(game, new Integer[]{threat[0][0], threat[0][1]});
             System.out.printf("verticalBlanks = %d\n", possibleSquares);
             if (possibleSquares + checkInARow >= gameInARow) {
-                System.out.println("movePossible() determined vertical THREAT IS REAL!!");
+                System.out.println("movePossible() determined vertical line IS REAL!!");
                 return threat[0][0];
             }
             else {
-                System.out.println("movePossible() determined vertical threat not real");
+                System.out.println("movePossible() determined vertical line not real");
             }
         }
         //Horizontal Lines
         else if (threat[0][1].equals(threat[1][1])) {
-            System.out.printf("%s,%s : %s,%s is a Horizontal line\n", threat[0][0]+1, threat[0][1]+1, threat[1][0]+1, threat[1][1]+1);
+            System.out.printf("%s,%s : %s,%s is a Horizontal line\n", threat[0][0] + 1, threat[0][1] + 1, threat[1][0] + 1, threat[1][1] + 1);
             possibleSquares = checkHorizontalBlanks(game, new Integer[]{threat[0][0], threat[0][1]}, true);
-            System.out.printf("%d squares found to the left of starting point %s,%s : %s,%s\n", possibleSquares, threat[0][0]+1, threat[0][1]+1, threat[1][0]+1, threat[1][1]+1);
+            System.out.printf("%d squares found to the left of starting point %s,%s : %s,%s\n", possibleSquares, threat[0][0] + 1, threat[0][1] + 1, threat[1][0] + 1, threat[1][1] + 1);
             possibleSquares += checkHorizontalBlanks(game, new Integer[]{threat[1][0], threat[1][1]}, false);
-            System.out.printf("%d squares found to the left or right of starting point %s,%s : %s,%s\n", possibleSquares, threat[0][0]+1, threat[0][1]+1, threat[1][0]+1, threat[1][1]+1);
+            System.out.printf("%d squares found to the left or right of starting point %s,%s : %s,%s\n", possibleSquares, threat[0][0] + 1, threat[0][1] + 1, threat[1][0] + 1, threat[1][1] + 1);
             if (possibleSquares + checkInARow >= gameInARow) {
                 PossibleMove = movePossible(new Integer[][]{{threat[0][0] - 1, threat[0][1]}, {threat[1][0] + 1, threat[1][1]}});
                 if (PossibleMove > -1) {
-                    System.out.println("movePossible() determined horizontal THREAT IS REAL!!");
+                    System.out.println("movePossible() determined horizontal line IS REAL!!");
                     return PossibleMove;
                 }
                 else {
-                    System.out.println("movePossible() determined threat not real");
+                    System.out.println("movePossible() determined line not real");
                 }
             }
         }
         //Negative-y diagonals (/)
         else if ((threat[1][0] - threat[0][0]) / (threat[1][1] - threat[0][1]) == -1) {
-            System.out.printf("%s,%s : %s,%s is a negative y diagonal line\n", threat[0][0]+1, threat[0][1]+1,threat[1][0]+1, threat[1][1]+1);
+            System.out.printf("%s,%s : %s,%s is a negative y diagonal line\n", threat[0][0] + 1, threat[0][1] + 1, threat[1][0] + 1, threat[1][1] + 1);
             possibleSquares = checkNegativeDiagonalBlanks(game, new Integer[]{threat[0][0], threat[0][1]}, false);
             possibleSquares += checkNegativeDiagonalBlanks(game, new Integer[]{threat[1][0], threat[1][1]}, true);
-            System.out.printf("%d squares found at either end of diagonal with of starting point %s,%s : %s,%s\n", possibleSquares, threat[0][0]+1, threat[0][1]+1, threat[1][0]+1, threat[1][1]+1);
+            System.out.printf("%d squares found at either end of diagonal with of starting point %s,%s : %s,%s\n", possibleSquares, threat[0][0] + 1, threat[0][1] + 1, threat[1][0] + 1, threat[1][1] + 1);
             if (possibleSquares + checkInARow >= gameInARow) {
                 PossibleMove = movePossible(new Integer[][]{{threat[0][0] - 1, threat[0][1] + 1}, {threat[1][0] + 1, threat[1][1] - 1}});
                 if (PossibleMove > -1) {
-                    System.out.println("movePossible() determined diagonal THREAT IS REAL!!");
+                    System.out.println("movePossible() determined diagonal line IS REAL!!");
                     return PossibleMove;
                 }
                 else {
-                    System.out.println("movePossible() determined threat not real");
+                    System.out.println("movePossible() determined line not real");
                 }
             }
         }
         //Positive-y diagonals (\)
         else if ((threat[1][0] - threat[0][0]) / (threat[1][1] - threat[0][1]) == 1) {
-            System.out.printf("%s,%s : %s,%s is a positive y diagonal line\n", threat[0][0]+1, threat[0][1]+1, threat[1][0]+1, threat[1][1]+1);
+            System.out.printf("%s,%s : %s,%s is a positive y diagonal line\n", threat[0][0] + 1, threat[0][1] + 1, threat[1][0] + 1, threat[1][1] + 1);
             possibleSquares = checkPositiveDiagonalBlanks(game, new Integer[]{threat[0][0], threat[0][1]}, true);
             possibleSquares += checkPositiveDiagonalBlanks(game, new Integer[]{threat[1][0], threat[1][1]}, false);
-            System.out.printf("%d squares found at either end of diagonal with of starting point %s,%s : %s,%s\n", possibleSquares, threat[0][0]+1, threat[0][1]+1, threat[1][0]+1, threat[1][1]+1);
+            System.out.printf("%d squares found at either end of diagonal with of starting point %s,%s : %s,%s\n", possibleSquares, threat[0][0] + 1, threat[0][1] + 1, threat[1][0] + 1, threat[1][1] + 1);
             if (possibleSquares + checkInARow >= gameInARow) {
                 PossibleMove = movePossible(new Integer[][]{{threat[0][0] + 1, threat[0][1] - 1}, {threat[1][0] - 1, threat[1][1] + 1}});
                 if (PossibleMove > -1) {
-                    System.out.println("movePossible() determined diagonal THREAT IS REAL!!");
+                    System.out.println("movePossible() determined diagonal line IS REAL!!");
                     return PossibleMove;
                 }
                 else {
-                    System.out.println("movePossible() determined threat not real");
+                    System.out.println("movePossible() determined line not real");
                 }
             }
         }

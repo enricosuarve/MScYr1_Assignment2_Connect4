@@ -1,6 +1,5 @@
 package com.simonpreece;
 
-//todo make main callable from command line "N will be passed to the code as a command line argument and 2 < N < 7."
 class Main {
     UI ui = new UI();
 
