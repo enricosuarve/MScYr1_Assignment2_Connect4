@@ -37,7 +37,7 @@ public class Connect4AI extends AI {
                 return move + 1;
             }
             else {
-                move = respondToOpportunities(game, player, false);
+                move = respondToOpportunities(game, player);
                 if (move > -1) {
                     return move + 1;
                 }

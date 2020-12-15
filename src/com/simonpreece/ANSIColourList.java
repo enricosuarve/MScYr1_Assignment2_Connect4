@@ -2,7 +2,7 @@ package com.simonpreece;
 
 public class ANSIColourList {
 
-    private static String OS = System.getProperty("os.name").toLowerCase();
+    private static final String OS = System.getProperty("os.name").toLowerCase();
     public String Blue = "";
     public String Red = "";
     public String Yellow = "";

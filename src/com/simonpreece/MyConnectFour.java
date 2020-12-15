@@ -36,19 +36,6 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         Player.resetPlayerNumbers();
     }
 
-//    public MyConnectFour(int inARow) {
-//        this.inARow = inARow;
-//        //to do sort out repeat code in constructors
-//        boolean playAgain = true;
-//        setupGame();
-//        while (playAgain) {
-//            playGame(board);
-//            playAgain = ui.getUserYN("Play again?");
-//            //to do - swap player order??
-//        }
-//        Player.resetPlayerNumbers();
-//    }
-
     @Override
     protected void setupGame() {
         // ASCII art created using tool at http://www.patorjk.com/software/taag/#p=display&f=Stop&t=o (Colossal font)
@@ -62,6 +49,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         System.out.printf("%s \"Y8888P\"   \"Y88888P\"  888    Y888 888    Y888 8888888888 \"Y8888P\"     888       %s 888 %s\n", colours.BoldWhite, colours.Red, colours.White);
         System.out.println();
         System.out.println("Welcome to Connect 4");
+        //noinspection SpellCheckingInspection
         System.out.printf("There are 2 players %sred%s and %syellow%s\n", colours.Red, colours.White, colours.Yellow, colours.White);
         System.out.printf("%sPlayer 1 is Red%s,%s Player 2 is Yellow%s\n", colours.Red, colours.White, colours.Yellow, colours.White);
         System.out.println("To play the game type in the number of the column you want to drop your counter in");
@@ -107,12 +95,11 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
                     currentPlayer = player;
                     if (currentPlayer.getClass().getSimpleName().equals("HumanPlayer")) {
                         moveRequestToUser = String.format("Player %d: %s - enter a column to drop a counter", currentPlayer.getPlayerNumber(), currentPlayer.getName());
-                        move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
                     }
                     else {
                         moveRequestToUser = String.format("Computer Player %d is moving", currentPlayer.getPlayerNumber());
-                        move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
                     }
+                    move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
                     placeCounter(currentPlayer, move);
                     board.printBoard();
                     if (checkForWin(currentPlayer)) {
@@ -192,29 +179,6 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
                 }
             }
         }
-    }
-
-    private boolean checkHorizontalWinOLD(Player player) {
-        //todo - see if can merge check horizontal and vertical
-        int countersInARow = 0;
-        String counter = player.getCounter();
-        int boardWidth = board.getNumCols();
-        int boardHeight = board.getNumRows();
-        for (int y = 0; y < boardHeight; y++) {
-            for (int x = 0; x < boardWidth; x++) {
-                if (board.getValueAtPosition(x, y).equals(counter)) {
-                    countersInARow++;
-                    if (countersInARow >= inARow) {
-                        return true;
-                    }
-                }
-                else {
-                    countersInARow = 0;
-                }
-            }
-            countersInARow = 0;
-        }
-        return false;
     }
 
     private boolean checkHorizontalWin(Player player) {
@@ -365,6 +329,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         return board.getNumCols();
     }
 
+    @SuppressWarnings("unused")//called via .getMethod("getNumRows").invoke(game) from Connect4AI
     public int getNumRows() {
         return board.getNumRows();
     }
