@@ -55,7 +55,7 @@ public class Connect4AI extends AI {
     private ArrayList<Integer[][]> detectThreats(Game game, Player player, int inARow) {
         //detect threats by looking for opponents lines
         //check for 3 in a row
-        ArrayList<Integer[][]> threatList = new ArrayList<>();
+        ArrayList<Integer[][]> threatList;
         threatList = ((MyConnectFour) game).checkHorizontal(player, inARow, false);
         threatList.addAll(((MyConnectFour) game).checkVertical(player, inARow, false));
         threatList.addAll(((MyConnectFour) game).checkDiagonal_Negative(player, inARow, false));
@@ -102,22 +102,22 @@ public class Connect4AI extends AI {
 
     private boolean movePossible(Game game, Player player, Integer[][] threat, int checkInARow) {
         //determine gradient of line
-        if (threat[0][0] == threat[1][0]) {
+        if (threat[0][0].equals(threat[1][0])) {
             System.out.printf("%s,%s : %s,%s is a vertical line\n", threat[0][0], threat[0][1], threat[1][0], threat[1][1]);
         }
-        else if (threat[0][1] == threat[1][1]) {
+        else if (threat[0][1].equals(threat[1][1])) {
             System.out.printf("%s,%s : %s,%s is a Horizontal line\n", threat[0][0], threat[0][1], threat[1][0], threat[1][1]);
-            Integer[][] nextMoveCordinates = new Integer[][]{{threat[0][0], threat[0][1] - 1}, {threat[1][0], threat[1][1] + 1}};
             int availableBlanks = checkHorizontalBlanks(game, new Integer[]{threat[0][0], threat[0][1]}, true);
             System.out.printf("%d blanks found to the left of starting point %s,%s : %s,%s\n", availableBlanks, threat[0][0], threat[0][1], threat[1][0], threat[1][1]);
             availableBlanks += checkHorizontalBlanks(game, new Integer[]{threat[1][0], threat[1][1]}, false);
             System.out.printf("%d blanks found to the left or right of starting point %s,%s : %s,%s\n", availableBlanks, threat[0][0], threat[0][1], threat[1][0], threat[1][1]);
             if (availableBlanks + checkInARow >= gameInARow) {
-                if (((MyConnectFour) game).getNextEmptyRow(threat[0][0]) == threat[0][1]) {
-                    System.out.println("THREAT IS REAL!!");
+
+                if ((game.isMoveValid(threat[0][0], false)) && ((MyConnectFour) game).getNextEmptyRow(threat[0][0]) == threat[0][1]) {
+                    System.out.printf("THREAT IS REAL!!, the row %d is next for column %d\n", threat[0][1], threat[0][0] - 1);
                 }
                 else {
-                    System.out.println("no real threat");
+                    System.out.printf("no real threat the row %d is NOT next for column %d (= row %d)\n", threat[0][1], threat[0][0] - 1, ((MyConnectFour) game).getNextEmptyRow(threat[0][0]));
                 }
             }
         }
