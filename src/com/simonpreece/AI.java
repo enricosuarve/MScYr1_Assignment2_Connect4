@@ -11,7 +11,7 @@ public abstract class AI {
 
     protected abstract int makeMove(Game game, Player player); //may need to expand out int to an array for other board games
 
-    protected abstract void respondToThreat(Game game, Player player);
+    protected abstract int respondToThreat(Game game, Player player);
 
     protected boolean aiSpotsThreatOpportunity() {
         boolean threatSpotted = Math.random() < intelligencePercent;
