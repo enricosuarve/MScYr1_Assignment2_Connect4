@@ -57,12 +57,12 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         System.out.println();
         inARow = 4;
         board = new Board(6, 7);
-        players.add(new HumanPlayer());
+        players.add(new HumanPlayer((colours.osSupportsAnsiColours ? "@" : "R")));
         if (ui.getUserYN("Do you wish to play against the computer? (Y/N)")) {
             players.add(new ComputerPlayer());
         }
         else {
-            players.add(new HumanPlayer());
+            players.add(new HumanPlayer((colours.osSupportsAnsiColours ? "@" : "Y")));
         }
         for (Player player : players) {
             if (player.getPlayerNumber() == 1) {

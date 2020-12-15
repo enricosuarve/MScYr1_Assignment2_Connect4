@@ -27,7 +27,7 @@ public class ANSIColourList {
         switch (operatingSystem) {
             case "UNIX":
             case "Mac":
-            case "Windows": //todo - move this to the bottom before publishing as colors only work in the IDE
+            //case "Windows": //todo - move this to the bottom before publishing as colors only work in the IDE
                 Blue = "\033[0;34m";
                 Red = "\033[0;31m";
                 Yellow = "\033[0;33m";
@@ -35,7 +35,7 @@ public class ANSIColourList {
                 BoldWhite = "\033[0;97m";
                 osSupportsAnsiColours = true;
                 break;
-            //case "Windows":
+            case "Windows":
             case "Solaris":
             default:
                 //do nothing - leave colours blank as OS either does not reliably support ANSI colors or is unknown
