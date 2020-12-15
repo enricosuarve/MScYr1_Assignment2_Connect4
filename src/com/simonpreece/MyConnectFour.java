@@ -20,9 +20,8 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
 
     protected final ArrayList<Player> players = new ArrayList<>();
     protected final UI ui = new UI();
-    private final AI ai = new Connect4AI(.75);
+    private final AI ai = new Connect4AI(.75, this);
     protected int inARow;
-    protected Board board;
     protected ANSIColourList colours = new ANSIColourList();
 
     public MyConnectFour() {
@@ -103,11 +102,12 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
                 currentPlayer = player;
                 if (currentPlayer.getClass().getSimpleName().equals("HumanPlayer")) {
                     moveRequestToUser = String.format("Player %d: %s - enter a column to drop a counter", currentPlayer.getPlayerNumber(), currentPlayer.getName());
+                    move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
                 }
                 else {
                     moveRequestToUser = String.format("Computer Player %d is moving", currentPlayer.getPlayerNumber());
+                    move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
                 }
-                move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
                 placeCounter(currentPlayer, move);
                 board.printBoard();
                 if (checkForWin(currentPlayer)) {
@@ -231,7 +231,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
                     countersInARow++;
                     if (countersInARow >= inARow) {
                         lineCoordinates.add(new Integer[][]{{x - (inARow - 1), y}, {x, y}});
-                        return lineCoordinates;
+                        //return lineCoordinates;
                     }
                 }
                 else {
@@ -343,7 +343,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         return lineCoordinates;
     }
 
-    private int getNextEmptyRow(int colNum) {
+    int getNextEmptyRow(int colNum) {
         int nextEmptyRow = -1;
         for (int y = 0; y < board.getNumRows(); y++) {
             if (board.getValueAtPosition(colNum - 1, y).equals(" ")) {
@@ -356,6 +356,9 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
     @SuppressWarnings("unused")//called via .getMethod("getNumCols").invoke(game) from Connect4AI
     public int getNumCols() {
         return board.getNumCols();
+    }
+    public int getNumRows() {
+        return board.getNumRows();
     }
 
     @Override

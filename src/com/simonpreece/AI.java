@@ -9,13 +9,14 @@ public abstract class AI {
         this.intelligencePercent = intelligencePercent;
     }
 
-    protected abstract int makeMove(Game game); //may need to expand out int to an array for other board games
+    protected abstract int makeMove(Game game, Player player); //may need to expand out int to an array for other board games
 
     protected abstract void respondToThreat(Game game, Player player);
 
     protected boolean aiSpotsThreatOpportunity() {
         boolean threatSpotted = Math.random() < intelligencePercent;
         System.out.println("AI spotted threat?" + threatSpotted);
-        return threatSpotted; // Math.random() < intelligencePercent;
+        return true; // todo - remove after debugging (set to always spot threats)
+        //return threatSpotted; // Math.random() < intelligencePercent;
     }
 }

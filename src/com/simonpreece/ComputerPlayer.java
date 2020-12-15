@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class ComputerPlayer extends Player {
 
+    Board board;
     AI ai;
 
     public ComputerPlayer() {
@@ -12,6 +13,7 @@ public class ComputerPlayer extends Player {
         name = ui.getUserInput("Enter a name for computer player " + playerNumber, "Computer");
         counter = ui.getUserInput("Enter a counter symbol for computer player " + playerNumber, "C").substring(0, 1);
     }
+
     public ComputerPlayer(String name) {
         super();
         UI ui = new UI();
@@ -35,7 +37,7 @@ public class ComputerPlayer extends Player {
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        ai.respondToThreat(game, this);
-        return ai.makeMove(game);
+        return ai.makeMove(game, this);
     }
+
 }
