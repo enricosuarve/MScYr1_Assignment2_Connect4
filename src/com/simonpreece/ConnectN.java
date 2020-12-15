@@ -2,17 +2,13 @@ package com.simonpreece;
 
 public class ConnectN extends MyConnectFour {
     public ConnectN() {
-//        boolean playAgain = true;
-//        setupGame();
-//        while (playAgain) {
-//            playGame(board);
-//            playAgain = super.ui.getUserYN("Play again?");
-//            //todo - swap player order??
-//        }
+        //Do nothing in constructor - rely on superclass constructor
     }
 
     public ConnectN(int inARow) {
-        super(inARow);
+        //super(inARow);
+        this.inARow = inARow;
+        new MyConnectFour();
     }
 
     @Override

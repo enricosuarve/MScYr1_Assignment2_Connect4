@@ -27,26 +27,27 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
     public MyConnectFour() {
         boolean playAgain = true;
         setupGame();
+        int firstPlayer = 1;
         while (playAgain) {
-            playGame(board);
+            playGame(board, firstPlayer);
             playAgain = ui.getUserYN("Play again?");
-            //todo - swap player order??
+            firstPlayer = Math.max(++firstPlayer % (players.size()+1),1);
         }
         Player.resetPlayerNumbers();
     }
 
-    public MyConnectFour(int inARow) {
-        this.inARow = inARow;
-        //todo sort out repeat code in constructors
-        boolean playAgain = true;
-        setupGame();
-        while (playAgain) {
-            playGame(board);
-            playAgain = ui.getUserYN("Play again?");
-            //todo - swap player order??
-        }
-        Player.resetPlayerNumbers();
-    }
+//    public MyConnectFour(int inARow) {
+//        this.inARow = inARow;
+//        //to do sort out repeat code in constructors
+//        boolean playAgain = true;
+//        setupGame();
+//        while (playAgain) {
+//            playGame(board);
+//            playAgain = ui.getUserYN("Play again?");
+//            //to do - swap player order??
+//        }
+//        Player.resetPlayerNumbers();
+//    }
 
     @Override
     protected void setupGame() {
@@ -86,7 +87,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
     }
 
     @Override
-    protected void playGame(Board board) {
+    protected void playGame(Board board, int firstPlayer) {
         int move;
         int numTurns = 0;
         int maxTurns = board.getNumCols() * board.getNumRows();
@@ -97,27 +98,33 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         board.printBoard();
         Player currentPlayer = null;
         boolean win = false;
+        boolean firstTurn = true;
         while (!win && numTurns < maxTurns) {
             for (Player player : players) {
-                currentPlayer = player;
-                if (currentPlayer.getClass().getSimpleName().equals("HumanPlayer")) {
-                    moveRequestToUser = String.format("Player %d: %s - enter a column to drop a counter", currentPlayer.getPlayerNumber(), currentPlayer.getName());
-                    move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
+                if (!(firstTurn && player.getPlayerNumber() != firstPlayer)) {
+                    //skip go to allow players to take turns at going first
+
+                    currentPlayer = player;
+                    if (currentPlayer.getClass().getSimpleName().equals("HumanPlayer")) {
+                        moveRequestToUser = String.format("Player %d: %s - enter a column to drop a counter", currentPlayer.getPlayerNumber(), currentPlayer.getName());
+                        move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
+                    }
+                    else {
+                        moveRequestToUser = String.format("Computer Player %d is moving", currentPlayer.getPlayerNumber());
+                        move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
+                    }
+                    placeCounter(currentPlayer, move);
+                    board.printBoard();
+                    if (checkForWin(currentPlayer)) {
+                        win = true;
+                        break;
+                    }
+                    if (++numTurns == maxTurns) {
+                        break;
+                    }
+                    System.out.printf("%s dropped a counter in column %d\n", currentPlayer.getName(), move);
+                    firstTurn = false;
                 }
-                else {
-                    moveRequestToUser = String.format("Computer Player %d is moving", currentPlayer.getPlayerNumber());
-                    move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
-                }
-                placeCounter(currentPlayer, move);
-                board.printBoard();
-                if (checkForWin(currentPlayer)) {
-                    win = true;
-                    break;
-                }
-                if (++numTurns == maxTurns) {
-                    break;
-                }
-                System.out.printf("%s dropped a counter in column %d\n", currentPlayer.getName(), move);
             }
         }
         System.out.println("\n##################################################");

@@ -7,8 +7,6 @@ import java.util.Collections;
 public class Connect4AI extends AI {
     private final Game game;
     int gameInARow;
-    //todo implement seekOpportunities
-    //todo check for winning move first
     //todo sometimes when responding to a 2 in a row computer sets up player for a 4 in a row...
     private int numCols;
     private int numRows;
