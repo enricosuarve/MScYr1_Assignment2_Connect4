@@ -36,6 +36,11 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         Player.resetPlayerNumbers();
     }
 
+    public MyConnectFour(int inARow) {
+        //this.inARow = inARow;
+
+    }
+
     @Override
     protected void setupGame() {
         // ASCII art created using tool at http://www.patorjk.com/software/taag/#p=display&f=Stop&t=o (Colossal font)

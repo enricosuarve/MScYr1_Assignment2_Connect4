@@ -2,14 +2,33 @@ package com.simonpreece;
 
 public class ConnectN extends MyConnectFour {
     public ConnectN() {
+        super();
         //Do nothing in constructor - rely on superclass constructor
     }
 
-    public ConnectN(int inARow) {
-        //super(inARow);
+    protected ConnectN(int inARow) {
+        super(inARow);
         this.inARow = inARow;
-        new MyConnectFour();
+        boolean playAgain = true;
+        setupGame();
+        //todo move the following into the playgame method?
+        int firstPlayer = 1;
+        while (playAgain) {
+            playGame(board, firstPlayer);
+            playAgain = ui.getUserYN("Play again?");
+            firstPlayer = Math.max(++firstPlayer % (players.size()+1),1);
+        }
+        Player.resetPlayerNumbers();
     }
+
+ /*   private Simple(TextBox t) {
+        super(t);
+        // continue doing stuff with t here
+    }
+
+    public Simple() {
+        this(new TextBox());
+    }*/
 
     @Override
     protected void setupGame() {

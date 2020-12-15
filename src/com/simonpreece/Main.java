@@ -23,7 +23,7 @@ class Main {
         else {
             boolean playAgain = true;
             while (playAgain) {
-                switch (m.ui.getUserChoice("Pick a game to play", new String[]{"Connect4", "ConnectN", "Exit"})) {
+                switch (m.ui.getUserChoice("Pick a game to play", new String[]{"Connect4", "ConnectN","Exit", "Connect5"})) {
                     case 1:
                         new MyConnectFour();
                         break;
@@ -32,6 +32,9 @@ class Main {
                         break;
                     case 3:
                         playAgain = false;
+                        break;
+                    case 4: //todo remove this option before publishing
+                        new ConnectN(5);
                         break;
                 }
             }
