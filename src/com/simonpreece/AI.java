@@ -16,7 +16,6 @@ public abstract class AI {
     protected boolean aiSpotsThreatOpportunity() {
         boolean threatSpotted = Math.random() < intelligencePercent;
         System.out.println("AI spotted threat?" + threatSpotted);
-        return true; // todo - remove after debugging (set to always spot threats)
-        //return threatSpotted; // Math.random() < intelligencePercent;
+        return threatSpotted; // Math.random() < intelligencePercent;
     }
 }
