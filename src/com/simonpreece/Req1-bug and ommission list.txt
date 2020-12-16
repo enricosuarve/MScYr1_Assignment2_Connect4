@@ -1,7 +1,6 @@
 ############################################
 Requirement 1
 ############################################
-//todo double check line numbers against original
 
 Answers based on downloaded code at https://moodle.bath.ac.uk/pluginfile.php/1388532/mod_page/content/16/MyConnectFour.java
 
@@ -10,66 +9,65 @@ Provide a bug and omission list (1-2 pages of single-spaced, 10 point font) expl
 MyConnectFour.java : (No line) : The code has no functionality to play against the computer : Omission
 Solution: Add code (probably a whole new class) to allow the computer to make moves.
 
-MyConnectFour.java : Line 6: The class 'myconnectfour' has a different capitalisation than the file. According to the Oracle standard (King et al., 2020), <i>"Class names should be nouns, in mixed case with the first letter of each internal word capitalized."</i>; so the file is capitalised correctly, whereas the declaration is not : Syntax error
+MyConnectFour.java : Line 4: The class 'myconnectfour' has a different capitalisation than the file. According to the Oracle standard (King et al., 2020), <i>"Class names should be nouns, in mixed case with the first letter of each internal word capitalized."</i>; so the file is capitalised correctly, whereas the declaration is not : Syntax error
 Solution: correct Class capitalisation.
 
-MyConnectFour.java : Lines 17-114 : There is no code to determine whether there are 4 counters diagonally in a row for either player 1 or player 2 : Logical error
+MyConnectFour.java : Lines 19-116 : There is no code to determine whether there are 4 counters diagonally in a row for either player 1 or player 2 : Logical error
 Solution: Add code to check for diagonal counters to both player 1 & player 2 (workaround as a better solution will involve taking all horizontal, vertical and diagonal1 checks outside the method 'playGame' and into their own method.)
 
-MyConnectFour.java : Lines 21, 106, 119 & 167 : Missing ';' at the end of each line : Syntax error
+MyConnectFour.java : Lines 23, 108, 121 & 169 : Missing ';' at the end of each line : Syntax error
 Solution: Add ';' to the end of each line.
 
 MyConnectFour.java : Line 23 : Typo - "To play the game type in the number of the column you want to drop *you* counter in" : Logical error
 Solution: Correct spelling to "your".
 
-MyConnectFour.java : Line 28 : While loop just continues until a win condition is met - if players fill the board without a win (a draw), the next move will result in a runtime error : Runtime error
+MyConnectFour.java : Line 28 : While loop just continues until a win condition is met - if players fill the board without a win (a draw), the next move will result in a runtime error : Ommission leading to a Runtime error
 Solution: Add a 'number of moves made' counter and end the while loop if either a player wins, or the maximum number of moves is made (add logic to detect this and display "it's a draw" or similar)
 
+MyConnectFour.java : Line 30: calls method 'getUserInput' with different capitalisation than the definition, where it is 'getUserInput' According to the Oracle standard (King et al., 2020), <i>"Methods should be verbs, in mixed case with the first letter lowercase, with the first letter of each internal word capitalized."</i>; so the Method is capitalised correctly, whereas the call on line 30 is not : Syntax error
+Solution: Correct call capitalisation to 'getUserInput'.
 
-MyConnectFour.java : Line 28: calls method 'getUserInput' with different capitalisation than the definition, where it is 'getUserInput' According to the Oracle standard (King et al., 2020), <i>"Methods should be verbs, in mixed case with the first letter lowercase, with the first letter of each internal word capitalized."</i>; so the Method is capitalised correctly, whereas the call on L.28 is not : Syntax error
-Solution: Correct call capitalisation.
-
-MyConnectFour.java : Line 29 : There is no code to guard against receiving illegal moves (i.e. those outside the column range or trying to place counters in columns that are already full) and nothing to handle receiving non integer values : Omission (leading to run-time errors)
+MyConnectFour.java : Line 30 : There is no code to guard against receiving illegal moves (i.e. those outside the column range or trying to place counters in columns that are already full) and nothing to handle receiving non integer values : Omission (leading to run-time errors)
 Solution: Write code to prompt user for another entry if they enter a number outside 1-7, text or a non-integer value; write and call a column check method to guard against trying to add counters to full columns
 
-MyConnectFour.java : Line 30: placeCounter('r',userInput); This line calls the method 'placeCounter'; as a second parameter it passes the string 'userInput'; whereas the method requires a primitive integer for this parameter. As the previous line already parses userInput into an int 'move' I assume this should be substituted : Syntax error
+MyConnectFour.java : Line 32: placeCounter('r',userInput); This line calls the method 'placeCounter'; as a second parameter it passes the string 'userInput'; whereas the method requires a primitive integer for this parameter. As the previous line already parses userInput into an int 'move' I assume this should be substituted : Syntax error
 Solution: Replace 'userInput' with 'move'.
 
-MyConnectFour.java : Lines 38 & 54 : These lines check if player 1 has won, but they check if there are more than 4 'r' counters, meaning player 1 has to get 5 in a row vertically or horizontally to win : Logical error
+MyConnectFour.java : Lines 40 & 56 : These lines check if player 1 has won, but they check if there are more than 4 'r' counters, meaning player 1 has to get 5 in a row vertically or horizontally to win : Logical error
 Solution: change to greater than or equal to 4.
 
-MyConnectFour.java : Lines 46 & 62 : The count reset for player 1 on both the horizontal and vertical which should reset the count when a new row or column is checked is missing; this means that player 1's counters could be spread across two rows or column (i.e. columns [y, y, y, r, r] & [r, r, y] would win for player 1 as the last 2 'r' counters from row 1 added to the first 2 counters from column 2 makes 4) : Logical error
-Solution: Add 'count = 0;' to lines 46 & 62.
+MyConnectFour.java : Lines 48 & 64 : The count reset for player 1 on both the horizontal and vertical which should reset the count when starting to check a new row or column is missing; this means that player 1's counters could be spread across two rows or column (i.e. columns [y, y, y, r, r] & [r, r, y] would win for player 1 as the last 2 'r' counters from row 1 added to the first 2 counters from column 2 makes 4) : Logical error
+Solution: Add 'count = 0;' to lines 48 & 64.
 
-MyConnectFour.java : Lines 85 & 101 : The count reset for player 2 on both the horizontal and vertical which should reset the count if a slot does not have a player 2 counter is missing; this means that the player 2's four counters do not need to be consecutive (i.e. y, y, r, y, y  would win) : Logical error
-Solution: Add 'count = 0;' to lines 85 & 101.
+MyConnectFour.java : Lines 87 & 103 : The count reset for player 2 on both the horizontal and vertical which should reset the count if a slot does not have a player 2 counter is missing; this means that the player 2's four counters do not need to be consecutive (i.e. y, y, r, y, y  would win) : Logical error
+Solution: Add 'count = 0;' to lines 87 & 103.
 
-MyConnectFour.java : Line 111 : The prompt that a user has won is inside the while loop 'while(!win)' meaning that it runs every time the second player has has a turn regardless of whether they have won; it also means gameplay continues after displaying the 'you have won' message : Logical error
-Solution: Move the print statement to line 113, outside the while loop.
+MyConnectFour.java : Line 113 : The prompt that a user has won is inside the while loop 'while(!win)', meaning that it runs every time the second player has had a turn regardless of whether they have won; it also means gameplay continues after displaying the 'you have won' message : Logical error
+Solution: Move the print statement to line 115, outside the while loop.
 
-MyConnectFour.java : Line 119: Tries to define String 'toReturn'; this String has already been defined in the Method scope : Syntax error
-Solution: Remove definition (the word 'String') on line 119.
+MyConnectFour.java : Line 121: Tries to define String 'toReturn'; this String has already been defined in the Method scope : Syntax error
+Solution: Remove definition (the word 'String') on line 121.
 
-MyConnectFour.java : 128 & 129 : both for loops are setup with test expression [iterator]<board.length-1; 'less than length minus one' is length minus two so this is counting for zero based indices twice and never getting to the last element : Logical error
-Solution: change to <= or remove the -1 (I chose 'remove -1' as it is clearer)
+MyConnectFour.java : 130 & 131 : both for loops are setup with test expression [iterator]<board.length-1; 'less than length minus one' is length minus two so this is counting for zero based indices twice and never getting to the last element : Logical error
+Solution: change to <= or remove the -1 (I chose 'remove -1' as it is clearer).
 
-MyConnectFour.java : Line 129: Typo in for loop condition; for loop is comparing i to 'baord' - should be 'board' as per the array definition in the Class declarations section : Syntax error
+MyConnectFour.java : Line 131: Typo in for loop condition; for loop is comparing i to 'baord' - should be 'board' as per the array definition in the Class declarations section : Syntax error
 Solution: Correct spelling on line 129 to 'board'.
 
-MyConnectFour.java : 130 & 133 : 2-dimensional array index are reversed; for loops are setup for i to loop through the first dimension of board[][] and then j to loop through the second, but later checks refer to [j][i] : Logical error
-Solution: Reverse [i] & [j] on these lines
+MyConnectFour.java : 132 & 135 : 2-dimensional array index are reversed; the for loops use i to loop through the first dimension of board[][] and then j to loop through the second, but later checks refer to [j][i] : Logical error
+Solution: Reverse [i] & [j] on these lines.
 
-MyConnectFour.java : 148 : This loop appears to be supposed to count down to zero but the increment counts up instead meaning it can produce a value higher than the array it is checking which produces an error: Runtime error
+MyConnectFour.java : 150 : This loop appears to be supposed to count down to zero but the increment counts up instead meaning it can produce a value higher than the array it is checking, producing an error: Runtime error
 Solution: change i++ to i--.
 
-MyConnectFour.java : Lines 150, 153 & 154 : Although the prompt is to enter a number in the range 1-7, for player 1 it actually requires a number in the range 0-6, as it uses the number entered by the player without any -1 correction to access a zero-indexed array : Logical Error
+MyConnectFour.java : Lines 152, 155 & 156 : Although the prompt is to enter a number in the range 1-7, the array actually requires a number in the range 0-6, for player 1 it the method uses the number entered by the player without any -1 correction to access a zero-based array : Logical Error
 Solution: Change 'position' to 'position-1' to convert user input to zero-based index.
 
-MyConnectFour.java : Line 155: Typo in the word 'ture' - should be 'true' as this is a boolean : Syntax error
+MyConnectFour.java : Line 157: Typo in the word 'ture' - should be 'true' as this is a boolean : Syntax error
 Solution: Correct typo and replace 'ture' with 'true'.
 
-MyConnectFour.java : Line 163: If statement comparison uses a single equals '=', rather than a double '==' so is trying to set the value of the board position to 'r' rather than check if it is 'r' : Syntax error
-Solution: Change '=' on line 163 to comparator '=='.
+MyConnectFour.java : Line 165: If statement comparison uses a single equals '=', rather than a double '==' so is trying to set the value of the board position to 'r' rather than check if it is 'r' : Syntax error
+Solution: Change '=' on line 165 to comparator '=='.
 
 
 
