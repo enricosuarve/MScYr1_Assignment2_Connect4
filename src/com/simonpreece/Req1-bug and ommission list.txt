@@ -1,13 +1,14 @@
 ############################################
 Requirement 1
 ############################################
-//todo check that my omissions include the lack of checking of user input
-//todo add ommission of AI
-//todo add ommission - no code to stop users overloading columns?
-//todo no no code to check for draws (i.e no more moves available
-//todo check mention not limiting number of moves to those possible
+//todo double check line numbers against original
+
+Answers based on downloaded code at https://moodle.bath.ac.uk/pluginfile.php/1388532/mod_page/content/16/MyConnectFour.java
 
 Provide a bug and omission list (1-2 pages of single-spaced, 10 point font) explaining why the version of the code provided doesn't work (in the case of bugs) and/or doesn't provide the functionality needed to play Connect4.
+
+MyConnectFour.java : (No line) : The code has no functionality to play against the computer : Omission
+Solution: Add code (probably a whole new class) to allow the computer to make moves.
 
 MyConnectFour.java : Line 6: The class 'myconnectfour' has a different capitalisation than the file. According to the Oracle standard (King et al., 2020), <i>"Class names should be nouns, in mixed case with the first letter of each internal word capitalized."</i>; so the file is capitalised correctly, whereas the declaration is not : Syntax error
 Solution: correct Class capitalisation.
@@ -21,14 +22,18 @@ Solution: Add ';' to the end of each line.
 MyConnectFour.java : Line 23 : Typo - "To play the game type in the number of the column you want to drop *you* counter in" : Logical error
 Solution: Correct spelling to "your".
 
+MyConnectFour.java : Line 28 : While loop just continues until a win condition is met - if players fill the board without a win (a draw), the next move will result in a runtime error : Runtime error
+Solution: Add a 'number of moves made' counter and end the while loop if either a player wins, or the maximum number of moves is made (add logic to detect this and display "it's a draw" or similar)
+
+
 MyConnectFour.java : Line 28: calls method 'getUserInput' with different capitalisation than the definition, where it is 'getUserInput' According to the Oracle standard (King et al., 2020), <i>"Methods should be verbs, in mixed case with the first letter lowercase, with the first letter of each internal word capitalized."</i>; so the Method is capitalised correctly, whereas the call on L.28 is not : Syntax error
 Solution: Correct call capitalisation.
 
-MyConnectFour.java : Line 29 : There is no code to guard against receiving illegal moves (i.e. those outside the column range or trying to place counters in columns that are already full) and nothing to handle receiving non integer values : Runtime Error
+MyConnectFour.java : Line 29 : There is no code to guard against receiving illegal moves (i.e. those outside the column range or trying to place counters in columns that are already full) and nothing to handle receiving non integer values : Omission (leading to run-time errors)
 Solution: Write code to prompt user for another entry if they enter a number outside 1-7, text or a non-integer value; write and call a column check method to guard against trying to add counters to full columns
 
 MyConnectFour.java : Line 30: placeCounter('r',userInput); This line calls the method 'placeCounter'; as a second parameter it passes the string 'userInput'; whereas the method requires a primitive integer for this parameter. As the previous line already parses userInput into an int 'move' I assume this should be substituted : Syntax error
-Solution: Replace 'userInput' with 'move'. NOTE there appears to be no handling logic for if 'move' receives a non integer to this is probably something to pickup in logical checks.
+Solution: Replace 'userInput' with 'move'.
 
 MyConnectFour.java : Lines 38 & 54 : These lines check if player 1 has won, but they check if there are more than 4 'r' counters, meaning player 1 has to get 5 in a row vertically or horizontally to win : Logical error
 Solution: change to greater than or equal to 4.
