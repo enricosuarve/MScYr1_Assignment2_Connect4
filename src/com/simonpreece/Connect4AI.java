@@ -61,29 +61,17 @@ public class Connect4AI extends AI {
         return move;
     }
 
-    //todo merge detectThreats and detectOpportunities into a single detectLine method
-    private ArrayList<Integer[][]> detectThreats(Game game, Player player, int inARow) {
+        //todo merge detectThreats and detectOpportunities into a single detectLine method
+    private ArrayList<Integer[][]> detectOpportunitiesOrThreats(Game game, Player player, int inARow, boolean detectOpportunity) {
         //detect threats by looking for opponents lines
-        ArrayList<Integer[][]> threatList;
+        ArrayList<Integer[][]> potentialRowList;
         //todo - current logic identifies all opposing players as the same player (i.e. not me) - fix in check methods
-        threatList = ((ConnectX) game).checkHorizontal(player, inARow, false);
-        threatList.addAll(((ConnectX) game).checkVertical(player, inARow, false));
-        threatList.addAll(((ConnectX) game).checkDiagonal_Negative(player, inARow, false));
-        threatList.addAll(((ConnectX) game).checkDiagonal_Positive(player, inARow, false));
-        System.out.printf("threat %d in a row found = %b\n", inARow, threatList.size() > 0);
-        return threatList;
-    }
-
-    private ArrayList<Integer[][]> detectOpportunities(Game game, Player player, int inARow) {
-        //detect opportunities by looking for lines
-        //check for 3 in a row
-        ArrayList<Integer[][]> opportunityList;
-        opportunityList = ((ConnectX) game).checkHorizontal(player, inARow, true);
-        opportunityList.addAll(((ConnectX) game).checkVertical(player, inARow, true));
-        opportunityList.addAll(((ConnectX) game).checkDiagonal_Negative(player, inARow, true));
-        opportunityList.addAll(((ConnectX) game).checkDiagonal_Positive(player, inARow, true));
-        System.out.printf("opportunity %d in a row found = %b\n", inARow, opportunityList.size() > 0);
-        return opportunityList;
+        potentialRowList = ((ConnectX) game).checkHorizontal(player, inARow, detectOpportunity);
+        potentialRowList.addAll(((ConnectX) game).checkVertical(player, inARow, detectOpportunity));
+        potentialRowList.addAll(((ConnectX) game).checkDiagonal_Negative(player, inARow, detectOpportunity));
+        potentialRowList.addAll(((ConnectX) game).checkDiagonal_Positive(player, inARow, detectOpportunity));
+        System.out.printf("%d in a row found = %b\n", inARow, potentialRowList.size() > 0);
+        return potentialRowList;
     }
 
     @Override
@@ -92,7 +80,7 @@ public class Connect4AI extends AI {
         int possibleMove;
         for (checkInARow = ((ConnectX) game).inARow - 1; checkInARow > 1; checkInARow--) {
             System.out.printf("checking for %d in a row threats\n", checkInARow);
-            ArrayList<Integer[][]> threatList = detectThreats(game, player, checkInARow);
+            ArrayList<Integer[][]> threatList = detectOpportunitiesOrThreats(game, player, checkInARow, false);
             System.out.println("starting decision loop");
             if (threatList.size() > 0) {
                 Collections.shuffle(threatList); //randomise order of threat checks so doesn't always start with horizontal lines at (0, 0)
@@ -132,7 +120,7 @@ public class Connect4AI extends AI {
         int checkInARowLimit = (checkForNMinusOne ? (((ConnectX) game).inARow - 2) : 1);
         for (checkInARow = checkInARowStart; checkInARow > checkInARowLimit; checkInARow--) {
             System.out.printf("checking for %d in a row opportunities\n", checkInARow);
-            ArrayList<Integer[][]> opportunityList = detectOpportunities(game, player, checkInARow);
+            ArrayList<Integer[][]> opportunityList = detectOpportunitiesOrThreats(game, player, checkInARow,true);
             System.out.println("starting decision loop");
             if (opportunityList.size() > 0) {
                 Collections.shuffle(opportunityList); //randomise order of threat checks so doesn't always start with horizontal lines at (0, 0)
