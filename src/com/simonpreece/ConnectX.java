@@ -117,7 +117,6 @@ public abstract class ConnectX extends Game {
     }
 
     protected ArrayList<Integer[][]> checkHorizontal(Player player, int inARow, boolean checkForThisPlayer) {
-        //todo - see if can merge check horizontal and vertical
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
         String counter = player.getCounter();
