@@ -38,7 +38,6 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
 
     public MyConnectFour(int inARow) {
         //this.inARow = inARow;
-
     }
 
     @Override
@@ -124,7 +123,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
             currentPlayer.addWin();
             Toolkit.getDefaultToolkit().beep();
             System.out.printf("           Player %d '%s' has Won!!!\n\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
-            displayScoreboard();
+            displayScoreboard(players);
         }
         else {
             System.out.println("It's a draw - how disappointing...");
@@ -132,24 +131,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         System.out.println("##################################################\n");
     }
 
-    private void displayScoreboard() {
-        String playerScore;
-        String spaces = "                        ";
-        int spacesBefore, spacesAfter;
-        System.out.println("          ==============================");
-        System.out.println("          |    Scores on the doors     |");
-        System.out.println("          ==============================");
-        for (Player player : players) {
-            playerScore = player.getName() + "  " + player.getWins();
-            spacesBefore = Math.max(0, (28 - playerScore.length()) / 2);
-            spacesAfter = Math.max(0, 28 - playerScore.length() - spacesBefore);
-            System.out.printf("          |%s%s%s|\n",
-                    spaces.substring(0, spacesBefore),
-                    playerScore,
-                    spaces.substring(0, spacesAfter));
-        }
-        System.out.println("          ==============================");
-    }
+
 
     @Override
     public boolean isMoveValid(int move, boolean playerIsHuman) {
@@ -169,6 +151,7 @@ public class MyConnectFour extends Game implements HasComputerPlayer {
         return true;
     }
 
+    @Override
     public boolean checkForWin(Player player) {
         return checkHorizontalWin(player) || checkVerticalWin(player) ||
                 checkDiagonalWin_Positive(player) || checkDiagonalWin_Negative(player);

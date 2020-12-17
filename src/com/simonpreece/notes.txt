@@ -1,1 +1,2 @@
 //todo - mentioned in the lecture that more marks for code quality than AI
+//todo implement a javadoc with instructions for use
