@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 public class ComputerPlayer extends Player {
 
     AI ai;
+    private Game game;
 
     public ComputerPlayer() {
         super();
@@ -29,13 +30,9 @@ public class ComputerPlayer extends Player {
 
     @Override
     public int getMoveFromPlayer(String requestToUser, Game game) {
+        this.game = game;
         System.out.println(requestToUser);
-        try {
-            //todo - can I do this without casting??
-            this.ai = (AI) game.getClass().getMethod("getAIClass").invoke(game);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        this.ai = game.getAIClass() ;
         return ai.makeMove(game, this);
     }
 

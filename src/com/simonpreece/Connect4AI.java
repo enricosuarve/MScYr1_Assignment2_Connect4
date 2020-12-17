@@ -25,7 +25,7 @@ public class Connect4AI extends AI {
         } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        gameInARow = ((MyConnectFour) game).inARow;
+        gameInARow = ((ConnectX) game).inARow;
 
         move = respondToOpportunities(game, player, true);
         if (move > -1) { //moves are not zero indexed in the front end cos of humans.....
@@ -66,10 +66,10 @@ public class Connect4AI extends AI {
         //detect threats by looking for opponents lines
         ArrayList<Integer[][]> threatList;
         //todo - current logic identifies all opposing players as the same player (i.e. not me) - fix in check methods
-        threatList = ((MyConnectFour) game).checkHorizontal(player, inARow, false);
-        threatList.addAll(((MyConnectFour) game).checkVertical(player, inARow, false));
-        threatList.addAll(((MyConnectFour) game).checkDiagonal_Negative(player, inARow, false));
-        threatList.addAll(((MyConnectFour) game).checkDiagonal_Positive(player, inARow, false));
+        threatList = ((ConnectX) game).checkHorizontal(player, inARow, false);
+        threatList.addAll(((ConnectX) game).checkVertical(player, inARow, false));
+        threatList.addAll(((ConnectX) game).checkDiagonal_Negative(player, inARow, false));
+        threatList.addAll(((ConnectX) game).checkDiagonal_Positive(player, inARow, false));
         System.out.printf("threat %d in a row found = %b\n", inARow, threatList.size() > 0);
         return threatList;
     }
@@ -78,10 +78,10 @@ public class Connect4AI extends AI {
         //detect opportunities by looking for lines
         //check for 3 in a row
         ArrayList<Integer[][]> opportunityList;
-        opportunityList = ((MyConnectFour) game).checkHorizontal(player, inARow, true);
-        opportunityList.addAll(((MyConnectFour) game).checkVertical(player, inARow, true));
-        opportunityList.addAll(((MyConnectFour) game).checkDiagonal_Negative(player, inARow, true));
-        opportunityList.addAll(((MyConnectFour) game).checkDiagonal_Positive(player, inARow, true));
+        opportunityList = ((ConnectX) game).checkHorizontal(player, inARow, true);
+        opportunityList.addAll(((ConnectX) game).checkVertical(player, inARow, true));
+        opportunityList.addAll(((ConnectX) game).checkDiagonal_Negative(player, inARow, true));
+        opportunityList.addAll(((ConnectX) game).checkDiagonal_Positive(player, inARow, true));
         System.out.printf("opportunity %d in a row found = %b\n", inARow, opportunityList.size() > 0);
         return opportunityList;
     }
@@ -90,7 +90,7 @@ public class Connect4AI extends AI {
     protected int respondToThreat(Game game, Player player) {
         int checkInARow;
         int possibleMove;
-        for (checkInARow = ((MyConnectFour) game).inARow - 1; checkInARow > 1; checkInARow--) {
+        for (checkInARow = ((ConnectX) game).inARow - 1; checkInARow > 1; checkInARow--) {
             System.out.printf("checking for %d in a row threats\n", checkInARow);
             ArrayList<Integer[][]> threatList = detectThreats(game, player, checkInARow);
             System.out.println("starting decision loop");
@@ -128,8 +128,8 @@ public class Connect4AI extends AI {
     protected int respondToOpportunities(Game game, Player player, boolean checkForNMinusOne) {
         int checkInARow;
         int possibleMove;
-        int checkInARowStart = (checkForNMinusOne ? ((MyConnectFour) game).inARow - 1 : ((MyConnectFour) game).inARow - 2);
-        int checkInARowLimit = (checkForNMinusOne ? (((MyConnectFour) game).inARow - 2) : 1);
+        int checkInARowStart = (checkForNMinusOne ? ((ConnectX) game).inARow - 1 : ((ConnectX) game).inARow - 2);
+        int checkInARowLimit = (checkForNMinusOne ? (((ConnectX) game).inARow - 2) : 1);
         for (checkInARow = checkInARowStart; checkInARow > checkInARowLimit; checkInARow--) {
             System.out.printf("checking for %d in a row opportunities\n", checkInARow);
             ArrayList<Integer[][]> opportunityList = detectOpportunities(game, player, checkInARow);
@@ -271,7 +271,7 @@ public class Connect4AI extends AI {
         Collections.shuffle(coordinates);
         for (Integer[] coordinate : coordinates) {
             System.out.printf("movePossible received x:%d, y:%d\n", coordinate[0] + 1, coordinate[1] + 1);
-            threatIsReal = ((game.isMoveValid(coordinate[0] + 1, false)) && ((MyConnectFour) game).getNextEmptyRow(coordinate[0] + 1) == coordinate[1]);
+            threatIsReal = ((game.isMoveValid(coordinate[0] + 1, false)) && ((ConnectX) game).getNextEmptyRow(coordinate[0] + 1) == coordinate[1]);
             if (threatIsReal) {
                 return coordinate[0];
             }

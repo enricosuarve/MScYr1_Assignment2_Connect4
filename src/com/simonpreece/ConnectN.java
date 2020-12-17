@@ -1,17 +1,10 @@
 package com.simonpreece;
 
-public class ConnectN extends MyConnectFour {
+public class ConnectN extends ConnectX {
     public ConnectN() {
         super();
-        //Do nothing in constructor - rely on superclass constructor
-    }
-
-    protected ConnectN(int inARow) {
-        super(inARow);
-        this.inARow = inARow;
         boolean playAgain = true;
         setupGame();
-        //todo move the following into the playgame method?
         int firstPlayer = 1;
         while (playAgain) {
             playGame(board, firstPlayer);
@@ -19,6 +12,27 @@ public class ConnectN extends MyConnectFour {
             firstPlayer = Math.max(++firstPlayer % (players.size()+1),1);
         }
         Player.resetPlayerNumbers();
+    }
+
+    protected ConnectN(int inARow) {
+        super(inARow);
+        if (inARow == 4) {
+            new MyConnectFour();
+        }
+        else {
+
+            this.inARow = inARow;
+            boolean playAgain = true;
+            setupGame();
+            //todo move the following into the playgame method?
+            int firstPlayer = 1;
+            while (playAgain) {
+                playGame(board, firstPlayer);
+                playAgain = ui.getUserYN("Play again?");
+                firstPlayer = Math.max(++firstPlayer % (players.size() + 1), 1);
+            }
+            Player.resetPlayerNumbers();
+        }
     }
 
  /*   private Simple(TextBox t) {
@@ -76,5 +90,4 @@ public class ConnectN extends MyConnectFour {
             }
         }
     }
-
 }

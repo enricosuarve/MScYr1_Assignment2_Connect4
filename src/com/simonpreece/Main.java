@@ -34,7 +34,7 @@ class Main {
                         playAgain = false;
                         break;
                     case 4: //todo remove this option before publishing
-                        new ConnectN(5);
+                        new MyConnectFour(3);
                         break;
                 }
             }

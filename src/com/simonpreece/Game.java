@@ -2,7 +2,7 @@ package com.simonpreece;
 
 import java.util.ArrayList;
 
-public abstract class Game {
+public abstract class Game implements HasComputerPlayer {
     protected Board board;
 
     protected abstract void setupGame();
@@ -31,4 +31,5 @@ public abstract class Game {
         }
         System.out.println("          ==============================");
     }
+    public abstract AI getAIClass();
 }
