@@ -61,6 +61,7 @@ public class Connect4AI extends AI {
         return move;
     }
 
+    //todo merge detectThreats and detectOpportunities into a single detectLine method
     private ArrayList<Integer[][]> detectThreats(Game game, Player player, int inARow) {
         //detect threats by looking for opponents lines
         ArrayList<Integer[][]> threatList;
