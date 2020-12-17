@@ -13,6 +13,7 @@ Board Class
 import java.util.Arrays;
 
 public class Board {
+    //todo add tostring method and call from game??
     private final int numRows;
     private final int numCols;
     private String[][] boardData;

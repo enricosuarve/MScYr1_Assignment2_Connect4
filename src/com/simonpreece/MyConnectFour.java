@@ -17,7 +17,7 @@ You may also wish to tackle our placeCounter() method next.
 
 
 public class MyConnectFour extends Game implements HasComputerPlayer {
-
+//todo make connect4 and connectn abstacts of a 'connectgame' class or similar (removes the trying to call connect4 with an integer issue??)
     protected final ArrayList<Player> players = new ArrayList<>();
     protected final UI ui = new UI();
     private final AI ai = new Connect4AI(.925, this);
