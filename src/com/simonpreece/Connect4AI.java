@@ -63,7 +63,6 @@ public class Connect4AI extends AI {
     private ArrayList<Integer[][]> detectOpportunitiesOrThreats(Game game, Player player, int inARow, boolean detectOpportunity) {
         //detect threats by looking for opponents lines
         ArrayList<Integer[][]> potentialRowList;
-        //todo - current logic identifies all opposing players as the same player (i.e. not me) - fix in check methods
         potentialRowList = ((ConnectX) game).checkHorizontal(player, inARow, detectOpportunity);
         potentialRowList.addAll(((ConnectX) game).checkVertical(player, inARow, detectOpportunity));
         potentialRowList.addAll(((ConnectX) game).checkDiagonal_Negative(player, inARow, detectOpportunity));

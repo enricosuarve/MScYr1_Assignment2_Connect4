@@ -1,8 +1,8 @@
 package com.simonpreece;
 
-public class MyConnectFour extends ConnectX {
+public class ConnectFour extends ConnectX {
 
-    public MyConnectFour() {
+    public ConnectFour() {
         boolean playAgain = true;
         setupGame();
         int firstPlayer = 1;
@@ -14,9 +14,9 @@ public class MyConnectFour extends ConnectX {
         Player.resetPlayerNumbers();
     }
 
-    public MyConnectFour(int inARow) {
+    public ConnectFour(int inARow) {
      if (inARow == 4 ){
-         new MyConnectFour();
+         new ConnectFour();
 
      }else{
          new ConnectN(inARow);

@@ -1,3 +1,4 @@
+//todo implement a command line help function with parameter info
 package com.simonpreece;
 
 class Main {
@@ -24,7 +25,7 @@ class Main {
             while (playAgain) {
                 switch (m.ui.getUserChoice("Pick a game to play", new String[]{"Connect4", "ConnectN", "Exit"})) {
                     case 1:
-                        new MyConnectFour();
+                        new ConnectFour();
                         break;
                     case 2:
                         new ConnectN();

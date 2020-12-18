@@ -16,7 +16,7 @@ public class ConnectN extends ConnectX {
 
     protected ConnectN(int inARow) {
         if (inARow == 4) {
-            new MyConnectFour();
+            new ConnectFour();
         }
         else {
 
