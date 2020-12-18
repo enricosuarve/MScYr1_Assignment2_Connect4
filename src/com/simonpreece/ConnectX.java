@@ -15,10 +15,6 @@ public abstract class ConnectX extends Game {
     public ConnectX() {
     }
 
-    public ConnectX(int inARow) {
-        //inARow constructors defined in sub classes
-    }
-
     @Override
     protected abstract void setupGame();
 

@@ -15,7 +15,6 @@ public class ConnectN extends ConnectX {
     }
 
     protected ConnectN(int inARow) {
-        super(inARow);
         if (inARow == 4) {
             new MyConnectFour();
         }
@@ -33,15 +32,6 @@ public class ConnectN extends ConnectX {
             Player.resetPlayerNumbers();
         }
     }
-
- /*   private Simple(TextBox t) {
-        super(t);
-        // continue doing stuff with t here
-    }
-
-    public Simple() {
-        this(new TextBox());
-    }*/
 
     @Override
     protected void setupGame() {

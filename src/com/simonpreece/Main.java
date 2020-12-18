@@ -8,8 +8,7 @@ class Main {
         Main m = new Main();
 
         for (String argString : args) {
-            System.out.println(argString + ":" + argString.substring(0, 2));
-            if (argString.startsWith("n=")) {
+           if (argString.startsWith("n=")) {
                 try {
                     inARow = Integer.parseInt(argString.substring(2).trim());
                 } catch (Exception e) {
