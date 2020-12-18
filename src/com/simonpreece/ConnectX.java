@@ -28,6 +28,7 @@ public abstract class ConnectX extends Game {
         int numTurns = 0;
         int maxTurns = board.getNumCols() * board.getNumRows();
         String moveRequestToUser;
+        ArrayList<Integer[][]> winningMove = new ArrayList<>();
 
         System.out.println("\nStarting game....\n");
         board.initialiseBoard();
@@ -50,7 +51,8 @@ public abstract class ConnectX extends Game {
                     move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
                     placeCounter(currentPlayer, move);
                     board.printBoard();
-                    if (checkForWin(currentPlayer)) {
+                    winningMove = checkForWinningLine(currentPlayer);
+                    if (winningMove.size() > 0) {
                         win = true;
                         break;
                     }
@@ -66,7 +68,8 @@ public abstract class ConnectX extends Game {
         if (win) {
             currentPlayer.addWin();
             Toolkit.getDefaultToolkit().beep();
-            System.out.printf("           Player %d '%s' has Won!!!\n\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
+            System.out.printf("           Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
+            System.out.printf("        (Winning move = %d,%d to %d,%d)\n\n", winningMove.get(0)[0][0] + 1, 6-winningMove.get(0)[0][1], winningMove.get(0)[1][0] + 1, 6-winningMove.get(0)[1][1]);
             displayScoreboard(players);
         }
         else {
@@ -96,8 +99,33 @@ public abstract class ConnectX extends Game {
 
     @Override
     public boolean checkForWin(Player player) {
-        return checkHorizontalWin(player) || checkVerticalWin(player) ||
-                checkDiagonalWin_Positive(player) || checkDiagonalWin_Negative(player);
+        return checkForWinningLine(player).size()>0;
+    }
+
+    public ArrayList<Integer[][]> checkForWinningLine(Player player) {
+        ArrayList<Integer[][]> winningCounters = checkHorizontal(player, inARow, true);
+        if (winningCounters.size() > 0) {
+            return winningCounters;
+        }
+        else {
+            winningCounters = checkVertical(player, inARow, true);
+            if (winningCounters.size() > 0) {
+                return winningCounters;
+            }
+            else {
+                winningCounters = checkDiagonal_Positive(player, inARow, true);
+                if (winningCounters.size() > 0) {
+                    return winningCounters;
+                }
+                else {
+                    winningCounters = checkDiagonal_Negative(player, inARow, true);
+                    if (winningCounters.size() > 0) {
+                        return winningCounters;
+                    }
+                }
+            }
+        }
+        return winningCounters;
     }
 
     private void placeCounter(Player player, int move) {
@@ -110,10 +138,6 @@ public abstract class ConnectX extends Game {
                 }
             }
         }
-    }
-
-    private boolean checkHorizontalWin(Player player) {
-        return !(checkHorizontal(player, inARow, true).size() == 0);
     }
 
     protected ArrayList<Integer[][]> checkHorizontal(Player player, int inARow, boolean checkForThisPlayer) {
@@ -144,10 +168,6 @@ public abstract class ConnectX extends Game {
         return lineCoordinates;
     }
 
-    private boolean checkVerticalWin(Player player) {
-        return !(checkVertical(player, inARow, true).size() == 0);
-    }
-
     protected ArrayList<Integer[][]> checkVertical(Player player, int inARow, boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
@@ -174,10 +194,6 @@ public abstract class ConnectX extends Game {
             countersInARow = 0;
         }
         return lineCoordinates;
-    }
-
-    private boolean checkDiagonalWin_Positive(Player player) {
-        return !(checkDiagonal_Positive(player, inARow, true).size() == 0);
     }
 
     protected ArrayList<Integer[][]> checkDiagonal_Positive(Player player, int inARow, boolean checkForThisPlayer) {
@@ -208,10 +224,6 @@ public abstract class ConnectX extends Game {
             countersInARow = 0;
         }
         return lineCoordinates;
-    }
-
-    private boolean checkDiagonalWin_Negative(Player player) {
-        return !(checkDiagonal_Negative(player, inARow, true).size() == 0);
     }
 
     protected ArrayList<Integer[][]> checkDiagonal_Negative(Player player, int inARow, boolean checkForThisPlayer) {
@@ -264,7 +276,7 @@ public abstract class ConnectX extends Game {
         return board.getNumRows();
     }
 
-    public AI getAIClass(){
+    public AI getAIClass() {
         return ai;
     }
 }

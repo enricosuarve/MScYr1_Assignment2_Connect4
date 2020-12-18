@@ -24,7 +24,6 @@ public class ConnectN extends ConnectX {
             this.inARow = inARow;
             boolean playAgain = true;
             setupGame();
-            //todo move the following into the playgame method?
             int firstPlayer = 1;
             while (playAgain) {
                 playGame(board, firstPlayer);

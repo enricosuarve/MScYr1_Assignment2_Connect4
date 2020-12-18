@@ -4,6 +4,7 @@ import java.lang.Math;
 
 public abstract class AI {
     double intelligencePercent;
+    protected final boolean debugMode = false;
 
     public AI(double intelligencePercent) {
         this.intelligencePercent = intelligencePercent;
@@ -15,8 +16,7 @@ public abstract class AI {
 
     protected boolean aiSpotsThreatOpportunity() {
         boolean threatSpotted = Math.random() < intelligencePercent;
-        //todo hide th following in a debugmode
-        System.out.println("AI spotted line?" + threatSpotted);
+        if(debugMode)System.out.println("AI spotted line?" + threatSpotted);
         return threatSpotted; // Math.random() < intelligencePercent;
     }
 

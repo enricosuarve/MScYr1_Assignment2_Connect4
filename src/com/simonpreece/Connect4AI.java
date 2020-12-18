@@ -6,9 +6,7 @@ import java.util.Collections;
 
 public class Connect4AI extends AI {
     private final Game game;
-    private final boolean debugMode = false;
     int gameInARow;
-    //todo sometimes when responding to a 2 in a row computer sets up player for a 4 in a row...
     private int numCols;
     private int numRows;
 
@@ -93,7 +91,6 @@ public class Connect4AI extends AI {
                             if (decideToAct(checkInARow, inARowPossible.size())) {
                                 //do something
                                 Collections.shuffle(inARowPossible); //shuffle so there is no weighting towards moves closer to 0,0
-                                //todo add code to counter n-2 moves with 2 possible columns to drop
                                 if(debugMode)System.out.printf("decided to act - placing counter in column %d\n", inARowPossible.get(0));
                                 return inARowPossible.get(0);
                             }
@@ -135,7 +132,6 @@ public class Connect4AI extends AI {
                             if (decideToAct(checkInARow, inARowPossible.size())) {
                                 //do something
                                 Collections.shuffle(inARowPossible); //shuffle so there is no weighting towards moves closer to 0,0
-                                //todo add code to counter n-2 moves with 2 possible columns to drop
                                 if(debugMode)System.out.printf("decided to act - placing counter in column %d\n", inARowPossible.get(0));
                                 return inARowPossible.get(0);
                             }
