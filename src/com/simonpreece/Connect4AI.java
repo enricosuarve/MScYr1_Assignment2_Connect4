@@ -61,7 +61,6 @@ public class Connect4AI extends AI {
         return move;
     }
 
-    //todo merge detectThreats and detectOpportunities into a single detectLine method
     private ArrayList<Integer[][]> detectOpportunitiesOrThreats(Game game, Player player, int inARow, boolean detectOpportunity) {
         //detect threats by looking for opponents lines
         ArrayList<Integer[][]> potentialRowList;
@@ -70,7 +69,7 @@ public class Connect4AI extends AI {
         potentialRowList.addAll(((ConnectX) game).checkVertical(player, inARow, detectOpportunity));
         potentialRowList.addAll(((ConnectX) game).checkDiagonal_Negative(player, inARow, detectOpportunity));
         potentialRowList.addAll(((ConnectX) game).checkDiagonal_Positive(player, inARow, detectOpportunity));
-        System.out.printf("%d in a row %s found = %b\n", inARow, (detectOpportunity?"opportunity":"threat"),potentialRowList.size() > 0);
+        System.out.printf("%d in a row %s found = %b\n", inARow, (detectOpportunity ? "opportunity" : "threat"), potentialRowList.size() > 0);
         return potentialRowList;
     }
 
@@ -90,7 +89,7 @@ public class Connect4AI extends AI {
                     if (aiSpotsThreatOpportunity()) {
                         inARowPossible = isLinePossible(game, threat, checkInARow);
                         if (inARowPossible.size() > 0) {
-                            if (decideToAct(checkInARow)) {
+                            if (decideToAct(checkInARow, inARowPossible.size())) {
                                 //do something
                                 Collections.shuffle(inARowPossible); //shuffle so there is no weighting towards moves closer to 0,0
                                 //todo add code to counter n-2 moves with 2 possible columns to drop
@@ -132,7 +131,7 @@ public class Connect4AI extends AI {
                         inARowPossible = isLinePossible(game, threat, checkInARow);
                         //return potential columns to here
                         if (inARowPossible.size() > 0) {
-                            if (decideToAct(checkInARow)) {
+                            if (decideToAct(checkInARow, inARowPossible.size())) {
                                 //do something
                                 Collections.shuffle(inARowPossible); //shuffle so there is no weighting towards moves closer to 0,0
                                 //todo add code to counter n-2 moves with 2 possible columns to drop
@@ -151,14 +150,23 @@ public class Connect4AI extends AI {
     }
 
     /**
-     * decide to act will always return true if an inARow-1 attack is found, otherwise it will get less likely
+     * Decide to act will always return true if an inARow-1 attack is found, otherwise it will get less likely
      *
-     * @param checkInARow - current level of inARow checks that have generated the question
+     * @param checkInARow           - current level of inARow checks that have generated the question
+     * @param numberOfPossibleMoves - number of moves possible (1 or 2) for the check in question.
      * @return True or False - whether have decided to respond
      */
-    private boolean decideToAct(int checkInARow) {
+    private boolean decideToAct(int checkInARow, int numberOfPossibleMoves) {
         int countersLeft = gameInARow - checkInARow;
-        double responseChance = 1.0 / countersLeft;
+        double responseChance;
+        boolean twoMovesToWin = (numberOfPossibleMoves == 2 && gameInARow - checkInARow == 2);
+        if (twoMovesToWin) {
+            System.out.println("2 moves to win detected");
+            responseChance = intelligencePercent; //if there are a possible two moves to win for either the threat or opportunity it is up to the AI's 'intelligence' as to whether it spots this
+        }
+        else {
+            responseChance = 1.0 / countersLeft;
+        }
         double randomRoll = Math.random();
         boolean respond = (randomRoll < responseChance);
         System.out.printf("responseChance = %.2f, random = %.2f  = decided to respond? %b\n", responseChance, randomRoll, respond);
