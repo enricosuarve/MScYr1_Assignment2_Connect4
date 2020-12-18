@@ -1,4 +1,3 @@
-//todo highlight winning row in bold??
 package com.simonpreece;
 
 import java.awt.*;
@@ -65,7 +64,7 @@ public abstract class ConnectX extends Game {
             currentPlayer.addWin();
             Toolkit.getDefaultToolkit().beep();
             System.out.printf("           Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
-            System.out.printf("        (Winning move = %d,%d to %d,%d)\n\n", winningMove.get(0)[0][0] + 1, 6-winningMove.get(0)[0][1], winningMove.get(0)[1][0] + 1, 6-winningMove.get(0)[1][1]);
+            System.out.printf("        (Winning move = %d,%d to %d,%d)\n\n", winningMove.get(0)[0][0] + 1, 6 - winningMove.get(0)[0][1], winningMove.get(0)[1][0] + 1, 6 - winningMove.get(0)[1][1]);
             displayScoreboard(players);
         }
         else {
@@ -95,7 +94,7 @@ public abstract class ConnectX extends Game {
 
     @Override
     public boolean checkForWin(Player player) {
-        return checkForWinningLine(player).size()>0;
+        return checkForWinningLine(player).size() > 0;
     }
 
     public ArrayList<Integer[][]> checkForWinningLine(Player player) {
@@ -139,27 +138,30 @@ public abstract class ConnectX extends Game {
     protected ArrayList<Integer[][]> checkHorizontal(Player player, int inARow, boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
-        String counter = player.getCounter();
+        String counter;
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
         String valueAtPosition;
-        for (int y = 0; y < boardHeight; y++) {
-            for (int x = 0; x < boardWidth; x++) {
-                valueAtPosition = board.getValueAtPosition(x, y);
-                if ((checkForThisPlayer ?
-                        valueAtPosition.equals(counter) :
-                        !valueAtPosition.equals(counter) && !valueAtPosition.equals(" "))) {
-                    countersInARow++;
-                    if (countersInARow >= inARow) {
-                        lineCoordinates.add(new Integer[][]{{x - (inARow - 1), y}, {x, y}});
-                        //return lineCoordinates;
+        for (Player checkThisPlayer : players) {
+            if ((checkForThisPlayer && checkThisPlayer.getName().equals(player.getName())) || (!checkForThisPlayer && !checkThisPlayer.getName().equals(player.getName()))) {
+                counter = checkThisPlayer.getCounter();
+                for (int y = 0; y < boardHeight; y++) {
+                    for (int x = 0; x < boardWidth; x++) {
+                        valueAtPosition = board.getValueAtPosition(x, y);
+                        if (valueAtPosition.equals(counter)) {
+                            countersInARow++;
+                            if (countersInARow >= inARow) {
+                                lineCoordinates.add(new Integer[][]{{x - (inARow - 1), y}, {x, y}});
+                                //return lineCoordinates;
+                            }
+                        }
+                        else {
+                            countersInARow = 0;
+                        }
                     }
-                }
-                else {
                     countersInARow = 0;
                 }
             }
-            countersInARow = 0;
         }
         return lineCoordinates;
     }
@@ -167,27 +169,30 @@ public abstract class ConnectX extends Game {
     protected ArrayList<Integer[][]> checkVertical(Player player, int inARow, boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
-        String counter = player.getCounter();
+        String counter;
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
         String valueAtPosition;
+        for (Player checkThisPlayer : players) {
+            if ((checkForThisPlayer && checkThisPlayer.getName().equals(player.getName())) || (!checkForThisPlayer && !checkThisPlayer.getName().equals(player.getName()))) {
+                counter = checkThisPlayer.getCounter();
 
-        for (int x = 0; x < boardWidth; x++) {
-            for (int y = 0; y < boardHeight; y++) {
-                valueAtPosition = board.getValueAtPosition(x, y);
-                if ((checkForThisPlayer ?
-                        valueAtPosition.equals(counter) :
-                        !valueAtPosition.equals(counter) && !valueAtPosition.equals(" "))) {
-                    countersInARow++;
-                    if (countersInARow >= inARow) {
-                        lineCoordinates.add(new Integer[][]{{x, y - (inARow - 1)}, {x, y}});
+                for (int x = 0; x < boardWidth; x++) {
+                    for (int y = 0; y < boardHeight; y++) {
+                        valueAtPosition = board.getValueAtPosition(x, y);
+                        if (valueAtPosition.equals(counter)) {
+                            countersInARow++;
+                            if (countersInARow >= inARow) {
+                                lineCoordinates.add(new Integer[][]{{x, y - (inARow - 1)}, {x, y}});
+                            }
+                        }
+                        else {
+                            countersInARow = 0;
+                        }
                     }
-                }
-                else {
                     countersInARow = 0;
                 }
             }
-            countersInARow = 0;
         }
         return lineCoordinates;
     }
@@ -195,29 +200,35 @@ public abstract class ConnectX extends Game {
     protected ArrayList<Integer[][]> checkDiagonal_Positive(Player player, int inARow, boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
-        String counter = player.getCounter();
+        String counter;
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
         String valueAtPosition;
-        for (int x = 0; x < boardWidth - (inARow - 1); x++) {
-            for (int y = 0; y < boardHeight - (inARow - 1); y++) {
-                for (int i = 0; i < inARow; i++) {
-                    valueAtPosition = board.getValueAtPosition(x + i, y + i);
-                    if ((checkForThisPlayer ?
-                            valueAtPosition.equals(counter) :
-                            !valueAtPosition.equals(counter) && !valueAtPosition.equals(" "))) {
-                        countersInARow++;
-                        if (countersInARow >= inARow) {
-                            lineCoordinates.add(new Integer[][]{{x, y}, {x + i, y + i}});
+        for (Player checkThisPlayer : players) {
+            if ((checkForThisPlayer && checkThisPlayer.getName().equals(player.getName())) || (!checkForThisPlayer && !checkThisPlayer.getName().equals(player.getName()))) {
+                counter = checkThisPlayer.getCounter();
+
+                for (int x = 0; x < boardWidth - (inARow - 1); x++) {
+                    for (int y = 0; y < boardHeight - (inARow - 1); y++) {
+                        for (int i = 0; i < inARow; i++) {
+                            valueAtPosition = board.getValueAtPosition(x + i, y + i);
+                            if ((checkForThisPlayer ?
+                                    valueAtPosition.equals(counter) :
+                                    !valueAtPosition.equals(counter) && !valueAtPosition.equals(" "))) {
+                                countersInARow++;
+                                if (countersInARow >= inARow) {
+                                    lineCoordinates.add(new Integer[][]{{x, y}, {x + i, y + i}});
+                                }
+                            }
+                            else {
+                                countersInARow = 0;
+                            }
                         }
-                    }
-                    else {
                         countersInARow = 0;
                     }
+                    countersInARow = 0;
                 }
-                countersInARow = 0;
             }
-            countersInARow = 0;
         }
         return lineCoordinates;
     }
@@ -225,29 +236,36 @@ public abstract class ConnectX extends Game {
     protected ArrayList<Integer[][]> checkDiagonal_Negative(Player player, int inARow, boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
-        String counter = player.getCounter();
+        String counter;
         int boardWidth = board.getNumCols();
         int boardHeight = board.getNumRows();
         String valueAtPosition;
-        for (int x = 0; x < boardWidth - (inARow - 1); x++) {
-            for (int y = inARow - 1; y < boardHeight; y++) {
-                for (int i = 0; i < inARow; i++) {
-                    valueAtPosition = board.getValueAtPosition(x + i, y - i);
-                    if ((checkForThisPlayer ?
-                            valueAtPosition.equals(counter) :
-                            !valueAtPosition.equals(counter) && !valueAtPosition.equals(" "))) {
-                        countersInARow++;
-                        if (countersInARow >= inARow) {
-                            lineCoordinates.add(new Integer[][]{{x, y}, {x + i, y - i}});
+
+        for (Player checkThisPlayer : players) {
+            if ((checkForThisPlayer && checkThisPlayer.getName().equals(player.getName())) || (!checkForThisPlayer && !checkThisPlayer.getName().equals(player.getName()))) {
+                counter = checkThisPlayer.getCounter();
+
+                for (int x = 0; x < boardWidth - (inARow - 1); x++) {
+                    for (int y = inARow - 1; y < boardHeight; y++) {
+                        for (int i = 0; i < inARow; i++) {
+                            valueAtPosition = board.getValueAtPosition(x + i, y - i);
+                            if ((checkForThisPlayer ?
+                                    valueAtPosition.equals(counter) :
+                                    !valueAtPosition.equals(counter) && !valueAtPosition.equals(" "))) {
+                                countersInARow++;
+                                if (countersInARow >= inARow) {
+                                    lineCoordinates.add(new Integer[][]{{x, y}, {x + i, y - i}});
+                                }
+                            }
+                            else {
+                                countersInARow = 0;
+                            }
                         }
-                    }
-                    else {
                         countersInARow = 0;
                     }
+                    countersInARow = 0;
                 }
-                countersInARow = 0;
             }
-            countersInARow = 0;
         }
         return lineCoordinates;
     }

@@ -77,13 +77,13 @@ public class Connect4AI extends AI {
         int checkInARow;
         ArrayList<Integer> inARowPossible;
         for (checkInARow = ((ConnectX) game).inARow - 1; checkInARow > 1; checkInARow--) {
-            if(debugMode)System.out.printf("checking for %d in a row threats\n", checkInARow);
+            if(debugMode)System.out.printf("**checking for %d in a row threats**\n", checkInARow);
             ArrayList<Integer[][]> threatList = detectOpportunitiesOrThreats(game, player, checkInARow, false);
             if(debugMode)System.out.println("starting decision loop");
             if (threatList.size() > 0) {
                 Collections.shuffle(threatList); //randomise order of threat checks so doesn't always start with horizontal lines at (0, 0)
                 for (Integer[][] threat : threatList) {
-                    if(debugMode)System.out.printf("Deciding for %s,%s %s,%s\n", threat[0][0], threat[0][1], threat[1][0], threat[1][1]);
+                    if(debugMode)System.out.printf("Deciding for threat %s,%s %s,%s\n", threat[0][0]+1, threat[0][1]+1, threat[1][0]+1, threat[1][1]+1);
 
                     if (aiSpotsThreatOpportunity()) {
                         inARowPossible = isLinePossible(game, threat, checkInARow);
@@ -91,7 +91,7 @@ public class Connect4AI extends AI {
                             if (decideToAct(checkInARow, inARowPossible.size())) {
                                 //do something
                                 Collections.shuffle(inARowPossible); //shuffle so there is no weighting towards moves closer to 0,0
-                                if(debugMode)System.out.printf("decided to act - placing counter in column %d\n", inARowPossible.get(0));
+                                if(debugMode)System.out.printf("decided to act on threat - placing counter in column %d\n", inARowPossible.get(0)+1);
                                 return inARowPossible.get(0);
                             }
 
@@ -124,7 +124,7 @@ public class Connect4AI extends AI {
             if (opportunityList.size() > 0) {
                 Collections.shuffle(opportunityList); //randomise order of threat checks so doesn't always start with horizontal lines at (0, 0)
                 for (Integer[][] threat : opportunityList) {
-                    if(debugMode)System.out.printf("Deciding for %s,%s %s,%s\n", threat[0][0], threat[0][1], threat[1][0], threat[1][1]);
+                    if(debugMode)System.out.printf("Deciding for opportunity %s,%s %s,%s\n", threat[0][0]+1, threat[0][1]+1, threat[1][0]+1, threat[1][1]+1);
                     if (aiSpotsThreatOpportunity()) {
                         inARowPossible = isLinePossible(game, threat, checkInARow);
                         //return potential columns to here
@@ -132,7 +132,7 @@ public class Connect4AI extends AI {
                             if (decideToAct(checkInARow, inARowPossible.size())) {
                                 //do something
                                 Collections.shuffle(inARowPossible); //shuffle so there is no weighting towards moves closer to 0,0
-                                if(debugMode)System.out.printf("decided to act - placing counter in column %d\n", inARowPossible.get(0));
+                                if(debugMode)System.out.printf("decided to act on opportunity - placing counter in column %d\n", inARowPossible.get(0)+1);
                                 return inARowPossible.get(0);
                             }
                         }
@@ -187,7 +187,7 @@ public class Connect4AI extends AI {
         ArrayList<Integer> confirmedColumnsToDrop = new ArrayList<>();
         //Vertical Lines
         if (threat[0][0].equals(threat[1][0])) {
-            if(debugMode)System.out.printf("%s,%s : %s,%s is a vertical line\n", threat[0][0], threat[0][1], threat[1][0], threat[1][1]);
+            if(debugMode)System.out.printf("%s,%s : %s,%s is a vertical line\n", threat[0][0]+1, threat[0][1]+1, threat[1][0]+1, threat[1][1]+1);
             possSpacesAfter = checkVerticalBlanks(game, new Integer[]{threat[0][0], threat[0][1]});
             if(debugMode)System.out.printf("verticalBlanks = %d\n", possSpacesAfter);
             if (possSpacesAfter + checkInARow >= gameInARow) {
@@ -268,7 +268,7 @@ public class Connect4AI extends AI {
         boolean threatIsReal;
         ArrayList<Integer> confirmedColumns = new ArrayList<>();
         for (Integer[][] coordinate : xyCoordinatesToCheck) {
-            if(debugMode)System.out.printf("movePossible received zero indexed x:%d, y:%d\n", coordinate[0][0], coordinate[0][1]);
+            if(debugMode)System.out.printf("movePossible received x:%d, y:%d\n", coordinate[0][0]+1, coordinate[0][1]+1);
             threatIsReal = ((game.isMoveValid(coordinate[0][0] + 1, false)) && ((ConnectX) game).getNextEmptyRow(coordinate[0][0] + 1) == coordinate[0][1]);
             if (threatIsReal) {
                 confirmedColumns.add(coordinate[0][0]);
