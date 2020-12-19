@@ -207,7 +207,7 @@ public class Connect4AI extends AI {
             if(debugMode)Main.view.Display(String.format("%d squares found to the left or right of starting point %s,%s : %s,%s\n", possSpacesAfter, threat[0][0] + 1, threat[0][1] + 1, threat[1][0] + 1, threat[1][1] + 1));
             if (possSpacesAfter > 0) possibleCoordinates.add(new Integer[][]{{threat[1][0] + 1, threat[1][1]}});
             if (possSpacesBefore + possSpacesAfter + checkInARow >= gameInARow) {
-                confirmedColumnsToDrop = movePossible(possibleCoordinates);
+                confirmedColumnsToDrop = isMovePossible(possibleCoordinates);
                 if (confirmedColumnsToDrop.size() > 0) {
                     if(debugMode)Main.view.Display("movePossible() determined horizontal line IS REAL!!");
                 }
@@ -225,7 +225,7 @@ public class Connect4AI extends AI {
             if (possSpacesAfter > 0) possibleCoordinates.add(new Integer[][]{{threat[1][0] + 1, threat[1][1] - 1}});
             if(debugMode)Main.view.Display(String.format("%d squares found at either end of diagonal with of starting point %s,%s : %s,%s\n", possSpacesBefore + possSpacesAfter, threat[0][0] + 1, threat[0][1] + 1, threat[1][0] + 1, threat[1][1] + 1));
             if (possSpacesBefore + possSpacesAfter + checkInARow >= gameInARow) {
-                confirmedColumnsToDrop = movePossible(possibleCoordinates);
+                confirmedColumnsToDrop = isMovePossible(possibleCoordinates);
                 if (confirmedColumnsToDrop.size() > 0) {
                     if(debugMode)Main.view.Display("movePossible() determined diagonal line IS REAL!!");
                 }
@@ -243,7 +243,7 @@ public class Connect4AI extends AI {
             if (possSpacesAfter > 0) possibleCoordinates.add(new Integer[][]{{threat[1][0] + 1, threat[1][1] + 1}});
             if(debugMode)Main.view.Display(String.format("%d squares found at either end of diagonal with of starting point %s,%s : %s,%s\n", possSpacesBefore + possSpacesAfter, threat[0][0] + 1, threat[0][1] + 1, threat[1][0] + 1, threat[1][1] + 1));
             if (possSpacesBefore + possSpacesAfter + checkInARow >= gameInARow) {
-                confirmedColumnsToDrop = movePossible(possibleCoordinates);
+                confirmedColumnsToDrop = isMovePossible(possibleCoordinates);
                 if (confirmedColumnsToDrop.size() > 0) {
                     if(debugMode)Main.view.Display("movePossible() determined diagonal line IS REAL!!");
                 }
@@ -262,7 +262,7 @@ public class Connect4AI extends AI {
      * @param xyCoordinatesToCheck zero-indexed coordinates of square to check
      * @return ArrayList containing list of columns that contain legal moves to counter threat or take advantage of opportunity
      */
-    private ArrayList<Integer> movePossible(ArrayList<Integer[][]> xyCoordinatesToCheck) {
+    private ArrayList<Integer> isMovePossible(ArrayList<Integer[][]> xyCoordinatesToCheck) {
         // remember isMoveValid and getNextEmptyRow inputs are NOT zero indexed
         boolean threatIsReal;
         ArrayList<Integer> confirmedColumns = new ArrayList<>();
@@ -277,7 +277,7 @@ public class Connect4AI extends AI {
     }
 
 
-    protected int checkHorizontalBlanks(Game game, Integer[] startingPoint, boolean checkNegativeDirection) {
+    private int checkHorizontalBlanks(Game game, Integer[] startingPoint, boolean checkNegativeDirection) {
         int countersInARow = 0;
         int boardWidth = numCols;
         Board board = game.board;

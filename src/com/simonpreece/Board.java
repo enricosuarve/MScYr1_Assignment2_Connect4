@@ -49,12 +49,13 @@ public class Board {
         StringBuilder Output = new StringBuilder();
         int x, y;
         for (y = 0; y < boardData.length; y++) {
-            Output.append(" ");
+            Output.append("   ");
             for (x = 0; x < boardData[0].length; x++) {
                 Output.append(String.format("¦ %s ", boardData[y][x]));
             }
             Output.append("¦\n");
         }
+        Output.append("  ");
         for (x = 1; x <= boardData[0].length; x++) {
             Output.append("   ").append(x);
         }

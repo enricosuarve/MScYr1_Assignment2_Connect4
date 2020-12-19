@@ -4,7 +4,7 @@ import java.lang.Math;
 
 public abstract class AI {
     double intelligencePercent;
-    protected final boolean debugMode = true;
+    protected final boolean debugMode = false;
 
     public AI(double intelligencePercent) {
         this.intelligencePercent = intelligencePercent;

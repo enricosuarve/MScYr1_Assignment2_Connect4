@@ -13,6 +13,8 @@ public abstract class Game implements HasComputerPlayer {
 
     public abstract boolean checkForWin(Player player);
 
+    public abstract AI getAIClass();
+
     public void displayScoreboard(ArrayList<Player> players) {
         String playerScore;
         String spaces = "                        ";
@@ -24,12 +26,12 @@ public abstract class Game implements HasComputerPlayer {
             playerScore = player.getName() + "  " + player.getWins();
             spacesBefore = Math.max(0, (28 - playerScore.length()) / 2);
             spacesAfter = Math.max(0, 28 - playerScore.length() - spacesBefore);
-            Main.view.Display(String.format("          |%s%s%s|\n",
+            Main.view.Display(String.format("          |%s%s%s|",
                     spaces.substring(0, spacesBefore),
                     playerScore,
                     spaces.substring(0, spacesAfter)));
         }
         Main.view.Display("          ==============================");
     }
-    public abstract AI getAIClass();
+
 }

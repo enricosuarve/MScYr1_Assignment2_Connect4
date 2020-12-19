@@ -7,7 +7,7 @@ class Main {
     public static void main(String[] args) {
         int inARow = 0;
         Main m = new Main();
-        String helpMsg = "";
+        StringBuilder helpMsg = new StringBuilder();
 
         for (String argString : args) {
             if (argString.toLowerCase().startsWith("-n=")) {
@@ -18,17 +18,17 @@ class Main {
                 }
             }
             if (argString.equals("-?") || argString.equals("-h") || argString.equals("-help") || argString.equals("--help")) {
-                helpMsg += " Usage: Connect4 [options]\n\n";
-                helpMsg += "  where options include:\n\n";
-                helpMsg += "    -n=<value(3-6)>    Play ConnectN and set the number of counters in a row\n";
-                helpMsg += "                  required to win between 3 & 6.\n\n";
-                helpMsg += "    -? -h -help --help\n";
-                helpMsg += "                  print this help message to the output stream.";
+                helpMsg.append(" Usage: Connect4 [options]\n\n");
+                helpMsg.append("  where options include:\n\n");
+                helpMsg.append("    -n=<value(3-6)>    Play ConnectN and set the number of counters in a row\n");
+                helpMsg.append("                  required to win between 3 & 6.\n\n");
+                helpMsg.append("    -? -h -help --help\n");
+                helpMsg.append("                  print this help message to the output stream.");
             }
         }
 
         if (helpMsg.length() > 0) {
-            Main.view.Display(helpMsg);
+            Main.view.Display(helpMsg.toString());
         }
         else if (inARow > 0) {
             new ConnectN(inARow);

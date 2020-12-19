@@ -1,7 +1,5 @@
 package com.simonpreece;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class ComputerPlayer extends Player {
 
     AI ai;
