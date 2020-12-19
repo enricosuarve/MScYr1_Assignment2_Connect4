@@ -17,19 +17,19 @@ public abstract class Game implements HasComputerPlayer {
         String playerScore;
         String spaces = "                        ";
         int spacesBefore, spacesAfter;
-        System.out.println("          ==============================");
-        System.out.println("          |    Scores on the doors     |");
-        System.out.println("          ==============================");
+        Main.view.Display("          ==============================");
+        Main.view.Display("          |    Scores on the doors     |");
+        Main.view.Display("          ==============================");
         for (Player player : players) {
             playerScore = player.getName() + "  " + player.getWins();
             spacesBefore = Math.max(0, (28 - playerScore.length()) / 2);
             spacesAfter = Math.max(0, 28 - playerScore.length() - spacesBefore);
-            System.out.printf("          |%s%s%s|\n",
+            Main.view.Display(String.format("          |%s%s%s|\n",
                     spaces.substring(0, spacesBefore),
                     playerScore,
-                    spaces.substring(0, spacesAfter));
+                    spaces.substring(0, spacesAfter)));
         }
-        System.out.println("          ==============================");
+        Main.view.Display("          ==============================");
     }
     public abstract AI getAIClass();
 }

@@ -11,6 +11,7 @@ public abstract class ConnectX extends Game {
     protected int inARow;
     protected ANSIColourList colours = new ANSIColourList();
 
+
     public ConnectX() {
     }
 
@@ -25,9 +26,9 @@ public abstract class ConnectX extends Game {
         String moveRequestToUser;
         ArrayList<Integer[][]> winningMove = new ArrayList<>();
 
-        System.out.println("\nStarting game....\n");
+        Main.view.Display("\nStarting game....\n");
         board.initialiseBoard();
-        board.printBoard();
+        Main.view.Display(board.toString());
         Player currentPlayer = null;
         boolean win = false;
         boolean firstTurn = true;
@@ -45,7 +46,7 @@ public abstract class ConnectX extends Game {
                     }
                     move = currentPlayer.getMoveFromPlayer(moveRequestToUser, this);
                     placeCounter(currentPlayer, move);
-                    board.printBoard();
+                    Main.view.Display(board.toString());
                     winningMove = checkForWinningLine(currentPlayer);
                     if (winningMove.size() > 0) {
                         win = true;
@@ -54,23 +55,23 @@ public abstract class ConnectX extends Game {
                     if (++numTurns == maxTurns) {
                         break;
                     }
-                    System.out.printf("%s dropped a counter in column %d\n", currentPlayer.getName(), move);
+                    Main.view.Display(String.format("%s dropped a counter in column %d\n", currentPlayer.getName(), move));
                     firstTurn = false;
                 }
             }
         }
-        System.out.println("\n##################################################");
+        Main.view.Display("\n##################################################");
         if (win) {
             currentPlayer.addWin();
             Toolkit.getDefaultToolkit().beep();
-            System.out.printf("           Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName());
-            System.out.printf("        (Winning move = %d,%d to %d,%d)\n\n", winningMove.get(0)[0][0] + 1, 6 - winningMove.get(0)[0][1], winningMove.get(0)[1][0] + 1, 6 - winningMove.get(0)[1][1]);
+            Main.view.Display(String.format("           Player %d '%s' has Won!!!\n", currentPlayer.getPlayerNumber(), currentPlayer.getName()));
+            Main.view.Display(String.format("        (Winning move = %d,%d to %d,%d)\n\n", winningMove.get(0)[0][0] + 1, 6 - winningMove.get(0)[0][1], winningMove.get(0)[1][0] + 1, 6 - winningMove.get(0)[1][1]));
             displayScoreboard(players);
         }
         else {
-            System.out.println("It's a draw - how disappointing...");
+            Main.view.Display("It's a draw - how disappointing...");
         }
-        System.out.println("##################################################\n");
+        Main.view.Display("##################################################\n");
     }
 
 
@@ -79,13 +80,13 @@ public abstract class ConnectX extends Game {
         if (move > board.getNumCols() || move < 1) {
             if (playerIsHuman) {
                 Toolkit.getDefaultToolkit().beep();
-                System.out.printf("You entered '%d', which is outside the number of columns in the game - please try again\n", move);
+                Main.view.Display(String.format("You entered '%d', which is outside the number of columns in the game - please try again\n", move));
             }
             return false;
         }
         else if (getNextEmptyRow(move) == -1) {
             if (playerIsHuman) {
-                System.out.printf("Column '%d' is already full - please try again\n", move);
+                Main.view.Display(String.format("Column '%d' is already full - please try again\n", move));
             }
             return false;
         }

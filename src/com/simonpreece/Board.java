@@ -46,19 +46,21 @@ public class Board {
         boardData[y][x] = value;
     }
 
-    public void printBoard() {
+    public String toString() {
+        StringBuilder Output = new StringBuilder();
         int x, y;
         for (y = 0; y < boardData.length; y++) {
-            System.out.print(" ");
+            Output.append(" ");
             for (x = 0; x < boardData[0].length; x++) {
-                System.out.printf("¦ %s ", boardData[y][x]);
+                Output.append(String.format("¦ %s ", boardData[y][x]));
             }
-            System.out.println("¦");
+            Output.append("¦\n");
         }
         for (x = 1; x <= boardData[0].length; x++) {
-            System.out.print("   " + x);
+            Output.append("   ").append(x);
         }
-        System.out.print('\n');
+        Output.append('\n');
+        return Output.toString();
     }
 
     public int getNumRows() {
@@ -69,9 +71,6 @@ public class Board {
         return numCols;
     }
 
-    public int getNumCols(int row) {
-        return numCols;
-    }
 }
 
 

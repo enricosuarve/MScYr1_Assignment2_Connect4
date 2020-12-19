@@ -31,7 +31,7 @@ public class ComputerPlayer extends Player {
     @Override
     public int getMoveFromPlayer(String requestToUser, Game game) {
         this.game = game;
-        System.out.println(requestToUser);
+        Main.view.Display(requestToUser);
         this.ai = game.getAIClass() ;
         return ai.makeMove(game, this);
     }

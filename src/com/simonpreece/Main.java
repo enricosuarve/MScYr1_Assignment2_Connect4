@@ -4,6 +4,8 @@ package com.simonpreece;
 class Main {
     UI ui = new UI();
 
+    protected static View view = new ConsoleView();
+
     public static void main(String[] args) {
         int inARow = 0;
         Main m = new Main();
@@ -36,6 +38,6 @@ class Main {
                 }
             }
         }
-        System.out.println("\nGoodbye....\n\n");
+        Main.view.Display("\nGoodbye....\n\n");
     }
 }

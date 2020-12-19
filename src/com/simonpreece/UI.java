@@ -11,7 +11,8 @@ public class UI {
     }
 
     public String getUserInput(String requestToUser) {
-        System.out.println(requestToUser);
+
+        Main.view.Display(requestToUser);
         String toReturn = "";
         try {
             while (toReturn.length() == 0) {
@@ -19,13 +20,13 @@ public class UI {
             }
 
         } catch (Exception e) {
-            System.out.printf("Exception '%s' occurred whilst trying to getUserInput()", e.toString());
+            Main.view.Display(String.format("Exception '%s' occurred whilst trying to getUserInput()", e.toString()));
         }
         return toReturn;
     }
 
     public String getUserInput(String requestToUser, String defaultValue) {
-        System.out.printf(requestToUser + " default=[%s]", defaultValue);
+        Main.view.Display(String.format(requestToUser + " default=[%s]", defaultValue));
         String toReturn = "";
         try {
             toReturn = input.readLine().trim();
@@ -33,7 +34,7 @@ public class UI {
                 toReturn = defaultValue;
             }
         } catch (Exception e) {
-            System.out.printf("Exception '%s' occurred whilst trying to getUserInput()", e.toString());
+            Main.view.Display(String.format("Exception '%s' occurred whilst trying to getUserInput()", e));
         }
         return toReturn;
     }
@@ -46,7 +47,7 @@ public class UI {
                 returnInteger = Integer.parseInt(result);
                 return returnInteger;
             } catch (Exception e) {
-                System.out.println("You do not appear to have entered a valid number - please try again");
+                Main.view.Display("You do not appear to have entered a valid number - please try again");
                 result = getUserInput(requestToUser);
             }
         }
@@ -63,10 +64,10 @@ public class UI {
                     return returnInteger;
                 }
                 else {
-                    System.out.printf("You entered '%d', which is outside the range (%d-%d) - please try again\n", returnInteger, min, max);
+                    Main.view.Display(String.format("You entered '%d', which is outside the range (%d-%d) - please try again\n", returnInteger, min, max));
                 }
             } catch (Exception e) {
-                System.out.println("You do not appear to have entered a valid number - please try again");
+                Main.view.Display("You do not appear to have entered a valid number - please try again");
             }
         }
     }
@@ -83,7 +84,7 @@ public class UI {
                 case 'N':
                     return false;
                 default:
-                    System.out.printf("You answered '%c', please answer (Y)es or (N)o\n", ynResponse);
+                    Main.view.Display(String.format("You answered '%c', please answer (Y)es or (N)o\n", ynResponse));
             }
         }
     }
@@ -93,14 +94,14 @@ public class UI {
         int i;
         while (true) {
             i = 1;
-            System.out.printf("%s\nPlease select from one of the choices below: (1 to %d)\n", requestToUser, choices.length);
+            Main.view.Display(String.format("%s\nPlease select from one of the choices below: (1 to %d)\n", requestToUser, choices.length));
             for (String choice : choices) {
-                System.out.printf("  %d: %s\n", i, choice);
+                Main.view.Display(String.format("  %d: %s", i, choice));
                 i++;
             }
             userResponse = getUserInteger("");
             if (userResponse < 1 || userResponse > choices.length) {
-                System.out.printf("You answered '%d' which is outside the range above.", userResponse);
+                Main.view.Display(String.format("You answered '%d' which is outside the range above.", userResponse));
             }
             else {
                 return userResponse;
