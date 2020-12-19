@@ -153,7 +153,6 @@ public abstract class ConnectX extends Game {
                             countersInARow++;
                             if (countersInARow >= inARow) {
                                 lineCoordinates.add(new Integer[][]{{x - (inARow - 1), y}, {x, y}});
-                                //return lineCoordinates;
                             }
                         }
                         else {

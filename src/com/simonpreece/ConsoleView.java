@@ -5,4 +5,5 @@ public class ConsoleView implements View {
     public void Display(String displayString) {
         System.out.println(displayString);
     }
+
 }

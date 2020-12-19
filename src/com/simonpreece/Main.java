@@ -1,7 +1,4 @@
-//todo implement a command line help function with parameter info
 package com.simonpreece;
-
-import java.util.Locale;
 
 class Main {
     protected static View view = new ConsoleView();
@@ -54,6 +51,5 @@ class Main {
             }
             Main.view.Display("\nGoodbye....\n\n");
         }
-
     }
 }
