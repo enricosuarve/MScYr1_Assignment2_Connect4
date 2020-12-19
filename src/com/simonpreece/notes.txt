@@ -1,4 +1,3 @@
-//todo - mentioned in the lecture that more marks for code quality than AI
 //todo implement a javadoc with instructions for use
 //todo sometimes when responding to a 2 in a row computer sets up player for a 4 in a row...
 
