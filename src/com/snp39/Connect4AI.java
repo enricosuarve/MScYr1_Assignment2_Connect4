@@ -1,4 +1,4 @@
-package com.simonpreece;
+package com.snp39;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

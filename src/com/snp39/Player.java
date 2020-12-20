@@ -1,4 +1,4 @@
-package com.simonpreece;
+package com.snp39;
 
 //todo check that counter is not already assigned
 public abstract class Player {

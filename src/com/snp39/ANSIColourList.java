@@ -1,4 +1,4 @@
-package com.simonpreece;
+package com.snp39;
 
 public class ANSIColourList {
 
