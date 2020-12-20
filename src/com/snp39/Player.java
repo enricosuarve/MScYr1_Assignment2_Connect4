@@ -1,6 +1,5 @@
 package com.snp39;
 
-//todo check that counter is not already assigned
 public abstract class Player {
     protected static int lastPlayerNumber = 0;
     protected int playerNumber;

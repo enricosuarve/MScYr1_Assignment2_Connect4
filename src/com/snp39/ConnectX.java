@@ -3,6 +3,9 @@ package com.snp39;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Main abstract Class for Connect4 games
+ */
 public abstract class ConnectX extends Game {
 
     protected final ArrayList<Player> players = new ArrayList<>();
@@ -18,6 +21,13 @@ public abstract class ConnectX extends Game {
     @Override
     protected abstract void setupGame();
 
+    /**
+     * Play the game Connect(x) using the board passed. All game decisioning starts here and
+     * if one player wins details and scoreboard are shown.
+     *
+     * @param board       - Board object containing all counters and their positions.
+     * @param firstPlayer - Number of Player who starts this game.
+     */
     @Override
     protected void playGame(Board board, int firstPlayer) {
         int move;
@@ -136,6 +146,15 @@ public abstract class ConnectX extends Game {
         }
     }
 
+    /**
+     * Check the Board for counters in a row horizontally for either the player specified or other players
+     *
+     * @param player             - player initiating the checks.
+     * @param inARow             - number of counters in a row to look for.
+     * @param checkForThisPlayer - if true will look for the players counter in a row,
+     *                           if false will look for all other opposing players lines.
+     * @return - x/y, x/y coordinates of any lines matching the description.
+     */
     protected ArrayList<Integer[][]> checkHorizontal(Player player, int inARow, boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
@@ -166,6 +185,15 @@ public abstract class ConnectX extends Game {
         return lineCoordinates;
     }
 
+    /**
+     * Check the Board for counters in a line vertically for either the player specified or other players
+     *
+     * @param player             - player initiating the checks.
+     * @param inARow             - number of counters in a row to look for.
+     * @param checkForThisPlayer - if true will look for the players counter in a row,
+     *                           if false will look for all other opposing players lines.
+     * @return - x/y, x/y coordinates of any lines matching the description.
+     */
     protected ArrayList<Integer[][]> checkVertical(Player player, int inARow, boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
@@ -197,6 +225,15 @@ public abstract class ConnectX extends Game {
         return lineCoordinates;
     }
 
+    /**
+     * Check the Board for counters in a Positive diagonal row (\) for either the player specified or other players
+     *
+     * @param player             - player initiating the checks.
+     * @param inARow             - umber of counters in a row to look for.
+     * @param checkForThisPlayer - if true will look for the players counter in a row,
+     *                           if false will look for all other opposing players lines.
+     * @return - x/y, x/y coordinates of any lines matching the description.
+     */
     protected ArrayList<Integer[][]> checkDiagonal_Positive(Player player, int inARow, boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
@@ -233,6 +270,15 @@ public abstract class ConnectX extends Game {
         return lineCoordinates;
     }
 
+    /**
+     * Check the Board for counters in a Negative diagonal row (/) for either the player specified or other players
+     *
+     * @param player             - player initiating the checks.
+     * @param inARow             - umber of counters in a row to look for.
+     * @param checkForThisPlayer - if true will look for the players counter in a row,
+     *                           if false will look for all other opposing players lines.
+     * @return - x/y, x/y coordinates of any lines matching the description.
+     */
     protected ArrayList<Integer[][]> checkDiagonal_Negative(Player player, int inARow, boolean checkForThisPlayer) {
         int countersInARow = 0;
         ArrayList<Integer[][]> lineCoordinates = new ArrayList<>();
@@ -270,6 +316,12 @@ public abstract class ConnectX extends Game {
         return lineCoordinates;
     }
 
+    /**
+     * Get the next empty slot in a column.
+     *
+     * @param colNum - zero indexed column to check.
+     * @return - zero indexed row indicating next empty slot (-1) if column is full.
+     */
     int getNextEmptyRow(int colNum) {
         int nextEmptyRow = -1;
         for (int y = 0; y < board.getNumRows(); y++) {
@@ -290,6 +342,12 @@ public abstract class ConnectX extends Game {
         return board.getNumRows();
     }
 
+    /**
+     * Get the correct AI subclass to use with this game
+     * (different AIs may be required for different varients as the rules change).
+     *
+     * @return AI subclass for a computer player to use
+     */
     public AI getAIClass() {
         return ai;
     }

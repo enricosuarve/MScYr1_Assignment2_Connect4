@@ -2,9 +2,12 @@ package com.snp39;
 
 import java.lang.Math;
 
+/**
+ * Abstract class for a simple game 'Artificial Intelligence'
+ */
 public abstract class AI {
+    protected final boolean debugMode = false; //used during development to check the logic behind the AI decisioning - should be false in all production versions
     double intelligencePercent;
-    protected final boolean debugMode = false;
 
     public AI(double intelligencePercent) {
         this.intelligencePercent = intelligencePercent;
@@ -16,8 +19,8 @@ public abstract class AI {
 
     protected boolean aiSpotsThreatOpportunity() {
         boolean threatSpotted = Math.random() < intelligencePercent;
-        if(debugMode)Main.view.Display("AI spotted line?" + threatSpotted);
-        return threatSpotted; // Math.random() < intelligencePercent;
+        if (debugMode) Main.view.Display("AI spotted line?" + threatSpotted);
+        return threatSpotted;
     }
 
     protected abstract int respondToOpportunities(Game game, Player player);

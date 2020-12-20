@@ -14,11 +14,11 @@ class Main {
      * In ConnectN 2 players (1 human and two computer players) play using the same grid, however at the start
      * of the game the player is able to select whether 3-6 counters in a row wins.
      *
-     * Usage: Connect4 [args]
+     * Usage: Connect4-snp39 [args]
      *
-     * @param args  -n=<value(3-6)>    Play ConnectN and set the number of counters in a row
-     *                                  required to win between 3 & 6.
-     *              -? -h -help --help Print help message with arg details to the console.
+     * @param args -n=<value(3-6)>    Play ConnectN and set the number of counters in a row
+     *             required to win between 3 & 6.
+     *             -? -h -help --help Print help message with arg details to the console.
      */
     public static void main(String[] args) {
         int inARow = 0;
@@ -34,7 +34,7 @@ class Main {
                 }
             }
             if (argString.equals("-?") || argString.equals("-h") || argString.equals("-help") || argString.equals("--help")) {
-                helpMsg.append(" Usage: Connect4 [options]\n\n");
+                helpMsg.append(" Usage: Connect4-snp39 [options]\n\n");
                 helpMsg.append("  where options include:\n\n");
                 helpMsg.append("    -n=<value(3-6)>    Play ConnectN and set the number of counters in a row\n");
                 helpMsg.append("                  required to win between 3 & 6.\n\n");

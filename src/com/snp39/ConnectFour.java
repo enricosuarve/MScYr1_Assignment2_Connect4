@@ -2,6 +2,9 @@ package com.snp39;
 
 public class ConnectFour extends ConnectX {
 
+    /**
+     * Create a Connect4 game, prompt to play again when finished and set which player goes first each turn
+     */
     public ConnectFour() {
         boolean playAgain = true;
         setupGame();
@@ -9,21 +12,25 @@ public class ConnectFour extends ConnectX {
         while (playAgain) {
             playGame(board, firstPlayer);
             playAgain = ui.getUserYN("Play again?");
-            firstPlayer = Math.max(++firstPlayer % (players.size()+1),1);
+            firstPlayer = Math.max(++firstPlayer % (players.size() + 1), 1);
         }
         Player.resetPlayerNumbers();
     }
 
     @SuppressWarnings("unused")  //It is used by the Main() in testing
     public ConnectFour(int inARow) {
-     if (inARow == 4 ){
-         new ConnectFour();
+        if (inARow == 4) {
+            new ConnectFour();
 
-     }else{
-         new ConnectN(inARow);
-     }
+        }
+        else {
+            new ConnectN(inARow);
+        }
     }
 
+    /**
+     * Setup game of Connect4, display logo; prompt for player names and whether to play against a computer
+     */
     @Override
     protected void setupGame() {
         // ASCII art created using tool at http://www.patorjk.com/software/taag/#p=display&f=Stop&t=o (Colossal font)

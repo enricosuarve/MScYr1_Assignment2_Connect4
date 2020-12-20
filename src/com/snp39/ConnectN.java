@@ -1,6 +1,11 @@
 package com.snp39;
 
 public class ConnectN extends ConnectX {
+
+    /**
+     * Create a ConnectN game (inARow not set), prompt to play again when finished and set which player goes first each
+     * turn
+     */
     public ConnectN() {
         super();
         boolean playAgain = true;
@@ -9,11 +14,18 @@ public class ConnectN extends ConnectX {
         while (playAgain) {
             playGame(board, firstPlayer);
             playAgain = ui.getUserYN("Play again?");
-            firstPlayer = Math.max(++firstPlayer % (players.size()+1),1);
+            firstPlayer = Math.max(++firstPlayer % (players.size() + 1), 1);
         }
         Player.resetPlayerNumbers();
     }
 
+    /**
+     * Create a ConnectN game with the specified number of counter in a row to win,
+     * prompt to play again when finished and set which player goes first each turn
+     *
+     * @param inARow - number of counters (3-6) in a row to win accepts any integer, which
+     *               is validated in the game setup
+     */
     protected ConnectN(int inARow) {
         if (inARow == 4) {
             new ConnectFour();
@@ -33,6 +45,10 @@ public class ConnectN extends ConnectX {
         }
     }
 
+    /**
+     * Setup game of Connect4, display logo; ask how many counters in a row is win if not already set,
+     * prompt for player names
+     */
     @Override
     protected void setupGame() {
         // ASCII art created using tool at http://www.patorjk.com/software/taag/#p=display&f=Stop&t=o (Colossal font)

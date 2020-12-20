@@ -3,6 +3,9 @@ package com.snp39;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+/**
+ * Helper class to request input from players and validate replies
+ */
 public class UI {
     private final BufferedReader input;
 
@@ -10,8 +13,13 @@ public class UI {
         input = new BufferedReader(new InputStreamReader(System.in));
     }
 
+    /**
+     * Basic request to user to provide a string.
+     *
+     * @param requestToUser - message to user prompting a reply.
+     * @return String from user
+     */
     public String getUserInput(String requestToUser) {
-
         Main.view.Display(requestToUser);
         String toReturn = "";
         try {
@@ -25,6 +33,13 @@ public class UI {
         return toReturn;
     }
 
+    /**
+     * Basic request to user to provide a string, but provide a default value
+     *
+     * @param requestToUser - message to user prompting a reply.
+     * @param defaultValue  - default value to display
+     * @return String from user
+     */
     public String getUserInput(String requestToUser, String defaultValue) {
         Main.view.Display(String.format(requestToUser + " default=[%s]", defaultValue));
         String toReturn = "";
@@ -39,6 +54,13 @@ public class UI {
         return toReturn;
     }
 
+    /**
+     * Request an integer value from to user, validate whether an integer was returned;
+     * display an error and prompt again if not.
+     *
+     * @param requestToUser - message to user prompting a reply.
+     * @return integer from user
+     */
     public int getUserInteger(String requestToUser) {
         String result = getUserInput(requestToUser);
         int returnInteger;
@@ -53,6 +75,15 @@ public class UI {
         }
     }
 
+    /**
+     * Request an integer value from to user, between two values validate whether a valid integer was returned;
+     * display an error and prompt again if not.
+     *
+     * @param requestToUser - message to user prompting a reply.
+     * @param min           - minimum value to be returned
+     * @param max           - maximum value to be returned
+     * @return integer from user
+     */
     public int getUserInteger(String requestToUser, int min, int max) {
         String result;
         int returnInteger;
@@ -72,16 +103,22 @@ public class UI {
         }
     }
 
+    /**
+     * Request a Y/N response from a user, validate whether a valid reply was returned;
+     * display an error and prompt again if not.
+     * Validates against the first letter in any reply and accepts upper or lowercase
+     *
+     * @param requestToUser - message to user prompting a reply.
+     * @return - boolean true/false y/n response.
+     */
     public boolean getUserYN(String requestToUser) {
         while (true) {
-            String result = getUserInput(requestToUser);
+            String result = getUserInput(requestToUser).toLowerCase();
             char ynResponse = result.charAt(0);
             switch (ynResponse) {
                 case 'y':
-                case 'Y':
                     return true;
                 case 'n':
-                case 'N':
                     return false;
                 default:
                     Main.view.Display(String.format("You answered '%c', please answer (Y)es or (N)o\n", ynResponse));
@@ -89,6 +126,15 @@ public class UI {
         }
     }
 
+    /**
+     * Provide the user a list of choices, generate a number for each and prompt for a integer response,
+     * validates if the response id valid (integer within the correct range);
+     * display an error and prompt again if not.
+     *
+     * @param requestToUser - message to user prompting a reply.
+     * @param choices       - String array of possible choices
+     * @return - integer index value denoting choice made
+     */
     public int getUserChoice(String requestToUser, String[] choices) {
         int userResponse;
         int i;

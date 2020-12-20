@@ -1,5 +1,12 @@
 package com.snp39;
 
+/**
+ * Generates static named colour strings containing ANSI colours for those systems that support them
+ * (strings are empty "") if ANSI colouring is not supported.
+ *
+ * Also contains a boolean value osSupportsAnsiColours for supporting any decisions which may be affected by
+ * the ability to show ANSI colours.
+ */
 public class ANSIColourList {
 
     private static final String OS = System.getProperty("os.name").toLowerCase();
