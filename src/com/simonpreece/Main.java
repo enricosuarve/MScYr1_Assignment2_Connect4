@@ -4,6 +4,22 @@ class Main {
     protected static View view = new ConsoleView();
     UI ui = new UI();
 
+    /**
+     * Connect4 / ConnectN
+     * A java version of the vertical checkers game from Milton Bradley (now Hasbro).
+     *
+     * In Connect4, 2 players take it in turns to drop counters into a 6x7 grid, the player who 'connects' 4
+     * counters in a row vertically, horizontally or diagonally wins. A player can play against the computer.
+     *
+     * In ConnectN 2 players (1 human and two computer players) play using the same grid, however at the start
+     * of the game the player is able to select whether 3-6 counters in a row wins.
+     *
+     * Usage: Connect4 [args]
+     *
+     * @param args  -n=<value(3-6)>    Play ConnectN and set the number of counters in a row
+     *                                  required to win between 3 & 6.
+     *              -? -h -help --help Print help message with arg details to the console.
+     */
     public static void main(String[] args) {
         int inARow = 0;
         Main m = new Main();

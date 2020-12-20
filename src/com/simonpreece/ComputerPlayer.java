@@ -3,7 +3,6 @@ package com.simonpreece;
 public class ComputerPlayer extends Player {
 
     AI ai;
-    private Game game;
 
     public ComputerPlayer() {
         super();
@@ -28,7 +27,6 @@ public class ComputerPlayer extends Player {
 
     @Override
     public int getMoveFromPlayer(String requestToUser, Game game) {
-        this.game = game;
         Main.view.Display(requestToUser);
         this.ai = game.getAIClass() ;
         return ai.makeMove(game, this);

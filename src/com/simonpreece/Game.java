@@ -11,6 +11,7 @@ public abstract class Game implements HasComputerPlayer {
 
     protected abstract boolean isMoveValid(int move, @SuppressWarnings("SameParameterValue") boolean playerIsHuman);
 
+    @SuppressWarnings("unused") // Leaving intact as still seems like something most games would want to implement
     public abstract boolean checkForWin(Player player);
 
     public abstract AI getAIClass();
